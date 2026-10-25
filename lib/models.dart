@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-
 /// Mô hình dữ liệu OUMIJIA TV.
 /// Toàn bộ nội dung lấy từ file cấu hình JSON (assets + GitHub).
+library;
 
 class Channel {
   final String id;
@@ -139,14 +138,32 @@ class AppConfig {
   }
 
   /// Tìm danh mục YouTube theo tên ("mở nhạc trữ tình").
+  /// Khớp lỏng: nếu MỘT từ đáng kể trong tên danh mục xuất hiện trong câu.
   YouTubeCategory? findCategoryByName(String query) {
     final q = _normalize(query);
     for (final c in youtubeCategories) {
       if (q.contains(_normalize(c.name))) return c;
+      // Khớp từng từ: "nhạc trữ tình" → khớp "Ca nhạc" qua từ "nhạc"
+      final words = _normalize(c.name).split(' ');
+      final significant = words.where((w) => w.length >= 2 && !_stopWords.contains(w));
+      for (final w in significant) {
+        if (q.contains(w)) return c;
+      }
     }
     return null;
   }
 
-  static String _normalize(String s) =>
-      s.toLowerCase().replaceAll(RegExp(r'\s+'), ' ').trim();
+  /// Từ yếu nghĩa không dùng để khớp danh mục.
+  static const _stopWords = {'ca', 'của', 'và'};
+
+  static String _normalize(String s) {
+    var t = s.toLowerCase().replaceAll(RegExp(r'\s+'), ' ').trim();
+    // Bỏ dấu tiếng Việt: "nhạc" → "nhac"
+    const src = 'àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ';
+    const dst = 'aaaaaaaaaaaaaaaaaeeeeeeeeeeeiiiiiooooooooooooooooouuuuuuuuuuuyyyyyd';
+    for (var i = 0; i < src.length; i++) {
+      t = t.replaceAll(src[i], dst[i]);
+    }
+    return t;
+  }
 }

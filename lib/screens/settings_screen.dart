@@ -50,7 +50,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               PrefsService.setAutoPlay(v);
               setState(() {});
             },
-            activeColor: Ui.accent,
+            activeThumbColor: Ui.accent,
             title: const Text('Tự bật kênh xem lần cuối',
                 style: TextStyle(fontSize: 22, color: Ui.textPrimary)),
           ),
@@ -67,7 +67,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               PrefsService.setVoiceEnabled(v);
               setState(() {});
             },
-            activeColor: Ui.accent,
+            activeThumbColor: Ui.accent,
             title: const Text('Bật điều khiển bằng giọng nói',
                 style: TextStyle(fontSize: 22, color: Ui.textPrimary)),
             subtitle: const Text(

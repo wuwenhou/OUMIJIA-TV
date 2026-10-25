@@ -1,7 +1,5 @@
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
-import '../models.dart';
-
 /// Phát YouTube KHÔNG quảng cáo:
 /// - Trích trực tiếp luồng stream bằng youtube_explode_dart
 /// - Không dùng iframe/webview của YouTube → không có quảng cáo
@@ -14,8 +12,9 @@ class YouTubeService {
   /// Lấy danh sách video mới nhất của 1 kênh (dùng cho playlist chạy liên tục).
   static Future<List<Video>> channelVideos(String channelId,
       {int limit = 50}) async {
-    final uploads = await _client.channels.getUploads(VideoId(channelId));
-    return uploads.take(limit).toList();
+    final uploads =
+        await _client.channels.getUploads(VideoId(channelId)).take(limit).toList();
+    return uploads;
   }
 
   /// Trả về URL phát trực tiếp không quảng cáo của 1 video.
@@ -24,11 +23,12 @@ class YouTubeService {
     final manifest = await _client.videos.streamsClient.getManifest(videoId);
     final muxed = manifest.muxed
         .toList()
-      ..sort((a, b) => b.videoQuality.height.compareTo(a.videoQuality.height));
+      ..sort((a, b) => b.videoResolution.height
+          .compareTo(a.videoResolution.height));
     if (muxed.isEmpty) return null;
     // Giới hạn 720p trở xuống cho mượt trên máy yếu
     for (final s in muxed) {
-      if (s.videoQuality.height <= 720) return s.url.toString();
+      if (s.videoResolution.height <= 720) return s.url.toString();
     }
     return muxed.last.url.toString();
   }

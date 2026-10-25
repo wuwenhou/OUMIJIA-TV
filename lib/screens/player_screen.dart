@@ -148,16 +148,19 @@ class _PlayerScreenState extends State<PlayerScreen> {
   Future<void> _openVoice() async {
     _showControls();
     if (!PrefsService.voiceEnabled) return;
+    final messenger = ScaffoldMessenger.of(context);
+    final dialogContext = context;
     final voice = VoiceService();
     final ok = await voice.init();
-    if (!ok || !mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    if (!ok) {
+      messenger.showSnackBar(const SnackBar(
           content: Text('Không dùng được micro trên máy này.',
               style: TextStyle(fontSize: 20))));
       return;
     }
+    if (!mounted) return;
     showDialog(
-      context: context,
+      context: dialogContext,
       barrierDismissible: true,
       builder: (_) => _VoiceDialog(config: widget.config, voice: voice),
     );

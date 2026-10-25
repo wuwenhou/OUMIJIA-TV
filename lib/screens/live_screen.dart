@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../models.dart';
 import '../services/prefs_service.dart';
+import '../ui.dart';
 import 'player_screen.dart';
 
 /// Tab TRUYỀN HÌNH — lưới kênh logo to + tên to.
@@ -127,7 +128,7 @@ class _ChannelTile extends StatelessWidget {
             border: Border.all(
               color: focused
                   ? Ui.focusBorder
-                  : (highlight ? Ui.accent.withOpacity(0.6) : Colors.transparent),
+                  : (highlight ? Ui.accent.withValues(alpha: 0.6) : Colors.transparent),
               width: focused ? 4 : 2,
             ),
           ),

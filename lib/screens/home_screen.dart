@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'models.dart';
-import 'services/prefs_service.dart';
-import 'screens/live_screen.dart';
-import 'screens/movies_screen.dart';
-import 'screens/youtube_screen.dart';
-import 'screens/settings_screen.dart';
+import '../models.dart';
+import '../services/prefs_service.dart';
+import '../ui.dart';
+import 'live_screen.dart';
+import 'movies_screen.dart';
+import 'youtube_screen.dart';
+import 'settings_screen.dart';
 
 /// Màn hình chính — 4 tab duy nhất, chữ to, không menu lồng sâu.
 class HomeScreen extends StatefulWidget {

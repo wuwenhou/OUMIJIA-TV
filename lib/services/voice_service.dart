@@ -26,11 +26,11 @@ class VoiceService {
   }) async {
     if (!await init()) return null;
     final completerResult = await _speech.listen(
-      localeId: 'vi_VN',
-      listenOptions: stt.ListenOptions(
+      listenOptions: stt.SpeechListenOptions(
         cancelOnError: true,
         partialResults: onPartial != null,
         listenMode: stt.ListenMode.dictation,
+        localeId: 'vi_VN',
       ),
       onResult: (r) {
         if (onPartial != null && !r.finalResult && r.recognizedWords.isNotEmpty) {
