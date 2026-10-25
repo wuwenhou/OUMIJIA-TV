@@ -1,0 +1,31 @@
+# Codemagic CI — build iOS cho OUMIJIA TV
+# Dùng khi cần bản iOS (máy dev là Windows).
+# Đăng nhập codemagic.io → kết nối repo → workflow "ios-release".
+
+workflows:
+  ios-release:
+    name: OUMIJIA TV iOS
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      xcode: latest
+      groups:
+        - appstore_credentials  # thêm trong codemagic.io: Apple ID, team, chứng chỉ
+      vars:
+        BUNDLE_ID: vn.oumijia.tv
+    scripts:
+      - name: Get packages
+        script: flutter pub get
+      - name: Build IPA (debug - cài trực tiếp qua link)
+        script: |
+          flutter build ipa \
+            --debug \
+            --export-options-plist=$CM_BUILD_DIR/ios/ExportOptions.plist
+    publishing:
+      email:
+        recipients:
+          - wuwenhou@users.noreply.github.com
+        notify:
+          success: true
+          failure: true
