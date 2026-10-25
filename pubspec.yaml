@@ -1,0 +1,22 @@
+name: oumijia_tv
+description: OUMIJIA TV - Xem truyen hinh, phim, YouTube khong quang cao cho nguoi gia.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  video_player: ^2.9.2
+  youtube_explode_dart: ^2.3.6
+  speech_to_text: ^7.0.0
+  shared_preferences: ^2.3.2
+  http: ^1.2.2
+  cached_network_image: ^3.4.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/config/channels.json
