@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../services/prefs_service.dart';
 import '../ui.dart';
+import '../widgets/update_dialog.dart';
 
 /// Tab CÀI ĐẶT — tối giản: cỡ chữ, tự phát, giọng nói.
 class SettingsScreen extends StatefulWidget {
@@ -73,6 +74,41 @@ class _SettingsScreenState extends State<SettingsScreen> {
             subtitle: const Text(
                 'Nói: "Bật VTV3", "Mở nhạc trữ tình"',
                 style: TextStyle(fontSize: 18, color: Ui.textSecondary)),
+          ),
+        ),
+        const SizedBox(height: 16),
+
+        // ---- Cập nhật ----
+        _SectionCard(
+          title: 'Cập nhật',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                value: PrefsService.autoUpdate,
+                onChanged: (v) {
+                  PrefsService.setAutoUpdate(v);
+                  setState(() {});
+                },
+                activeThumbColor: Ui.accent,
+                title: const Text('Tự kiểm tra khi mở app',
+                    style: TextStyle(fontSize: 22, color: Ui.textPrimary)),
+              ),
+              const SizedBox(height: 8),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.system_update, size: 28),
+                  label: const Text('Kiểm tra cập nhật ngay',
+                      style: TextStyle(fontSize: 22)),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+                  onPressed: () => showUpdateFlow(context),
+                ),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 16),

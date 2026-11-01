@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models.dart';
 import '../services/prefs_service.dart';
 import '../ui.dart';
+import '../widgets/update_dialog.dart';
 import 'live_screen.dart';
 import 'movies_screen.dart';
 import 'youtube_screen.dart';
@@ -20,6 +21,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _tab = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    if (PrefsService.autoUpdate) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) showUpdateFlow(context);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
