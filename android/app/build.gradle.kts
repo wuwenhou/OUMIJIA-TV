@@ -38,7 +38,9 @@ android {
     }
 }
 
-kotlin {
+base {
+    archivesName.set("OUMIJIA TV v${flutter.versionName}")
+}
     compilerOptions {
         jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
