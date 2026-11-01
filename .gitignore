@@ -30,3 +30,5 @@ ios/Flutter/flutter_export_environment.sh
 # OS
 .DS_Store
 Thumbs.db
+android/.kotlin/
+
