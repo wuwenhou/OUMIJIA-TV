@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 /// - Chữ to, nút to, tương phản cao
 /// - Focus (điều khiển TV) viền sáng rõ ràng
 class Ui {
-  // Kích thước cơ bản (nhân với fontScale từ Cài đặt)
-  static const double baseFont = 20;
-  static const double minTouchTarget = 64;
-  static const double channelTileHeight = 110;
+  // Kích thước cơ bản (bình thường)
+  static const double baseFont = 16;
+  static const double minTouchTarget = 48;
+  static const double channelTileHeight = 64;
 
   // Màu sắc
   static const bg = Color(0xFF101418);

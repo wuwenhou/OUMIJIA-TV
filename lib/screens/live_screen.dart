@@ -18,46 +18,24 @@ class LiveScreen extends StatefulWidget {
 }
 
 class _LiveScreenState extends State<LiveScreen> {
-  bool _autoPlayed = false;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _maybeAutoPlay());
-  }
-
-  Future<void> _maybeAutoPlay() async {
-    if (_autoPlayed || !PrefsService.autoPlay || widget.config.channels.isEmpty) {
-      return;
-    }
-    _autoPlayed = true;
-    final last = widget.config.channels.firstWhere(
-      (c) => c.id == PrefsService.lastChannelId,
-      orElse: () => widget.config.channels.first,
-    );
-    if (!mounted) return;
-    await _openPlayer(last);
-  }
-
   Future<void> _openPlayer(Channel ch) async {
     await Navigator.of(context).push(MaterialPageRoute(
       fullscreenDialog: true,
       builder: (_) => PlayerScreen(config: widget.config, channel: ch),
     ));
-    if (mounted) setState(() {}); // cập nhật "Đang xem"
+    if (mounted) setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     final channels = widget.config.channels;
-    final lastId = PrefsService.lastChannelId;
 
     return Scaffold(
       body: SafeArea(
         child: channels.isEmpty
             ? const Center(
                 child: Text('Chưa có kênh nào trong danh mục.',
-                    style: TextStyle(fontSize: 22)))
+                    style: TextStyle(fontSize: 16)))
             : GridView.builder(
                 padding: const EdgeInsets.all(16),
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -69,10 +47,9 @@ class _LiveScreenState extends State<LiveScreen> {
                 itemCount: channels.length,
                 itemBuilder: (context, i) {
                   final ch = channels[i];
-                  final isLast = ch.id == lastId;
                   return _ChannelTile(
                     channel: ch,
-                    highlight: isLast,
+                    highlight: false,
                     favorite: PrefsService.isFavorite(ch.id),
                     onTap: () => _openPlayer(ch),
                     onLongPress: () async {
@@ -141,7 +118,7 @@ class _ChannelTile extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    fontSize: 26,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Ui.textPrimary,
                   ),

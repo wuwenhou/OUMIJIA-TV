@@ -29,7 +29,7 @@ class _YouTubeScreenState extends State<YouTubeScreen> {
             'Chưa có danh mục YouTube.\n'
             'Thêm kênh bằng cách sửa file config/channels.json trên GitHub.',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 22, color: Ui.textSecondary),
+            style: TextStyle(fontSize: 16, color: Ui.textSecondary),
           ),
         ),
       );
@@ -63,10 +63,10 @@ class _YouTubeScreenState extends State<YouTubeScreen> {
                     ));
                   },
                   leading: Text(cat.icon,
-                      style: const TextStyle(fontSize: 44)),
+                      style: const TextStyle(fontSize: 18)),
                   title: Text(cat.name,
                       style: const TextStyle(
-                          fontSize: 28,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Ui.textPrimary)),
                   subtitle: Text(
@@ -75,7 +75,7 @@ class _YouTubeScreenState extends State<YouTubeScreen> {
                         fontSize: 18, color: Ui.textSecondary),
                   ),
                   trailing: const Icon(Icons.play_circle_fill,
-                      size: 48, color: Ui.accent),
+                      size: 32, color: Ui.accent),
                 ),
               ),
             );
@@ -232,7 +232,7 @@ class _CategoryPlayerScreenState extends State<_CategoryPlayerScreen> {
         backgroundColor: Colors.black,
         title: Text(
           '${widget.category.icon} ${widget.category.name}',
-          style: const TextStyle(fontSize: 24, color: Colors.white),
+          style: const TextStyle(fontSize: 16, color: Colors.white),
         ),
         leading: BackButton(onPressed: () => Navigator.of(context).pop()),
       ),
@@ -248,7 +248,7 @@ class _CategoryPlayerScreenState extends State<_CategoryPlayerScreen> {
                         const SizedBox(height: 16),
                         Text(_status,
                             style: const TextStyle(
-                                fontSize: 22, color: Colors.white)),
+                                fontSize: 16, color: Colors.white)),
                       ],
                     )
                   : c != null && c.value.isInitialized
@@ -271,7 +271,7 @@ class _CategoryPlayerScreenState extends State<_CategoryPlayerScreen> {
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                      fontSize: 22,
+                      fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Ui.textPrimary),
                 ),

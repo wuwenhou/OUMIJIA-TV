@@ -24,7 +24,7 @@ class MoviesScreen extends StatelessWidget {
             'Chưa có phim trong danh mục.\n'
             'Thêm phim bằng cách sửa file config/channels.json trên GitHub.',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 22, color: Ui.textSecondary),
+            style: TextStyle(fontSize: 16, color: Ui.textSecondary),
           ),
         ),
       );
@@ -49,7 +49,7 @@ class MoviesScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 12),
               child: Text(group,
                   style: const TextStyle(
-                      fontSize: 28,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Ui.textPrimary)),
             ),
@@ -95,7 +95,7 @@ class _MovieCard extends StatelessWidget {
             Expanded(
               child: movie.poster.isEmpty
                   ? const Center(
-                      child: Icon(Icons.movie, size: 48, color: Ui.textSecondary))
+                      child: Icon(Icons.movie, size: 32, color: Ui.textSecondary))
                   : CachedNetworkImage(
                       imageUrl: movie.poster,
                       fit: BoxFit.cover,
@@ -103,7 +103,7 @@ class _MovieCard extends StatelessWidget {
                           child: CircularProgressIndicator(color: Ui.accent)),
                       errorWidget: (_, __, ___) => const Center(
                           child: Icon(Icons.broken_image,
-                              size: 48, color: Ui.textSecondary)),
+                              size: 32, color: Ui.textSecondary)),
                     ),
             ),
             Padding(
@@ -180,13 +180,13 @@ class _MoviePlayerScreenState extends State<_MoviePlayerScreen> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text(widget.movie.title,
-            style: const TextStyle(fontSize: 24, color: Colors.white)),
+            style: const TextStyle(fontSize: 16, color: Colors.white)),
         leading: BackButton(onPressed: () => Navigator.of(context).pop()),
       ),
       body: Center(
         child: _error.isNotEmpty
             ? Text(_error,
-                style: const TextStyle(fontSize: 24, color: Colors.white))
+                style: const TextStyle(fontSize: 16, color: Colors.white))
             : c == null || !c.value.isInitialized
                 ? const CircularProgressIndicator(color: Ui.accent)
                 : AspectRatio(

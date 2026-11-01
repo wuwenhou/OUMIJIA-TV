@@ -201,7 +201,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         _status.isEmpty ? _channel.name : _status,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                            fontSize: 28, color: Ui.textPrimary),
+                            fontSize: 16, color: Ui.textPrimary),
                       ),
                     ],
                   ),
@@ -232,7 +232,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                               Text(
                                 _channel.name,
                                 style: const TextStyle(
-                                  fontSize: 34,
+                                  fontSize: 22,
                                   fontWeight: FontWeight.bold,
                                   color: Ui.textPrimary,
                                 ),
@@ -379,14 +379,14 @@ class _BigIconButton extends StatelessWidget {
                 child: SizedBox(
                   width: Ui.minTouchTarget,
                   height: Ui.minTouchTarget,
-                  child: Icon(icon, size: 38, color: color),
+                  child: Icon(icon, size: 28, color: color),
                 ),
               ),
             ),
           ),
           const SizedBox(height: 4),
           Text(label,
-              style: const TextStyle(fontSize: 18, color: Ui.textSecondary)),
+              style: const TextStyle(fontSize: 13, color: Ui.textSecondary)),
         ],
       ),
     );
@@ -462,14 +462,14 @@ class _VoiceDialogState extends State<_VoiceDialog> {
             const SizedBox(height: 16),
             Text(
               _listening ? 'Xin mời nói...' : 'Bạn vừa nói:',
-              style: const TextStyle(fontSize: 24, color: Ui.textSecondary),
+              style: const TextStyle(fontSize: 16, color: Ui.textSecondary),
             ),
             const SizedBox(height: 12),
             Text(
               _heard.isEmpty ? '...' : _heard,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                  fontSize: 30,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Ui.textPrimary),
             ),
@@ -478,7 +478,7 @@ class _VoiceDialogState extends State<_VoiceDialog> {
               Text(
                 cmd.confirmation,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 26, color: Ui.accent),
+                style: const TextStyle(fontSize: 18, color: Ui.accent),
               ),
               const SizedBox(height: 24),
               Row(
@@ -488,7 +488,7 @@ class _VoiceDialogState extends State<_VoiceDialog> {
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32, vertical: 16),
-                      textStyle: const TextStyle(fontSize: 24),
+                      textStyle: const TextStyle(fontSize: 18),
                     ),
                     onPressed: () {
                       Navigator.of(context).pop(cmd);
@@ -500,7 +500,7 @@ class _VoiceDialogState extends State<_VoiceDialog> {
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32, vertical: 16),
-                      textStyle: const TextStyle(fontSize: 24),
+                      textStyle: const TextStyle(fontSize: 18),
                     ),
                     onPressed: _start,
                     child: const Text('Nói lại'),
@@ -511,7 +511,7 @@ class _VoiceDialogState extends State<_VoiceDialog> {
               const SizedBox(height: 16),
               const Text('Không hiểu lệnh. Thử nói: "Bật VTV3"',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 22, color: Ui.textSecondary)),
+                  style: TextStyle(fontSize: 16, color: Ui.textSecondary)),
               const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -520,7 +520,7 @@ class _VoiceDialogState extends State<_VoiceDialog> {
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32, vertical: 16),
-                      textStyle: const TextStyle(fontSize: 24),
+                      textStyle: const TextStyle(fontSize: 18),
                     ),
                     onPressed: _start,
                     child: const Text('Nói lại'),
@@ -530,7 +530,7 @@ class _VoiceDialogState extends State<_VoiceDialog> {
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32, vertical: 16),
-                      textStyle: const TextStyle(fontSize: 24),
+                      textStyle: const TextStyle(fontSize: 18),
                     ),
                     onPressed: () => Navigator.of(context).pop(),
                     child: const Text('Đóng'),
