@@ -147,8 +147,10 @@ class _MoviePlayerScreenState extends State<_MoviePlayerScreen> {
 
   Future<void> _init() async {
     try {
-      final ctrl =
-          VideoPlayerController.networkUrl(Uri.parse(widget.movie.url));
+      final ctrl = VideoPlayerController.networkUrl(
+        Uri.parse(widget.movie.url),
+        httpHeaders: widget.movie.headers,
+      );
       await ctrl.initialize();
       await ctrl.play();
       if (!mounted) {

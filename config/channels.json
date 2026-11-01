@@ -1,23 +1,22 @@
 {
-  "version": 1,
-  "updated": "2026-10-25",
+  "version": 2,
+  "updated": "2026-11-01",
+  "headers": {
+    "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36"
+  },
   "channels": [
-    { "id": "vtv1",  "name": "VTV1",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/VTV1_logo_2020.png/512px-VTV1_logo_2020.png", "primary": "https://vips-livecdn.fptplay.net/live/media/vtv1/live247-hls-avc/index.m3u8", "fallback": [] },
-    { "id": "vtv2",  "name": "VTV2",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/VTV2_logo_2020.png/512px-VTV2_logo_2020.png", "primary": "https://vips-livecdn.fptplay.net/live/media/vtv2/live247-hls-avc/index.m3u8", "fallback": [] },
-    { "id": "vtv3",  "name": "VTV3",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/VTV3_logo_2020.png/512px-VTV3_logo_2020.png", "primary": "https://vips-livecdn.fptplay.net/live/media/vtv3/live247-hls-avc/index.m3u8", "fallback": [] },
-    { "id": "vtv4",  "name": "VTV4",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/VTV4_logo_2020.png/512px-VTV4_logo_2020.png", "primary": "https://vips-livecdn.fptplay.net/live/media/vtv4/live247-hls-avc/index.m3u8", "fallback": [] },
-    { "id": "vtv5",  "name": "VTV5",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/VTV5_logo_2020.png/512px-VTV5_logo_2020.png", "primary": "https://vips-livecdn.fptplay.net/live/media/vtv5/live247-hls-avc/index.m3u8", "fallback": [] },
-    { "id": "vtv6",  "name": "VTV6",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/VTV6_logo_2020.png/512px-VTV6_logo_2020.png", "primary": "https://vips-livecdn.fptplay.net/live/media/vtv6/live247-hls-avc/index.m3u8", "fallback": [] },
-    { "id": "vtv7",  "name": "VTV7",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/VTV7_logo_2020.png/512px-VTV7_logo_2020.png", "primary": "https://vips-livecdn.fptplay.net/live/media/vtv7/live247-hls-avc/index.m3u8", "fallback": [] },
-    { "id": "vtv8",  "name": "VTV8",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/VTV8_logo.png/512px-VTV8_logo.png", "primary": "https://dethich.pw/vtv8/index.m3u8", "fallback": [] },
-    { "id": "vtv9",  "name": "VTV9",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/VTV9_logo_2020.png/512px-VTV9_logo_2020.png", "primary": "https://vips-livecdn.fptplay.net/live/media/vtv9/live247-hls-avc/index.m3u8", "fallback": [] },
-    { "id": "antv",  "name": "ANTV",  "group": "Truyền hình", "logo": "https://static.wikia.nocookie.net/logos/images/1/1a/ANTV_2023.png/revision/latest/scale-to-width-down/512?path-prefix=vi", "primary": "https://liveh12.vtvprime.vn/hls/ANNINHTV/index.m3u8", "fallback": [] }
+    { "id": "vtv1",  "name": "VTV1",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/VTV1_logo_2020.png/512px-VTV1_logo_2020.png", "primary": "https://dethich.pw/vtv1/index.m3u8", "fallback": ["https://live.tvon.vn/g2/vtv1/video_hd_compat/playlist.m3u8"], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
+    { "id": "vtv2",  "name": "VTV2",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/VTV2_logo_2020.png/512px-VTV2_logo_2020.png", "primary": "https://dethich.pw/vtv2/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
+    { "id": "vtv3",  "name": "VTV3",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/VTV3_logo_2020.png/512px-VTV3_logo_2020.png", "primary": "https://dethich.pw/vtv3/index.m3u8", "fallback": ["https://live.tvon.vn/g2/vtv3/video_hd_compat/playlist.m3u8"], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
+    { "id": "vtv4",  "name": "VTV4",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/VTV4_logo_2020.png/512px-VTV4_logo_2020.png", "primary": "https://dethich.pw/vtv4/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
+    { "id": "vtv5",  "name": "VTV5",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/VTV5_logo_2020.png/512px-VTV5_logo_2020.png", "primary": "https://dethich.pw/vtv5/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
+    { "id": "vtv6",  "name": "VTV6",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/VTV6_logo_2020.png/512px-VTV6_logo_2020.png", "primary": "https://dethich.pw/vtv6/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
+    { "id": "vtv7",  "name": "VTV7",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/VTV7_logo_2020.png/512px-VTV7_logo_2020.png", "primary": "https://dethich.pw/vtv7/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
+    { "id": "vtv8",  "name": "VTV8",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/VTV8_logo.png/512px-VTV8_logo.png", "primary": "https://dethich.pw/vtv8/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
+    { "id": "vtv9",  "name": "VTV9",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/VTV9_logo_2020.png/512px-VTV9_logo_2020.png", "primary": "https://dethich.pw/vtv9/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
+    { "id": "vtv10", "name": "VTV10", "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/VTV9_logo_2020.png/512px-VTV9_logo_2020.png", "primary": "https://dethich.pw/vtv10/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
+    { "id": "antv",  "name": "ANTV",  "group": "Truyền hình", "logo": "https://static.wikia.nocookie.net/logos/images/1/1a/ANTV_2023.png/revision/latest/scale-to-width-down/512?path-prefix=vi", "primary": "https://liveh12.vtvprime.vn/hls/ANNINHTV/index.m3u8", "fallback": [], "headers": {} }
   ],
-  "youtubeCategories": [
-    { "id": "thoisu",    "name": "Thời sự",    "icon": "📰", "channels": [] },
-    { "id": "nhac",      "name": "Ca nhạc",    "icon": "🎵", "channels": [] },
-    { "id": "hai",       "name": "Hài",        "icon": "😄", "channels": [] },
-    { "id": "phimbo",    "name": "Phim chọn lọc", "icon": "🏮", "channels": [] }
-  ],
+  "youtubeCategories": [],
   "movies": []
 }

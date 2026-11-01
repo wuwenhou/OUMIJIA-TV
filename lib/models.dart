@@ -9,6 +9,7 @@ class Channel {
   final String logo;
   final String primary;
   final List<String> fallback;
+  final Map<String, String> headers;
 
   Channel({
     required this.id,
@@ -17,6 +18,7 @@ class Channel {
     required this.logo,
     required this.primary,
     this.fallback = const [],
+    this.headers = const {},
   });
 
   factory Channel.fromJson(Map<String, dynamic> j) => Channel(
@@ -28,6 +30,8 @@ class Channel {
         fallback: (j['fallback'] as List<dynamic>? ?? [])
             .map((e) => e as String)
             .toList(),
+        headers: (j['headers'] as Map<String, dynamic>? ?? {})
+            .map((k, v) => MapEntry(k, v.toString())),
       );
 
   /// Danh sách tất cả URL thử lần lượt khi phát lỗi.
@@ -78,6 +82,7 @@ class MovieItem {
   final String url;
   final String group;
   final String note;
+  final Map<String, String> headers;
 
   MovieItem({
     required this.id,
@@ -86,6 +91,7 @@ class MovieItem {
     required this.url,
     this.group = 'Phim',
     this.note = '',
+    this.headers = const {},
   });
 
   factory MovieItem.fromJson(Map<String, dynamic> j) => MovieItem(
@@ -95,6 +101,8 @@ class MovieItem {
         url: j['url'] as String,
         group: (j['group'] as String?) ?? 'Phim',
         note: (j['note'] as String?) ?? '',
+        headers: (j['headers'] as Map<String, dynamic>? ?? {})
+            .map((k, v) => MapEntry(k, v.toString())),
       );
 }
 

@@ -64,7 +64,10 @@ class _PlayerScreenState extends State<PlayerScreen> {
     }
 
     final url = urls[_urlIndex];
-    final ctrl = VideoPlayerController.networkUrl(Uri.parse(url));
+    final ctrl = VideoPlayerController.networkUrl(
+      Uri.parse(url),
+      httpHeaders: _channel.headers,
+    );
 
     try {
       await ctrl.initialize();
