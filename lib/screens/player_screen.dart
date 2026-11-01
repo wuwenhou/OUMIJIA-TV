@@ -149,7 +149,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
     _showControls();
     if (!PrefsService.voiceEnabled) return;
     final messenger = ScaffoldMessenger.of(context);
-    final dialogContext = context;
     final voice = VoiceService();
     final ok = await voice.init();
     if (!ok) {
@@ -160,7 +159,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
     }
     if (!mounted) return;
     showDialog(
-      context: dialogContext,
+      context: context,
       barrierDismissible: true,
       builder: (_) => _VoiceDialog(config: widget.config, voice: voice),
     );
