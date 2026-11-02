@@ -1,0 +1,39 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="vtv1-fpt" tvg-logo="",VTV1 (FPT)
+https://vips-livecdn.fptplay.net/live/media/vtv1/live247-hls-avc/index.m3u8
+#EXTINF:-1 tvg-id="vtv2-fpt" tvg-logo="",VTV2 (FPT)
+https://vips-livecdn.fptplay.net/live/media/vtv2/live247-hls-avc/index.m3u8
+#EXTINF:-1 tvg-id="vtv2-tvon" tvg-logo="",VTV2 (tvon)
+https://live.tvon.vn/g2/vtv2/video_hd_compat/playlist.m3u8
+#EXTINF:-1 tvg-id="vtv3-fpt" tvg-logo="",VTV3 (FPT)
+https://vips-livecdn.fptplay.net/live/media/vtv3/live247-hls-avc/index.m3u8
+#EXTINF:-1 tvg-id="vtv4-fpt" tvg-logo="",VTV4 (FPT)
+https://vips-livecdn.fptplay.net/live/media/vtv4/live247-hls-avc/index.m3u8
+#EXTINF:-1 tvg-id="vtv4-tvon" tvg-logo="",VTV4 (tvon)
+https://live.tvon.vn/g2/vtv4/video_hd_compat/playlist.m3u8
+#EXTINF:-1 tvg-id="vtv5-fpt" tvg-logo="",VTV5 (FPT)
+https://vips-livecdn.fptplay.net/live/media/vtv5/live247-hls-avc/index.m3u8
+#EXTINF:-1 tvg-id="vtv5-tvon" tvg-logo="",VTV5 (tvon)
+https://live.tvon.vn/g2/vtv5/video_hd_compat/playlist.m3u8
+#EXTINF:-1 tvg-id="vtv6-fpt" tvg-logo="",VTV6 (FPT)
+https://vips-livecdn.fptplay.net/live/media/vtv6/live247-hls-avc/index.m3u8
+#EXTINF:-1 tvg-id="vtv6-tvon" tvg-logo="",VTV6 (tvon)
+https://live.tvon.vn/g2/vtv6/video_hd_compat/playlist.m3u8
+#EXTINF:-1 tvg-id="vtv7-fpt" tvg-logo="",VTV7 (FPT)
+https://vips-livecdn.fptplay.net/live/media/vtv7/live247-hls-avc/index.m3u8
+#EXTINF:-1 tvg-id="vtv7-tvon" tvg-logo="",VTV7 (tvon)
+https://live.tvon.vn/g2/vtv7/video_hd_compat/playlist.m3u8
+#EXTINF:-1 tvg-id="vtv8-fpt" tvg-logo="",VTV8 (FPT)
+https://vips-livecdn.fptplay.net/live/media/vtv8/live247-hls-avc/index.m3u8
+#EXTINF:-1 tvg-id="vtv8-tvon" tvg-logo="",VTV8 (tvon)
+https://live.tvon.vn/g2/vtv8/video_hd_compat/playlist.m3u8
+#EXTINF:-1 tvg-id="vtv9-fpt" tvg-logo="",VTV9 (FPT)
+https://vips-livecdn.fptplay.net/live/media/vtv9/live247-hls-avc/index.m3u8
+#EXTINF:-1 tvg-id="vtv9-tvon" tvg-logo="",VTV9 (tvon)
+https://live.tvon.vn/g2/vtv9/video_hd_compat/playlist.m3u8
+#EXTINF:-1 tvg-id="vtv10-fpt" tvg-logo="",VTV10 (FPT)
+https://vips-livecdn.fptplay.net/live/media/vtv10/live247-hls-avc/index.m3u8
+#EXTINF:-1 tvg-id="vtv10-tvon" tvg-logo="",VTV10 (tvon)
+https://live.tvon.vn/g2/vtv10/video_hd_compat/playlist.m3u8
+#EXTINF:-1 tvg-id="qpvn" tvg-logo="",QPVN (vtvprime)
+https://liveh12.vtvprime.vn/hls/QPTV/index.m3u8

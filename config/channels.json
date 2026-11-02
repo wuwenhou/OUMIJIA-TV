@@ -1,22 +1,988 @@
 {
-  "version": 2,
-  "updated": "2026-11-01",
-  "headers": {
-    "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36"
-  },
-  "channels": [
-    { "id": "vtv1",  "name": "VTV1",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/VTV1_logo_2020.png/512px-VTV1_logo_2020.png", "primary": "https://dethich.pw/vtv1/index.m3u8", "fallback": ["https://live.tvon.vn/g2/vtv1/video_hd_compat/playlist.m3u8"], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
-    { "id": "vtv2",  "name": "VTV2",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/VTV2_logo_2020.png/512px-VTV2_logo_2020.png", "primary": "https://dethich.pw/vtv2/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
-    { "id": "vtv3",  "name": "VTV3",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/VTV3_logo_2020.png/512px-VTV3_logo_2020.png", "primary": "https://dethich.pw/vtv3/index.m3u8", "fallback": ["https://live.tvon.vn/g2/vtv3/video_hd_compat/playlist.m3u8"], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
-    { "id": "vtv4",  "name": "VTV4",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/VTV4_logo_2020.png/512px-VTV4_logo_2020.png", "primary": "https://dethich.pw/vtv4/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
-    { "id": "vtv5",  "name": "VTV5",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/VTV5_logo_2020.png/512px-VTV5_logo_2020.png", "primary": "https://dethich.pw/vtv5/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
-    { "id": "vtv6",  "name": "VTV6",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/VTV6_logo_2020.png/512px-VTV6_logo_2020.png", "primary": "https://dethich.pw/vtv6/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
-    { "id": "vtv7",  "name": "VTV7",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/VTV7_logo_2020.png/512px-VTV7_logo_2020.png", "primary": "https://dethich.pw/vtv7/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
-    { "id": "vtv8",  "name": "VTV8",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/VTV8_logo.png/512px-VTV8_logo.png", "primary": "https://dethich.pw/vtv8/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
-    { "id": "vtv9",  "name": "VTV9",  "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/VTV9_logo_2020.png/512px-VTV9_logo_2020.png", "primary": "https://dethich.pw/vtv9/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
-    { "id": "vtv10", "name": "VTV10", "group": "Truyền hình", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/VTV9_logo_2020.png/512px-VTV9_logo_2020.png", "primary": "https://dethich.pw/vtv10/index.m3u8", "fallback": [], "headers": { "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36" } },
-    { "id": "antv",  "name": "ANTV",  "group": "Truyền hình", "logo": "https://static.wikia.nocookie.net/logos/images/1/1a/ANTV_2023.png/revision/latest/scale-to-width-down/512?path-prefix=vi", "primary": "https://liveh12.vtvprime.vn/hls/ANNINHTV/index.m3u8", "fallback": [], "headers": {} }
-  ],
-  "youtubeCategories": [],
-  "movies": []
+    "version":  3,
+    "updated":  "2026-11-02",
+    "headers":  {
+                    "User-Agent":  "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36"
+                },
+    "channels":  [
+                     {
+                         "id":  "vtv1",
+                         "name":  "VTV1",
+                         "group":  "Quốc gia",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/VTV1_logo_2020.png/512px-VTV1_logo_2020.png",
+                         "primary":  "https://live.tvon.vn/g2/vtv1/video_hd_compat/playlist.m3u8",
+                         "fallback":  [
+                                          "https://live-a.fptplay53.net/live/media/vtv1/live247-hls-avc/index.m3u8",
+                                          "https://vips-livecdn.fptplay.net/live/media/vtv1/live247-hls-avc/index.m3u8",
+                                          "https://dethich.pw/vtv1/index.m3u8"
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "vtv2",
+                         "name":  "VTV2",
+                         "group":  "Quốc gia",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/VTV2_logo_2020.png/512px-VTV2_logo_2020.png",
+                         "primary":  "https://live-a.fptplay53.net/live/media/vtv2/live247-hls-avc/index.m3u8",
+                         "fallback":  [
+                                          "https://vips-livecdn.fptplay.net/live/media/vtv2/live247-hls-avc/index.m3u8",
+                                          "https://dethich.pw/vtv2/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "vtv3",
+                         "name":  "VTV3",
+                         "group":  "Quốc gia",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/VTV3_logo_2020.png/512px-VTV3_logo_2020.png",
+                         "primary":  "https://live.tvon.vn/g2/vtv3/video_hd_compat/playlist.m3u8",
+                         "fallback":  [
+                                          "https://live-a.fptplay53.net/live/media/vtv3/live247-hls-avc/index.m3u8",
+                                          "https://vips-livecdn.fptplay.net/live/media/vtv3/live247-hls-avc/index.m3u8",
+                                          "https://dethich.pw/vtv3/index.m3u8"
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "vtv4",
+                         "name":  "VTV4",
+                         "group":  "Quốc gia",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/VTV4_logo_2020.png/512px-VTV4_logo_2020.png",
+                         "primary":  "https://live-a.fptplay53.net/live/media/vtv4/live247-hls-avc/index.m3u8",
+                         "fallback":  [
+                                          "https://vips-livecdn.fptplay.net/live/media/vtv4/live247-hls-avc/index.m3u8",
+                                          "https://dethich.pw/vtv4/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "vtv5",
+                         "name":  "VTV5",
+                         "group":  "Quốc gia",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/VTV5_logo_2020.png/512px-VTV5_logo_2020.png",
+                         "primary":  "https://live-a.fptplay53.net/live/media/vtv5/live247-hls-avc/index.m3u8",
+                         "fallback":  [
+                                          "https://vips-livecdn.fptplay.net/live/media/vtv5/live247-hls-avc/index.m3u8",
+                                          "https://dethich.pw/vtv5/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "vtv6",
+                         "name":  "VTV6",
+                         "group":  "Thể thao",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/VTV6_logo_2020.png/512px-VTV6_logo_2020.png",
+                         "primary":  "https://live-a.fptplay53.net/live/media/vtv6/live247-hls-avc/index.m3u8",
+                         "fallback":  [
+                                          "https://vips-livecdn.fptplay.net/live/media/vtv6/live247-hls-avc/index.m3u8",
+                                          "https://dethich.pw/vtv6/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "vtv7",
+                         "name":  "VTV7",
+                         "group":  "Văn hoá - Giáo dục",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/VTV7_logo_2020.png/512px-VTV7_logo_2020.png",
+                         "primary":  "https://live-a.fptplay53.net/live/media/vtv7/live247-hls-avc/index.m3u8",
+                         "fallback":  [
+                                          "https://vips-livecdn.fptplay.net/live/media/vtv7/live247-hls-avc/index.m3u8",
+                                          "https://dethich.pw/vtv7/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "vtv8",
+                         "name":  "VTV8",
+                         "group":  "Địa phương",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/VTV8_logo.png/512px-VTV8_logo.png",
+                         "primary":  "https://live-a.fptplay53.net/live/media/vtv8/live-hls-avc/index.m3u8",
+                         "fallback":  [
+                                          "https://vips-livecdn.fptplay.net/live/media/vtv8/live-hls-avc/index.m3u8",
+                                          "https://dethich.pw/vtv8/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "vtv9",
+                         "name":  "VTV9",
+                         "group":  "Địa phương",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/VTV9_logo_2020.png/512px-VTV9_logo_2020.png",
+                         "primary":  "https://live-a.fptplay53.net/live/media/vtv9/live247-hls-avc/index.m3u8",
+                         "fallback":  [
+                                          "https://vips-livecdn.fptplay.net/live/media/vtv9/live247-hls-avc/index.m3u8",
+                                          "https://dethich.pw/vtv9/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "vtv10",
+                         "name":  "VTV10",
+                         "group":  "Quốc gia",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/VTV9_logo_2020.png/512px-VTV9_logo_2020.png",
+                         "primary":  "https://live.tvon.vn/g2/vtv10/video_hd_compat/playlist.m3u8",
+                         "fallback":  [
+                                          "https://live-a.fptplay53.net/live/media/vtv10/live247-hls-avc/index.m3u8",
+                                          "https://vips-livecdn.fptplay.net/live/media/vtv10/live247-hls-avc/index.m3u8",
+                                          "https://dethich.pw/vtv10/index.m3u8"
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "vtv5tnb",
+                         "name":  "VTV5 Tây Nam Bộ",
+                         "group":  "Quốc gia",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/VTV5_logo_2020.png/512px-VTV5_logo_2020.png",
+                         "primary":  "https://live-a.fptplay53.net/live/media/vtv5tnb/live-hls-avc/index.m3u8",
+                         "fallback":  [
+                                          "https://dethich.pw/vtv5tnb/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "vtv5tn",
+                         "name":  "VTV5 Tây Nguyên",
+                         "group":  "Quốc gia",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/VTV5_logo_2020.png/512px-VTV5_logo_2020.png",
+                         "primary":  "https://live-a.fptplay53.net/live/media/vtv5tn/live-hls-avc/index.m3u8",
+                         "fallback":  [
+                                          "https://dethich.pw/vtv5tn/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "antv",
+                         "name":  "ANTV",
+                         "group":  "Tin tức",
+                         "logo":  "https://static.wikia.nocookie.net/logos/images/1/1a/ANTV_2023.png/revision/latest/scale-to-width-down/512?path-prefix=vi",
+                         "primary":  "https://liveh12.vtvprime.vn/hls/ANNINHTV/01.m3u8",
+                         "fallback":  [
+                                          "https://liveh12.vtvprime.vn/hls/ANNINHTV/index.m3u8"
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "qpvn",
+                         "name":  "QPVN",
+                         "group":  "Quốc gia",
+                         "logo":  "https://i.imgur.com/GQO7UNu.png",
+                         "primary":  "https://liveh12.vtvprime.vn/hls/QPTV/01.m3u8",
+                         "fallback":  [
+                                          "https://liveh12.vtvprime.vn/hls/QPTV/index.m3u8"
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "vietnam-today",
+                         "name":  "Vietnam Today",
+                         "group":  "Quốc gia",
+                         "logo":  "https://i.imgur.com/xW9rY7s.png",
+                         "primary":  "https://amg01923-amg01923c162-amgplt0456.playout.now3.amagi.tv/playlist_1e4d76a3_88353259571126965.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "htv4",
+                         "name":  "HTV4",
+                         "group":  "Văn hoá - Giáo dục",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/HTV4_logo.webp/960px-HTV4_logo.webp.png",
+                         "primary":  "https://freem3u.xyz/api/live/play.m3u8?vid=9",
+                         "fallback":  [
+                                          "https://ec03-pop1-hlc.tv360.vn/bpk-token/6orymtmsnowu2knjia7pfi4gjxz2hbsn/bpk-tv/443/output/443-audio_214835_und_iv_1=214800-video_iv_1=1064800.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "htv5",
+                         "name":  "HTV5",
+                         "group":  "Văn hoá - Giáo dục",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/c/c3/HTV5_Bchannel.png",
+                         "primary":  "https://freem3u.xyz/api/live/play.m3u8?vid=151",
+                         "fallback":  [
+                                          "https://ec05-pop1-hlc.tv360.vn/bpk-token/tdlvmunxd56vdd6zsarjtv2wkgmnovsr/bpk-tv/246/output/246-audio_279600_eng_iv_1=277600-video_iv_1=1067600.m3u8"
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "htv1",
+                         "name":  "HTV1",
+                         "group":  "Địa phương",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/HTV1.png/960px-HTV1.png",
+                         "primary":  "https://live.fptplay53.net/epzhd1/htv1_vhls.smil/chunklist.m3u8",
+                         "fallback":  [
+                                          "https://dethich.pw/htv1/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "htv2",
+                         "name":  "HTV2",
+                         "group":  "Giải trí",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/d/d2/HTV2_-_Vie_Channel.png",
+                         "primary":  "https://live.fptplay53.net/epzhd1/htv2hd_vhls.smil/chunklist.m3u8",
+                         "fallback":  [
+                                          "https://dethich.pw/htv2/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "htv3",
+                         "name":  "HTV3",
+                         "group":  "Giải trí",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/6/65/HTV3-2018.png",
+                         "primary":  "https://live.fptplay53.net/epzhd1/htv3_hls.smil/chunklist.m3u8",
+                         "fallback":  [
+                                          "https://dethich.pw/htv3/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "htv7",
+                         "name":  "HTV7",
+                         "group":  "Giải trí",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/c/c0/HTV7_logo.webp",
+                         "primary":  "https://live.fptplay53.net/live/media/htv7/live247-hls-avc/index.m3u8",
+                         "fallback":  [
+                                          "https://dethich.pw/htv7/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "htv9",
+                         "name":  "HTV9",
+                         "group":  "Tin tức",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/b/bf/HTV9_logo.webp",
+                         "primary":  "https://live.fptplay53.net/epzhd1/htv9hd_vhls.smil/chunklist.m3u8",
+                         "fallback":  [
+                                          "https://dethich.pw/htv9/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "htv-sports",
+                         "name":  "HTV Sports",
+                         "group":  "Thể thao",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/vi/3/3f/HTV_THETHAO_2014.png",
+                         "primary":  "https://live.fptplay53.net/live/media/htvthethao/live247-hls-avc/index.m3u8",
+                         "fallback":  [
+                                          "https://dethich.pw/htvthethao/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "htvc-family",
+                         "name":  "HTVC Gia Đình",
+                         "group":  "Giải trí",
+                         "logo":  "",
+                         "primary":  "https://live.fptplay53.net/epzhd1/htvcgiadinh_vhls.smil/chunklist.m3u8",
+                         "fallback":  [
+                                          "https://dethich.pw/htvcgiadinh/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "htvc-movies",
+                         "name":  "HTVC Phim",
+                         "group":  "Phim",
+                         "logo":  "",
+                         "primary":  "https://live.fptplay53.net/epzhd1/htvcmovieshd_vhls.smil/chunklist.m3u8",
+                         "fallback":  [
+                                          "https://dethich.pw/htvcphim/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "htvc-women",
+                         "name":  "HTVC Phụ Nữ",
+                         "group":  "Giải trí",
+                         "logo":  "",
+                         "primary":  "https://live.fptplay53.net/epzhd1/htvcphunu_vhls.smil/chunklist.m3u8",
+                         "fallback":  [
+                                          "https://dethich.pw/htvcphunu/index.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "htvc-music",
+                         "name":  "HTVC Ca Nhạc",
+                         "group":  "Giải trí",
+                         "logo":  "",
+                         "primary":  "https://live.fptplay53.net/epzhd1/htvcmusic_vhls.smil/chunklist.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "htvc-travel",
+                         "name":  "HTVC Du Lịch",
+                         "group":  "Giải trí",
+                         "logo":  "",
+                         "primary":  "https://live.fptplay53.net/epzhd1/htvcdulich_vhls.smil/chunklist.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "htvc-thuan-viet",
+                         "name":  "HTVC Thuần Việt",
+                         "group":  "Giải trí",
+                         "logo":  "",
+                         "primary":  "https://live.fptplay53.net/epzhd1/htvcthuanviethd_vhls.smil/chunklist.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "htvc-plus",
+                         "name":  "HTVC+",
+                         "group":  "Giải trí",
+                         "logo":  "",
+                         "primary":  "https://live.fptplay53.net/epzhd1/htvcplus_vhls.smil/chunklist.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "sctv2",
+                         "name":  "SCTV2",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.imgur.com/8i5DXIg.png",
+                         "primary":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv2/playlist_720p.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "sctv3",
+                         "name":  "SCTV3",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.imgur.com/tfk298I.png",
+                         "primary":  "https://vtvgolive-sctvdrm.vtvdigital.vn/bsod999cuteptgyoutuber/1234567890/manifest/sctv3/playlist_720p.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "sctv4",
+                         "name":  "SCTV4",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.imgur.com/qkZhzQq.png",
+                         "primary":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv4/playlist_720p.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "sctv6",
+                         "name":  "SCTV6",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.imgur.com/2oOVS42.png",
+                         "primary":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv6/playlist_720p.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "sctv7",
+                         "name":  "SCTV7",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.imgur.com/xbIUZYd.png",
+                         "primary":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv7/playlist_720p.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "sctv9",
+                         "name":  "SCTV9",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.imgur.com/OJMbhow.png",
+                         "primary":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv9/playlist_720p.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "sctv11",
+                         "name":  "SCTV11",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.imgur.com/ZmFfy9o.png",
+                         "primary":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv11/playlist_720p.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "sctv12",
+                         "name":  "SCTV12",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.imgur.com/5pDFkH0.png",
+                         "primary":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv12/playlist_720p.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "sctv13",
+                         "name":  "SCTV13",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.imgur.com/aoz1iDw.png",
+                         "primary":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv13/playlist_720p.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "sctv14",
+                         "name":  "SCTV14",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.imgur.com/rIqmRNK.png",
+                         "primary":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv14/playlist_720p.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "sctv16",
+                         "name":  "SCTV16",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.imgur.com/ldCYtvt.png",
+                         "primary":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv16/playlist_720p.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "sctv18",
+                         "name":  "SCTV18",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.imgur.com/FfUSlgI.png",
+                         "primary":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv18/playlist_720p.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "sctv19",
+                         "name":  "SCTV19",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.imgur.com/yBAFZRs.png",
+                         "primary":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv19/playlist_720p.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "sctv20",
+                         "name":  "SCTV20",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.imgur.com/7ABZhfZ.png",
+                         "primary":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv20/playlist_720p.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "on-bibi",
+                         "name":  "ON BiBi",
+                         "group":  "Thiếu nhi",
+                         "logo":  "https://raw.githubusercontent.com/HaNoiIPTV/HaNoiIPTV.m3u/refs/heads/master/VTVCab8%20-%20ON%20BiBi.png",
+                         "primary":  "https://freem3u.xyz/api/live/play.m3u8?vid=178",
+                         "fallback":  [
+                                          "https://ec04-pop1-hlc.tv360.vn/bpk-token/jwqvgo5nmz4dwrmlsveezikthng2cuz3/bpk-tv/263/output/263-audio_198800_eng_iv_2=196800-video_iv_2=1067600.m3u8"
+                                      ],
+                         "health":  "DEGRADED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "on-kids",
+                         "name":  "ON Kids",
+                         "group":  "Thiếu nhi",
+                         "logo":  "https://i.ibb.co/RGsg8XfM/IMG-2512.webp",
+                         "primary":  "https://freem3u.xyz/api/live/play.m3u8?vid=179",
+                         "fallback":  [
+                                          "https://ec05-pop1-hlc.tv360.vn/bpk-token/clk3udgnckiqyjhhpr7rhvn2bqjnloqm/bpk-tv/234/output/234-audio_198800_eng_iv_1=196800-video_iv_1=1067600.m3u8"
+                                      ],
+                         "health":  "DEGRADED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "on-cine",
+                         "name":  "ON Cine",
+                         "group":  "Phim",
+                         "logo":  "https://i.ibb.co/Jw0J5fnW/IMG-2509.png",
+                         "primary":  "https://freem3u.xyz/api/live/play.m3u8?vid=176",
+                         "fallback":  [
+                                          "https://ec01-pop1-hlc.tv360.vn/bpk-token/i4joo3772xgg7qr6eeoemexhn5drfz3p/bpk-tv/226/output/226-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8"
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "on-movies",
+                         "name":  "ON Movies",
+                         "group":  "Phim",
+                         "logo":  "https://i.ibb.co/fdbgvtT8/IMG-2523.webp",
+                         "primary":  "https://freem3u.xyz/api/live/play.m3u8?vid=181",
+                         "fallback":  [
+                                          "https://ec02-pop1-hlc.tv360.vn/bpk-token/2uaauhixy4qr35jwzrxniaakdxkqacq5/bpk-tv/346/output/346-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8"
+                                      ],
+                         "health":  "DEGRADED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "on-vie-dramas",
+                         "name":  "ON Vie Dramas",
+                         "group":  "Phim",
+                         "logo":  "https://i.ibb.co/VptvgFVx/IMG-2530.webp",
+                         "primary":  "https://freem3u.xyz/api/live/play.m3u8?vid=177",
+                         "fallback":  [
+                                          "https://ec04-pop1-hlc.tv360.vn/bpk-token/krkd6txmsmke44yv7e6vkvb7jzkfip2o/bpk-tv/339/output/339-audio_214835_und_iv_2=214800-video_iv_2=1064800.m3u8"
+                                      ],
+                         "health":  "DEGRADED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "on-e",
+                         "name":  "ON E Channel",
+                         "group":  "Giải trí",
+                         "logo":  "https://raw.githubusercontent.com/HaNoiIPTV/HaNoiIPTV.m3u/refs/heads/master/VTVCab5%20-%20ON%20E%20Channel.png",
+                         "primary":  "https://freem3u.xyz/api/live/play.m3u8?vid=182",
+                         "fallback":  [
+                                          "https://ec04-pop1-hlc.tv360.vn/bpk-token/slscyn4qfqdtohwu5jcjhzbmg6joilbx/bpk-tv/212/output/212-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8"
+                                      ],
+                         "health":  "DEGRADED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "on-vie-giai-tri",
+                         "name":  "ON Vie Giải Trí",
+                         "group":  "Giải trí",
+                         "logo":  "https://raw.githubusercontent.com/HaNoiIPTV/HaNoiIPTV.m3u/refs/heads/master/VTVCab1%20-%20ON%20Vie%20GI%E1%BA%A2I%20TR%C3%8D.png",
+                         "primary":  "https://freem3u.xyz/api/live/play.m3u8?vid=180",
+                         "fallback":  [
+                                          "https://ec01-pop1-hlc.tv360.vn/bpk-token/baj2yura3odvevsqniqqse5mkiebhlcs/bpk-tv/211/output/211-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8"
+                                      ],
+                         "health":  "DEGRADED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "on-life",
+                         "name":  "ON Life",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.ibb.co/XxtcgQQv/IMG-2513.webp",
+                         "primary":  "https://freem3u.xyz/api/live/play.m3u8?vid=188",
+                         "fallback":  [
+                                          "https://ec03-pop1-hlc.tv360.vn/bpk-token/h3zd22lshilgsaog7mnd74r5ne7peplj/bpk-tv/347/output/347-audio_214835_und_iv_2=214800-video_iv_2=1064800.m3u8"
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "on-music",
+                         "name":  "ON Music",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.ibb.co/DHk2gv86/IMG-2524.webp",
+                         "primary":  "https://freem3u.xyz/api/live/play.m3u8?vid=185",
+                         "fallback":  [
+                                          "https://ec04-pop1-hlc.tv360.vn/bpk-token/nywfuble4ryqkdyutr3g6lc2avxcywqf/bpk-tv/220/output/220-audio_214835_und_iv_3=214800-video_iv_3=1064800.m3u8"
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "on-style",
+                         "name":  "ON Style TV",
+                         "group":  "Giải trí",
+                         "logo":  "https://i.ibb.co/JFw65Mtk/IMG-2529.webp",
+                         "primary":  "https://freem3u.xyz/api/live/play.m3u8?vid=184",
+                         "fallback":  [
+                                          "https://ec01-pop1-hlc.tv360.vn/bpk-token/nsio47eik7cxzl5ofahw3ehoprwjb3t4/bpk-tv/219/output/219-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8"
+                                      ],
+                         "health":  "DEGRADED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "angiang1",
+                         "name":  "An Giang 1",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/mgp6RAU.png",
+                         "primary":  "https://tv.angiangtv.vn/live/kgtv/kgtv.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "angiang2",
+                         "name":  "An Giang 2",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/efrauLr.png",
+                         "primary":  "https://tv.angiangtv.vn/live/kgtv2/kgtv2.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "angiang3",
+                         "name":  "An Giang 3",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/gZUV4z8.png",
+                         "primary":  "https://tv.angiangtv.vn/live/kgtv1/kgtv1.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "binhthuan",
+                         "name":  "Bình Thuận",
+                         "group":  "Địa phương",
+                         "logo":  "",
+                         "primary":  "https://1011154949.vnns.net/CDN-FPT02/BINHTHUAN-SD-720p/chunks.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "camau",
+                         "name":  "Cà Mau",
+                         "group":  "Địa phương",
+                         "logo":  "https://raw.githubusercontent.com/HaNoiIPTV/HaNoiIPTV.m3u/refs/heads/master/Logo%20kh%C3%A1c/CTV%20-%20Truy%E1%BB%81n%20h%C3%ACnh%20C%C3%A0%20Mau%20HD/CTV%20-%20Truy%E1%BB%81n%20h%C3%ACnh%20C%C3%A0%20Mau.png",
+                         "primary":  "https://tv.ctvcamau.vn/live/tv/tv.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "cantho",
+                         "name":  "Cần Thơ",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.ibb.co/MDhNH26J/cantho1-2025.png",
+                         "primary":  "https://live.canthotv.vn/live/tv/chunklist_w388776572.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "cantho2",
+                         "name":  "Cần Thơ 2",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.ibb.co/JjVvkMsf/cantho2-2025.png",
+                         "primary":  "https://live.canthotv.vn/cs2/live.stream/chunklist_w1958019981.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "DEGRADED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "cantho3",
+                         "name":  "Cần Thơ 3",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.ibb.co/d4G2PD9s/cantho3-2025.png",
+                         "primary":  "https://live.canthotv.vn/cs3/tv/chunklist_w990049041.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "DEGRADED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "caobang",
+                         "name":  "Cao Bằng",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/dGonewm.png",
+                         "primary":  "https://stream.thingnet.vn/live/smil:CRTV.smil/chunklist_w233577027_b584000.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "danang1",
+                         "name":  "Đà Nẵng 1",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/EOMuO1z.png",
+                         "primary":  "https://live.mediatech.vn/live/285b59a111d76974225a8e3004bfc31a509/chunklist.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "danang2",
+                         "name":  "Đà Nẵng 2",
+                         "group":  "Địa phương",
+                         "logo":  "https://raw.githubusercontent.com/HaNoiIPTV/HaNoiIPTV.m3u/refs/heads/master/Logo%20kh%C3%A1c/DRT%20-%20Da%20Nang%20TV/DRT2%20-%20Truy%E1%BB%81n%20h%C3%ACnh%20%C4%90%C3%A0%20N%E1%BA%B5ng%202%20%E2%80%A2%20B%E1%BA%A3n%202.png",
+                         "primary":  "https://live.mediatech.vn/live/2859145290d0d7947ef88b6240123b62474/chunklist.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "dienbien",
+                         "name":  "Điện Biên",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/u308o8q.png",
+                         "primary":  "https://stream.langsontv.vn/live/2855dfeccb7f49a41a2b0441b3bfeda413c/chunklist.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "DEGRADED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "dongnai1",
+                         "name":  "Đồng Nai 1",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/oQyioVa.png",
+                         "primary":  "https://vtvgolive-ott3.vtvdigital.vn/live/dongnai1tv/chunklist_2.m3u8",
+                         "fallback":  [
+                                          "https://ec05-pop1-hlc.tv360.vn/bpk-token/rquaccoh4avas763yr5i2kabbggcqaij/bpk-tv/371/output/371-audio_214835_eng_iv_1=214800-video_iv_1=1064800.m3u8"
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "dongnai2",
+                         "name":  "Đồng Nai 2",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/tNKPSkO.png",
+                         "primary":  "https://vtvgolive-ott3.vtvdigital.vn/live/dongnai2tv/chunklist_2.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "dongthap",
+                         "name":  "Đồng Tháp",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.ibb.co/XFX7yw0/logo2-1.png",
+                         "primary":  "https://liveh34.vtvprime.vn/hls/DONGTHAPTV/01.m3u8",
+                         "fallback":  [
+                                          "https://liveh34.vtvprime.vn/hls/DONGTHAPTV/index.m3u8"
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "gialai",
+                         "name":  "Gia Lai",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/oUSJX0X.png",
+                         "primary":  "http://tldigital-17th06day-tl9648290.duckdns.org/tv.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "DEGRADED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "hanoi1",
+                         "name":  "Hà Nội 1",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/Je3K25E.png",
+                         "primary":  "https://liveh34.vtvprime.vn/hls/HANOI1TV/01.m3u8",
+                         "fallback":  [
+                                          "https://liveh34.vtvprime.vn/hls/HANOI1TV/index.m3u8"
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "hungyen",
+                         "name":  "Hưng Yên",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/TH1DWdm.png",
+                         "primary":  "https://ott3.nethubtv.vn/live/hungyentv/chunklist_0.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "langson",
+                         "name":  "Lạng Sơn",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/Sj7EjYT.png",
+                         "primary":  "https://stream.langsontv.vn/live/285c78da0c246524c90917842f8de03bd21/chunklist.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "nghean",
+                         "name":  "Nghệ An",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/d9YEEwC.png",
+                         "primary":  "https://67tz1gnwrvxic.cmccdn.net/hls/NGHEANTV/03.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "quangnam",
+                         "name":  "Quảng Nam",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/uWiOoVg.png",
+                         "primary":  "https://ec04-pop1-hlc.tv360.vn/bpk-token/3rbdckn7rinctpai65nn2qrrfhoeemjj/bpk-tv/377/output/377-audio_198800_eng_iv_3=196800-video_iv_3=1067600.m3u8",
+                         "fallback":  [
+                                          "https://vtvgolive-ott3.vtvdigital.vn/live/quangnamtv/chunklist_2.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "tayninh",
+                         "name":  "Tây Ninh",
+                         "group":  "Địa phương",
+                         "logo":  "https://tayninhtv.vn/static/images/logo.png",
+                         "primary":  "https://live-hq.evgcdn.net/live/2851dc2c9af68834814a89e61db0faee561/chunklist.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "DEGRADED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "thainguyen",
+                         "name":  "Thái Nguyên",
+                         "group":  "Địa phương",
+                         "logo":  "https://thainguyentv.vn/modules/frontend/themes/ptthtn/images/logo.png",
+                         "primary":  "https://streaming.thainguyentv.vn/hls/livestream.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "tiengiang",
+                         "name":  "Tiền Giang",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/yonKxgZ.png",
+                         "primary":  "https://618b88f69e53b.streamlock.net/THDT2/thdttv2/chunklist.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "travinh",
+                         "name":  "Trà Vinh",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/F12VdKO.png",
+                         "primary":  "https://ec03-pop1-hlc.tv360.vn/bpk-token/co24ioytpxxtxggfajebfnoehmj3lrb3/bpk-tv/423/output/423-audio_214835_eng_iv_2=214800-video_iv_2=1064800.m3u8",
+                         "fallback":  [
+                                          "https://vtvgolive-ott3.vtvdigital.vn/live/travinhtv/chunklist_2.m3u8"
+                                      ],
+                         "health":  "UNVERIFIED",
+                         "lastVerified":  "2026-11-02"
+                     },
+                     {
+                         "id":  "vinhlong2",
+                         "name":  "Vĩnh Long 2",
+                         "group":  "Địa phương",
+                         "logo":  "https://i.imgur.com/iluoazf.png",
+                         "primary":  "https://1011154949.vnns.net/CDN-FPT02/THVL2-HD-1080p/chunks.m3u8",
+                         "fallback":  [
+
+                                      ],
+                         "health":  "WORKING",
+                         "lastVerified":  "2026-11-02"
+                     }
+                 ],
+    "youtubeCategories":  [
+
+                          ],
+    "movies":  [
+
+               ]
 }
