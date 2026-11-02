@@ -1,0 +1,24 @@
+BẢN QUYỀN — OUMIJIA TV
+Copyright (c) 2026 OUMIJIA / wuwenhou. All rights reserved.
+
+1. Phạm vi sử dụng
+   Mã nguồn và ứng dụng OUMIJIA TV được cung cấp cho mục đích sử dụng cá nhân
+   và trong phạm vi gia đình. Không cấp quyền thương mại, phân phối lại, bán,
+   cho thuê hoặc xuất bản lại ứng dụng/mã nguồn dưới bất kỳ hình thức nào khi
+   chưa có sự đồng ý bằng văn bản của tác giả.
+
+2. Nội dung bên thứ ba
+   Ứng dụng không sở hữu nội dung truyền hình, phim, video YouTube, logo hay
+   nhãn hiệu của các đài truyền hình và nhà cung cấp. Các nội dung đó thuộc
+   bản quyền của chủ sở hữu tương ứng và được truy cập thông qua nguồn công
+   khai. Người dùng chịu trách nhiệm tuân thủ pháp luật và điều khoản sử dụng
+   của nguồn phát tại nơi mình sinh sống.
+
+3. Không bảo hành
+   Phần mềm được cung cấp "nguyên trạng", không kèm bảo hành. Tác giả không
+   chịu trách nhiệm cho việc gián đoạn nguồn phát, thay đổi từ phía đài/nhà
+   cung cấp, hoặc thiệt hại phát sinh từ việc sử dụng.
+
+4. Thư viện mã nguồn mở
+   Dự án sử dụng các thư viện Flutter/Dart bên thứ ba; mỗi thư viện giữ giấy
+   phép riêng của nó. Danh sách phụ thuộc nằm trong pubspec.yaml.

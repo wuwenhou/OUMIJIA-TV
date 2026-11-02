@@ -27,8 +27,14 @@ ios/.symlinks/
 ios/Flutter/ephemeral/
 ios/Flutter/flutter_export_environment.sh
 
+# Local build artifacts
+build-ios/
+
 # OS
 .DS_Store
 Thumbs.db
 android/.kotlin/
+
+# Health check cache (kết quả tạm, không commit)
+tools/reports/health-cache.json
 
