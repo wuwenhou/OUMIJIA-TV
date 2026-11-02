@@ -1,50 +1,41 @@
-name: iOS Build
+name: Build iOS (unsigned IPA)
 
-# Build IPA (unsigned) cho OUMIJIA TV
-# Chạy thủ công hoặc khi có thay đổi mã nguồn/iOS
 on:
-  workflow_dispatch:
+  workflow_dispatch: # chạy thủ công khi cần
   push:
-    branches: [main]
-    paths:
-      - "lib/**"
-      - "ios/**"
-      - "pubspec.yaml"
+    tags:
+      - "v*"
 
 jobs:
   build-ios:
-    runs-on: macos-latest
+    runs-on: macos-14
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Flutter
+      - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.47.8"
-          channel: stable
+          channel: "stable"
           cache: true
 
-      - name: Get dependencies
+      - name: Pub get
         run: flutter pub get
-
-      - name: Analyze
-        run: flutter analyze
 
       - name: Build iOS (no codesign)
         run: flutter build ios --release --no-codesign
 
-      - name: Package IPA
+      - name: Package IPA (unsigned)
         run: |
           mkdir -p Payload
           cp -r build/ios/iphoneos/Runner.app Payload/
-          zip -qry "OUMIJIA TV v1.0.1.ipa" Payload
-          rm -rf Payload
-          ls -la "OUMIJIA TV v1.0.1.ipa"
+          zip -r oumijia-tv-ios-unsigned.ipa Payload
+          mv oumijia-tv-ios-unsigned.ipa build/
 
-      - name: Upload artifact
+      - name: Upload IPA artifact
         uses: actions/upload-artifact@v4
         with:
           name: oumijia-tv-ios
-          path: "OUMIJIA TV v1.0.1.ipa"
+          path: build/oumijia-tv-ios-unsigned.ipa
           retention-days: 30
