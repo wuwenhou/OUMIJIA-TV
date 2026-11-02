@@ -23,3 +23,19 @@ oumijia_tv/
 ├── lib/                   # Mã nguồn Flutter
 └── README.md
 ```
+
+## Cài đặt
+
+### Android
+Tải APK từ mục [Releases](https://github.com/wuwenhou/OUMIJIA-TV/releases) → mở file → cho phép "cài từ nguồn không xác định" → cài.
+
+Đang xem TV mà phát trên **Android TV box**: app hỗ trợ điều khiển bằng remote (D-pad).
+
+### iOS (iPhone/iPad)
+File IPA được build trên GitHub Actions (mục **Actions** → run → **Artifacts** → `oumijia-tv-ios`).
+IPA chưa ký — cài qua **Sideloadly** hoặc **AltStore** bằng Apple ID cá nhân:
+1. Tải Sideloadly: https://sideloadly.io
+2. Cắm iPhone vào máy tính, mở Sideloadly → kéo thả file .ipa → nhập Apple ID → Start
+3. Mở iPhone: Cài đặt → Cấu hình_vp (Chung) → Quản lý thiết bị & VPN → Tin cậy Apple ID
+> Chứng chỉ miễn phí hết hạn sau 7 ngày (cài lại), hoặc Apple Developer $99/năm để cài 1 năm.
+
