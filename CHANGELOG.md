@@ -4,6 +4,26 @@ Mọi thay đổi đáng chú ý của OUMIJIA TV được ghi tại đây.
 Định dạng dựa trên [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/),
 phiên bản theo [Semantic Versioning](https://semver.org/lang/vi/).
 
+## [2.0.1] — 2026-11-02
+
+### Sửa lỗi nghiêm trọng
+- **Màn hình xám toàn bộ nội dung**: `buildTheme` chưa đăng ký `OumijiaColors`
+  vào `ThemeData.extensions`, khiến mọi `context.c` ném lỗi và Flutter hiển thị
+  ErrorWidget xám. Đã đăng ký extension + thêm test hồi quy cho Home và các tab.
+- Hero "Tiếp tục xem" tràn 2px trên màn hình hẹp: giảm logo/khoảng cách, nút "Xem".
+- Chip trạng thái dài gây tràn trong hero: thêm nhãn ngắn LIVE/CHẬM/OFFLINE/LỖI,
+  text co giãn với ellipsis.
+- `SwitchListTile` trong mục Cài đặt nằm trên `Container` có nền → chuyển sang
+  `Material` để hiện đúng hiệu ứng chạm.
+- **Tab YouTube**: sửa `ChannelId` sai, thay API danh sách kênh đã hỏng bằng RSS
+  chính thức (`youtube.com/feeds/videos.xml`) + test parse; thêm 3 danh mục kênh
+  chính thức đã xác minh (VTV24, Yan News, Yeah1TV, POPS Kids). Luồng phát vẫn
+  trích trực tiếp nên không có quảng cáo.
+
+### Kiểm thử
+- `flutter test`: 10/10 pass (theme, Home/tab, tìm kênh, RSS YouTube).
+- `flutter analyze`: 0 lỗi.
+
 ## [2.0.0] — 2026-11-02
 
 Bản tái thiết kế giao diện và hoàn thiện hệ thống kênh.

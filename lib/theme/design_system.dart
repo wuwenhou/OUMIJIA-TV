@@ -195,6 +195,7 @@ buildTheme({
   return base.copyWith(
     scaffoldBackgroundColor: colors.bg,
     colorScheme: scheme,
+    extensions: [colors],
     splashFactory: InkSparkle.splashFactory,
     textTheme: textTheme,
     appBarTheme: AppBarTheme(

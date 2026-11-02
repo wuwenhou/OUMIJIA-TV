@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'package:youtube_explode_dart/youtube_explode_dart.dart';
-
 import '../models.dart';
 import '../services/youtube_service.dart';
 import '../theme/design_system.dart';
@@ -195,7 +193,7 @@ class _CategoryPlayerScreenState extends State<_CategoryPlayerScreen> {
 
   Future<void> _loadPlaylist() async {
     setState(() => _status = 'Đang lấy danh sách...');
-    final videos = <Video>[];
+    final videos = <YouTubeVideo>[];
     for (final ch in widget.category.channels) {
       try {
         final list =
@@ -213,8 +211,8 @@ class _CategoryPlayerScreenState extends State<_CategoryPlayerScreen> {
     // Xáo trộn nhẹ để không dồn 1 kênh, nhưng giữ ~mới nhất
     final sorted = videos.toList()
       ..sort((a, b) =>
-          b.uploadDate?.compareTo(a.uploadDate ?? DateTime(2000)) ?? 0);
-    final picked = <Video>[];
+          b.published?.compareTo(a.published ?? DateTime(2000)) ?? 0);
+    final picked = <YouTubeVideo>[];
     var round = 0;
     while (picked.length < 50 && round < 20) {
       var added = false;

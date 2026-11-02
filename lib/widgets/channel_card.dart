@@ -35,6 +35,22 @@ String statusLabel(String health) {
   }
 }
 
+/// Nhãn ngắn cho chip trên diện hẹp (hero, player).
+String statusShortLabel(String health) {
+  switch (health) {
+    case 'WORKING':
+      return 'LIVE';
+    case 'DEGRADED':
+      return 'CHẬM';
+    case 'OFFLINE':
+      return 'OFFLINE';
+    case 'INVALID':
+      return 'LỖI';
+    default:
+      return 'CHƯA RÕ';
+  }
+}
+
 /// Ô kênh — logo + tên, dùng cho cả grid & list.
 /// Logo tải từ config; lỗi ảnh → chữ viết tắt nền accent.
 class ChannelCard extends StatelessWidget {
@@ -286,7 +302,14 @@ class StatusChip extends StatelessWidget {
         children: [
           if (pulsing) _PulseDot(color: color),
           if (pulsing) const SizedBox(width: 6),
-          Text(text, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: color, letterSpacing: 0.4)),
+          Flexible(
+            child: Text(
+              text,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: color, letterSpacing: 0.4),
+            ),
+          ),
         ],
       ),
     );

@@ -313,34 +313,39 @@ class _Section extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = context.c;
-    return Container(
-      margin: const EdgeInsets.only(bottom: Sp.l),
-      padding: const EdgeInsets.all(Sp.l),
-      decoration: BoxDecoration(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: Sp.l),
+      child: Material(
         color: c.surface,
-        borderRadius: BorderRadius.circular(Radii.l),
-        border: Border.all(color: c.border),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Radii.l),
+          side: BorderSide(color: c.border),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(Sp.l),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 3.5,
-                height: 18,
-                decoration: BoxDecoration(
-                  color: c.accent,
-                  borderRadius: BorderRadius.circular(2),
-                ),
+              Row(
+                children: [
+                  Container(
+                    width: 3.5,
+                    height: 18,
+                    decoration: BoxDecoration(
+                      color: c.accent,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                  const SizedBox(width: Sp.m),
+                  Text(title, style: Theme.of(context).textTheme.titleMedium),
+                ],
               ),
-              const SizedBox(width: Sp.m),
-              Text(title, style: Theme.of(context).textTheme.titleMedium),
+              const SizedBox(height: Sp.m),
+              ...children,
             ],
           ),
-          const SizedBox(height: Sp.m),
-          ...children,
-        ],
+        ),
       ),
     );
   }

@@ -321,11 +321,11 @@ class ContinueWatchingCard extends StatelessWidget {
         ),
         border: Border.all(color: c.accent.withValues(alpha: 0.35)),
       ),
-      padding: const EdgeInsets.all(Sp.xl),
+      padding: const EdgeInsets.all(Sp.l),
       child: Row(
         children: [
-          ChannelLogo(channel: channel, size: 64),
-          const SizedBox(width: Sp.xl),
+          ChannelLogo(channel: channel, size: 56),
+          const SizedBox(width: Sp.m),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -343,7 +343,7 @@ class ContinueWatchingCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis),
                 const SizedBox(height: Sp.xs + 2),
                 StatusChip(
-                  text: statusLabel(channel.health).toUpperCase(),
+                  text: statusShortLabel(channel.health),
                   color: statusColor(context, channel.health),
                   pulsing: channel.health == 'WORKING',
                 ),
@@ -352,9 +352,12 @@ class ContinueWatchingCard extends StatelessWidget {
           ),
           const SizedBox(width: Sp.m),
           FilledButton.icon(
+            style: FilledButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            ),
             onPressed: channel.unavailable ? null : onPlay,
-            icon: const Icon(Icons.play_arrow_rounded, size: 26),
-            label: const Text('Xem ngay'),
+            icon: const Icon(Icons.play_arrow_rounded, size: 24),
+            label: const Text('Xem'),
           ),
         ],
       ),

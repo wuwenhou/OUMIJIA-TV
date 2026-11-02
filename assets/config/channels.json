@@ -981,8 +981,32 @@
                      }
                  ],
     "youtubeCategories":  [
-
-                          ],
+        {
+            "id": "tin-tuc",
+            "name": "Tin tức",
+            "icon": "📰",
+            "channels": [
+                { "name": "VTV24", "channelId": "UCabsTV34JwALXKGMqHpvUiA" },
+                { "name": "Yan News", "channelId": "UCWW5Trxwcc_fzgpvSSrKZBQ" }
+            ]
+        },
+        {
+            "id": "giai-tri",
+            "name": "Giải trí",
+            "icon": "🎭",
+            "channels": [
+                { "name": "Yeah1TV", "channelId": "UCxVbAgOxi2HtYFmptzvILrA" }
+            ]
+        },
+        {
+            "id": "thieu-nhi",
+            "name": "Thiếu nhi",
+            "icon": "🧸",
+            "channels": [
+                { "name": "POPS Kids", "channelId": "UC5ezaYrzZpyItPSRG27MLpg" }
+            ]
+        }
+    ],
     "movies":  [
 
                ]
