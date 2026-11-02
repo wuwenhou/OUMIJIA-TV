@@ -13,6 +13,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # video_player_avfoundation 2.12.x cần Swift 6.1+ (Xcode 16.3 trở lên)
+      - name: Select Xcode 16.4
+        run: sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
+
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
