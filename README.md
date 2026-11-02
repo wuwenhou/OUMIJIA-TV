@@ -95,7 +95,12 @@ flutter build ios --release --no-codesign
 ```
 
 APK release lấy từ `build/app/outputs/flutter-apk/app-release.apk`.
-Không commit keystore/`key.properties` — cấu hình ký riêng trên máy phát hành.
+Ký phát hành: tạo `android/key.properties` (đã gitignore) trỏ tới keystore riêng;
+CI dùng GitHub Secrets `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_PASSWORD`,
+`KEY_ALIAS` để tạo file này trước khi build. Không commit keystore/key.properties.
+
+> Đổi khóa ký sẽ khiến Android từ chối cài đè — cần gỡ app một lần rồi cài lại.
+> Từ v2.0.2, khóa phát hành đã cố định nên các bản sau cập nhật bình thường.
 
 ## CI/CD
 

@@ -4,6 +4,17 @@ Mọi thay đổi đáng chú ý của OUMIJIA TV được ghi tại đây.
 Định dạng dựa trên [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/),
 phiên bản theo [Semantic Versioning](https://semver.org/lang/vi/).
 
+## [2.0.2] — 2026-11-02
+
+### Sửa lỗi
+- **Ký APK bằng khóa phát hành cố định**: trước đây mỗi lần CI build dùng
+  debug keystore mới → APK mới không cài đè được lên bản cũ (khác chữ ký),
+  đồng thời chặn cập nhật trong app. Nay keystore được lưu trong GitHub Secrets
+  (`KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_PASSWORD`, `KEY_ALIAS`), Gradle
+  đọc qua `android/key.properties` (không commit). CI in chứng chỉ APK để kiểm tra.
+- Lần đầu nâng cấp từ v2.0.0/v2.0.1 (debug key CI) cần **gỡ ứng dụng một lần**;
+  từ v2.0.2 trở đi, các bản sau cài đè/cập nhật bình thường.
+
 ## [2.0.1] — 2026-11-02
 
 ### Sửa lỗi nghiêm trọng
