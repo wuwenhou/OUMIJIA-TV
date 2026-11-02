@@ -11,6 +11,10 @@ class Channel {
   final List<String> fallback;
   final Map<String, String> headers;
 
+  /// trạng thái kiểm tra thực tế (từ channel health check / cấu hình)
+  final String health; // WORKING / DEGRADED / OFFLINE / INVALID / UNVERIFIED
+  final String lastVerified; // ISO date, rỗng = chưa kiểm tra
+
   Channel({
     required this.id,
     required this.name,
@@ -19,20 +23,32 @@ class Channel {
     required this.primary,
     this.fallback = const [],
     this.headers = const {},
+    this.health = 'UNVERIFIED',
+    this.lastVerified = '',
   });
 
-  factory Channel.fromJson(Map<String, dynamic> j) => Channel(
-        id: j['id'] as String,
-        name: j['name'] as String,
-        group: (j['group'] as String?) ?? 'Truyền hình',
-        logo: (j['logo'] as String?) ?? '',
-        primary: j['primary'] as String,
-        fallback: (j['fallback'] as List<dynamic>? ?? [])
-            .map((e) => e as String)
-            .toList(),
-        headers: (j['headers'] as Map<String, dynamic>? ?? {})
-            .map((k, v) => MapEntry(k, v.toString())),
-      );
+  factory Channel.fromJson(Map<String, dynamic> j,
+      {Map<String, String> defaultHeaders = const {}}) {
+    final ownHeaders = (j['headers'] as Map<String, dynamic>? ?? {})
+        .map((k, v) => MapEntry(k, v.toString()));
+    return Channel(
+      id: j['id'] as String,
+      name: j['name'] as String,
+      group: (j['group'] as String?) ?? 'Truyền hình',
+      logo: (j['logo'] as String?) ?? '',
+      primary: j['primary'] as String,
+      fallback: (j['fallback'] as List<dynamic>? ?? [])
+          .map((e) => e as String)
+          .toList(),
+      headers: {...defaultHeaders, ...ownHeaders},
+      health: (j['health'] as String?) ?? 'UNVERIFIED',
+      lastVerified: (j['lastVerified'] as String?) ?? '',
+    );
+  }
+
+  /// Kênh chưa có nguồn phát hợp lệ → không mở được
+  bool get unavailable =>
+      primary.isEmpty || health == 'OFFLINE' || health == 'INVALID';
 
   /// Danh sách tất cả URL thử lần lượt khi phát lỗi.
   List<String> get allUrls => [primary, ...fallback];
@@ -119,19 +135,23 @@ class AppConfig {
     this.source = 'bundled',
   });
 
-  factory AppConfig.fromJson(Map<String, dynamic> j, {String source = 'remote'}) =>
-      AppConfig(
-        channels: (j['channels'] as List<dynamic>? ?? [])
-            .map((e) => Channel.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        youtubeCategories: (j['youtubeCategories'] as List<dynamic>? ?? [])
-            .map((e) => YouTubeCategory.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        movies: (j['movies'] as List<dynamic>? ?? [])
-            .map((e) => MovieItem.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        source: source,
-      );
+  factory AppConfig.fromJson(Map<String, dynamic> j, {String source = 'remote'}) {
+    final globalHeaders = (j['headers'] as Map<String, dynamic>? ?? {})
+        .map((k, v) => MapEntry(k, v.toString()));
+    return AppConfig(
+      channels: (j['channels'] as List<dynamic>? ?? [])
+          .map((e) => Channel.fromJson(e as Map<String, dynamic>,
+              defaultHeaders: globalHeaders))
+          .toList(),
+      youtubeCategories: (j['youtubeCategories'] as List<dynamic>? ?? [])
+          .map((e) => YouTubeCategory.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      movies: (j['movies'] as List<dynamic>? ?? [])
+          .map((e) => MovieItem.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      source: source,
+    );
+  }
 
   /// Tìm kênh theo tên (dùng cho lệnh giọng nói "bật vtv3").
   Channel? findChannelByName(String query) {
@@ -163,6 +183,18 @@ class AppConfig {
 
   /// Từ yếu nghĩa không dùng để khớp danh mục.
   static const _stopWords = {'ca', 'của', 'và'};
+
+  /// Tìm kiếm kênh theo từ khóa (bỏ dấu, không phân biệt hoa/thường).
+  List<Channel> searchChannels(String query) {
+    final q = _normalize(query);
+    if (q.isEmpty) return channels;
+    return channels
+        .where((c) =>
+            _normalize(c.name).contains(q) ||
+            _normalize(c.group).contains(q) ||
+            c.id.replaceAll('-', ' ').contains(q))
+        .toList();
+  }
 
   static String _normalize(String s) {
     var t = s.toLowerCase().replaceAll(RegExp(r'\s+'), ' ').trim();

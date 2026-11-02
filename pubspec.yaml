@@ -1,7 +1,7 @@
 name: oumijia_tv
-description: OUMIJIA TV - Xem truyen hinh, phim, YouTube khong quang cao cho nguoi gia.
+description: OUMIJIA TV - Truyền hình Việt Nam, phim và YouTube tuyển chọn; giao diện tối giản, không quảng cáo.
 publish_to: "none"
-version: 1.0.1+2
+version: 2.0.0+3
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -14,6 +14,7 @@ dependencies:
   speech_to_text: ^7.0.0
   shared_preferences: ^2.3.2
   http: ^1.2.2
+  crypto: ^3.0.7
   cached_network_image: ^3.4.1
   package_info_plus: ^8.1.0
   open_filex: ^4.5.0
@@ -31,6 +32,9 @@ flutter_launcher_icons:
   image_path: "assets/icon/app_icon.png"
   min_sdk_android: 21
   remove_alpha_ios: true
+  adaptive_icon_background: "#0B0F14"
+  adaptive_icon_foreground: "assets/icon/app_icon.png"
+  adaptive_icon_foreground_inset: 16
 
 flutter:
   uses-material-design: true

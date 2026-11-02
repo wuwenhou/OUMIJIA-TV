@@ -4,7 +4,7 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 import '../models.dart';
 import '../services/youtube_service.dart';
-import '../ui.dart';
+import '../theme/design_system.dart';
 
 /// Tab YOUTUBE — chỉ danh mục đã duyệt, phát không quảng cáo,
 /// playlist chạy liên tục (hết bài tự chuyển, lỗi tự nhảy).
@@ -20,68 +20,142 @@ class YouTubeScreen extends StatefulWidget {
 class _YouTubeScreenState extends State<YouTubeScreen> {
   @override
   Widget build(BuildContext context) {
+    final c = context.c;
     final cats = widget.config.youtubeCategories;
-    if (cats.isEmpty) {
-      return const Center(
-        child: Padding(
-          padding: EdgeInsets.all(32),
-          child: Text(
-            'Chưa có danh mục YouTube.\n'
-            'Thêm kênh bằng cách sửa file config/channels.json trên GitHub.',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, color: Ui.textSecondary),
-          ),
-        ),
-      );
-    }
-    return ListView.separated(
-      padding: const EdgeInsets.all(16),
-      itemCount: cats.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 14),
-      itemBuilder: (context, i) {
-        final cat = cats[i];
-        return Focus(
-          child: Builder(builder: (context) {
-            final focused = Focus.of(context).hasFocus;
-            return Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                    color: focused ? Ui.focusBorder : Colors.transparent,
-                    width: 4),
-              ),
-              child: Card(
-                color: Ui.surface,
-                margin: EdgeInsets.zero,
-                child: ListTile(
-                  contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 24, vertical: 18),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      fullscreenDialog: true,
-                      builder: (_) => _CategoryPlayerScreen(category: cat),
-                    ));
-                  },
-                  leading: Text(cat.icon,
-                      style: const TextStyle(fontSize: 18)),
-                  title: Text(cat.name,
-                      style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Ui.textPrimary)),
-                  subtitle: Text(
-                    '${cat.channels.length} kênh đã duyệt',
-                    style: const TextStyle(
-                        fontSize: 18, color: Ui.textSecondary),
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('YouTube')),
+      body: cats.isEmpty
+          ? _EmptyYouTube()
+          : ListView(
+              padding:
+                  const EdgeInsets.fromLTRB(Sp.xl, Sp.s, Sp.xl, Sp.xxl + Sp.l),
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.verified_outlined, size: 16, color: c.accent),
+                    const SizedBox(width: Sp.s),
+                    Expanded(
+                      child: Text(
+                        'Danh mục đã chọn lọc — phát liên tục, không quảng cáo.',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: Sp.l),
+                for (final cat in cats)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: Sp.m),
+                    child: _CategoryTile(category: cat),
                   ),
-                  trailing: const Icon(Icons.play_circle_fill,
-                      size: 32, color: Ui.accent),
+              ],
+            ),
+    );
+  }
+}
+
+class _EmptyYouTube extends StatelessWidget {
+  const _EmptyYouTube();
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.c;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(Sp.xxl),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.smart_display_outlined, size: 52, color: c.textLo),
+            const SizedBox(height: Sp.m),
+            Text('Chưa có danh mục YouTube',
+                style: Theme.of(context).textTheme.titleMedium),
+            const SizedBox(height: Sp.xs),
+            Text(
+              'Thêm danh mục và kênh YouTube đã duyệt vào config/channels.json '
+              'trên GitHub — app tự cập nhật khi mở lại hoặc kéo làm mới tab Kênh.',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CategoryTile extends StatelessWidget {
+  final YouTubeCategory category;
+
+  const _CategoryTile({required this.category});
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.c;
+    return Material(
+      color: c.surface,
+      borderRadius: BorderRadius.circular(Radii.l),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(Radii.l),
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            fullscreenDialog: true,
+            builder: (_) => _CategoryPlayerScreen(category: category),
+          ));
+        },
+        child: Container(
+          padding: const EdgeInsets.all(Sp.l),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(Radii.l),
+            border: Border.all(color: c.border),
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 52,
+                height: 52,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Radii.m),
+                  color: c.accent.withValues(alpha: 0.14),
+                ),
+                child: Center(
+                  child: Text(category.icon,
+                      style: const TextStyle(fontSize: 24)),
                 ),
               ),
-            );
-          }),
-        );
-      },
+              const SizedBox(width: Sp.l),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(category.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleMedium),
+                    const SizedBox(height: 2),
+                    Text(
+                      '${category.channels.length} kênh đã duyệt',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: c.accent.withValues(alpha: 0.12),
+                ),
+                child: Icon(Icons.play_arrow_rounded,
+                    color: c.accent, size: 24),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -102,6 +176,10 @@ class _CategoryPlayerScreenState extends State<_CategoryPlayerScreen> {
   String _status = 'Đang lấy danh sách...';
   String _nowTitle = '';
   bool _busy = false;
+
+  static const _accent = Color(0xFFFFC93C);
+
+  bool get _loadFailed => _status.contains('Không lấy được');
 
   @override
   void initState() {
@@ -134,7 +212,8 @@ class _CategoryPlayerScreenState extends State<_CategoryPlayerScreen> {
     }
     // Xáo trộn nhẹ để không dồn 1 kênh, nhưng giữ ~mới nhất
     final sorted = videos.toList()
-      ..sort((a, b) => b.uploadDate?.compareTo(a.uploadDate ?? DateTime(2000)) ?? 0);
+      ..sort((a, b) =>
+          b.uploadDate?.compareTo(a.uploadDate ?? DateTime(2000)) ?? 0);
     final picked = <Video>[];
     var round = 0;
     while (picked.length < 50 && round < 20) {
@@ -226,43 +305,75 @@ class _CategoryPlayerScreenState extends State<_CategoryPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     final c = _controller;
+    final playing = c?.value.isPlaying ?? false;
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
         title: Text(
           '${widget.category.icon} ${widget.category.name}',
           style: const TextStyle(fontSize: 16, color: Colors.white),
         ),
-        leading: BackButton(onPressed: () => Navigator.of(context).pop()),
       ),
       body: Column(
         children: [
           Expanded(
             child: Center(
-              child: _status.isNotEmpty
+              child: _loadFailed
                   ? Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const CircularProgressIndicator(color: Ui.accent),
-                        const SizedBox(height: 16),
-                        Text(_status,
+                        const Icon(Icons.wifi_off_rounded,
+                            size: 46, color: Colors.white38),
+                        const SizedBox(height: Sp.m),
+                        Padding(
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: Sp.xxl),
+                          child: Text(
+                            _status,
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontSize: 16, color: Colors.white)),
+                                color: Colors.white, fontSize: 15),
+                          ),
+                        ),
+                        const SizedBox(height: Sp.l),
+                        FilledButton.icon(
+                          style: FilledButton.styleFrom(
+                            backgroundColor: _accent,
+                            foregroundColor: Colors.black,
+                          ),
+                          onPressed: _loadPlaylist,
+                          icon: const Icon(Icons.refresh_rounded),
+                          label: const Text('Thử lại'),
+                        ),
                       ],
                     )
-                  : c != null && c.value.isInitialized
-                      ? AspectRatio(
-                          aspectRatio: c.value.aspectRatio,
-                          child: VideoPlayer(c),
+                  : _status.isNotEmpty
+                      ? Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const CircularProgressIndicator(color: _accent),
+                            const SizedBox(height: Sp.l),
+                            Text(_status,
+                                style: const TextStyle(
+                                    fontSize: 15, color: Colors.white)),
+                          ],
                         )
-                      : const CircularProgressIndicator(color: Ui.accent),
+                      : c != null && c.value.isInitialized
+                          ? AspectRatio(
+                              aspectRatio: c.value.aspectRatio,
+                              child: VideoPlayer(c),
+                            )
+                          : const CircularProgressIndicator(color: _accent),
             ),
           ),
-          // Tên bài đang phát + nút điều khiển to
+          // Tên bài đang phát + điều khiển
           Container(
-            color: Ui.surface,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            width: double.infinity,
+            color: const Color(0xFF12181F),
+            padding: const EdgeInsets.fromLTRB(Sp.l, Sp.m, Sp.l, Sp.l),
             child: Column(
               children: [
                 Text(
@@ -271,24 +382,25 @@ class _CategoryPlayerScreenState extends State<_CategoryPlayerScreen> {
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: Ui.textPrimary),
+                      color: Colors.white),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: Sp.m),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _BigBtn(
-                        icon: Icons.skip_previous,
+                    _CircleBtn(
+                        icon: Icons.skip_previous_rounded,
                         label: 'Bài trước',
                         onTap: _prev),
-                    const SizedBox(width: 20),
-                    _BigBtn(
-                      icon: (c?.value.isPlaying ?? false)
-                          ? Icons.pause
-                          : Icons.play_arrow,
+                    const SizedBox(width: Sp.xl),
+                    _CircleBtn(
+                      icon: playing
+                          ? Icons.pause_rounded
+                          : Icons.play_arrow_rounded,
                       label: 'Dừng / Phát',
+                      big: true,
                       onTap: () {
                         if (c == null) return;
                         setState(() {
@@ -296,8 +408,11 @@ class _CategoryPlayerScreenState extends State<_CategoryPlayerScreen> {
                         });
                       },
                     ),
-                    const SizedBox(width: 20),
-                    _BigBtn(icon: Icons.skip_next, label: 'Bài sau', onTap: _next),
+                    const SizedBox(width: Sp.xl),
+                    _CircleBtn(
+                        icon: Icons.skip_next_rounded,
+                        label: 'Bài sau',
+                        onTap: _next),
                   ],
                 ),
               ],
@@ -309,34 +424,45 @@ class _CategoryPlayerScreenState extends State<_CategoryPlayerScreen> {
   }
 }
 
-class _BigBtn extends StatelessWidget {
+/// Nút tròn trên nền tối của trình phát YouTube.
+class _CircleBtn extends StatelessWidget {
   final IconData icon;
   final String label;
   final VoidCallback onTap;
+  final bool big;
 
-  const _BigBtn({required this.icon, required this.label, required this.onTap});
+  const _CircleBtn({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+    this.big = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Material(
-          color: Colors.black45,
-          shape: const CircleBorder(),
-          child: InkWell(
-            customBorder: const CircleBorder(),
-            onTap: onTap,
-            child: SizedBox(
-              width: Ui.minTouchTarget,
-              height: Ui.minTouchTarget,
-              child: Icon(icon, size: 38, color: Ui.accent),
+    final size = big ? 62.0 : 48.0;
+    return Semantics(
+      button: true,
+      label: label,
+      child: Material(
+        color: big
+            ? const Color(0xFFFFC93C)
+            : Colors.white.withValues(alpha: 0.10),
+        shape: const CircleBorder(),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: SizedBox(
+            width: size,
+            height: size,
+            child: Icon(
+              icon,
+              size: big ? 32 : 24,
+              color: big ? Colors.black : Colors.white,
             ),
           ),
         ),
-        const SizedBox(height: 4),
-        Text(label, style: const TextStyle(fontSize: 16, color: Ui.textSecondary)),
-      ],
+      ),
     );
   }
 }

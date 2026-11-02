@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 import 'package:open_filex/open_filex.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -44,12 +45,18 @@ class UpdateService {
       final current = await PackageInfo.fromPlatform();
       if (!_isNewer(version, current.version)) return null;
 
+      final digestRaw = (apkAsset['digest'] as String?) ?? '';
+      final sha256Hex = digestRaw.startsWith('sha256:')
+          ? digestRaw.substring('sha256:'.length)
+          : '';
+
       return UpdateInfo(
         version: version,
         tagName: tag,
         apkUrl: apkAsset['browser_download_url'] as String,
         apkSize: (apkAsset['size'] as num?)?.toInt() ?? 0,
         releaseNotes: (json['body'] as String?) ?? '',
+        sha256: sha256Hex,
       );
     } catch (_) {
       return null;
@@ -73,15 +80,42 @@ class UpdateService {
       }
       final total = resp.contentLength ?? info.apkSize;
       final sink = file.openWrite();
+      final digestSink = _DigestSink();
+      final hasher = sha256.startChunkedConversion(digestSink);
       int received = 0;
       await for (final chunk in resp.stream) {
         sink.add(chunk);
+        hasher.add(chunk);
         received += chunk.length;
         if (total > 0 && onProgress != null) {
           onProgress(received / total);
         }
       }
       await sink.close();
+      hasher.close();
+
+      // ---- kiểm tra toàn vẹn ----
+      if (info.apkSize > 0 && received != info.apkSize) {
+        await file.delete();
+        throw Exception('Gói tải không đầy đủ ($received/${info.apkSize} byte)');
+      }
+      if (info.sha256.isNotEmpty &&
+          digestSink.value?.toString() != info.sha256.toLowerCase()) {
+        await file.delete();
+        throw Exception('Sai mã SHA-256 — gói tải không toàn vẹn');
+      }
+      if (await file.length() < 2) {
+        await file.delete();
+        throw Exception('File tải về rỗng hoặc quá nhỏ');
+      }
+      final head = await file.openRead(0, 2).first;
+      if (head.length < 2 || head[0] != 0x50 || head[1] != 0x4B) {
+        await file.delete();
+        throw Exception('File tải về không phải APK hợp lệ');
+      }
+
+      // Chữ ký APK do Android kiểm tra khi cài: nếu APK không cùng chứng chỉ
+      // với bản đang cài, hệ thống sẽ từ chối — app không thể bỏ qua bước này.
       return file;
     } finally {
       client.close();
@@ -120,12 +154,16 @@ class UpdateInfo {
   final int apkSize;
   final String releaseNotes;
 
+  /// SHA-256 của APK do GitHub cung cấp (rỗng nếu release cũ không có).
+  final String sha256;
+
   UpdateInfo({
     required this.version,
     required this.tagName,
     required this.apkUrl,
     required this.apkSize,
     required this.releaseNotes,
+    this.sha256 = '',
   });
 
   String get sizeText {
@@ -133,4 +171,15 @@ class UpdateInfo {
     final mb = apkSize / (1024 * 1024);
     return '${mb.toStringAsFixed(1)} MB';
   }
+}
+
+/// Sink nhận Digest cuối cùng từ hash chunked của package:crypto.
+class _DigestSink implements Sink<Digest> {
+  Digest? value;
+
+  @override
+  void add(Digest data) => value = data;
+
+  @override
+  void close() {}
 }

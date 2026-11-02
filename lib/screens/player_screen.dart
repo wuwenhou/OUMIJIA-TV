@@ -7,12 +7,15 @@ import 'package:video_player/video_player.dart';
 import '../models.dart';
 import '../services/prefs_service.dart';
 import '../services/voice_service.dart';
-import '../ui.dart';
+import '../theme/design_system.dart';
+import '../widgets/channel_card.dart';
 
-/// Màn hình phát TRUYỀN HÌNH toàn màn hình.
-/// - Nút to: đổi kênh ↑↓, tạm dừng, micro, yêu thích
-/// - Điều khiển TV: ↑↓ = đổi kênh, OK = tạm dừng/phát, Back = thoát
-/// - Link hỏng → tự thử fallback → báo lỗi chữ to
+/// Trình phát TRUYỀN HÌNH toàn màn hình.
+/// - Điều khiển TV: ↑↓ = đổi kênh, OK = dừng/phát, Back = thoát
+/// - Link hỏng → tự thử link dự phòng → hiện lỗi + nút "Thử lại"
+/// - Overlay: logo + tên kênh + trạng thái LIVE, yêu thích, giọng nói.
+///
+/// Giao diện player luôn tối (media surface), kể cả app đang ở Light Mode.
 class PlayerScreen extends StatefulWidget {
   final AppConfig config;
   final Channel channel;
@@ -30,6 +33,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
   bool _controlsVisible = true;
   Timer? _hideTimer;
   int _urlIndex = 0;
+
+  /// màu nhấn cố định của vùng media (đảm bảo tương phản trên nền video)
+  static const _accent = Color(0xFFFFC93C);
+
+  bool get _loading =>
+      _status.startsWith('Đang kết nối') || _status.startsWith('Đang tải');
+  bool get _hasError => _status.contains('lỗi');
 
   @override
   void initState() {
@@ -81,7 +91,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
         _controller = ctrl;
         _status = '';
       });
-      await PrefsService.setLastChannel(_channel.id);
+      await PrefsService.recordChannelOpened(_channel.id);
       ctrl.addListener(() {
         if (!mounted) return;
         if (ctrl.value.hasError) {
@@ -102,7 +112,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
       if (_urlIndex < urls.length) {
         _play();
       } else {
-        if (mounted) setState(() => _status = 'Kênh này tạm lỗi. Vui lòng chọn kênh khác.');
+        if (mounted) {
+          setState(() => _status = 'Kênh này tạm lỗi. Vui lòng chọn kênh khác.');
+        }
       }
     }
   }
@@ -112,6 +124,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
       _urlIndex++;
       await _play();
     }
+  }
+
+  /// Người dùng bấm "Thử lại": quay về nguồn chính rồi thử toàn bộ fallback.
+  Future<void> _retry() async {
+    _urlIndex = 0;
+    await _play();
   }
 
   void _switchChannel(int delta) {
@@ -156,8 +174,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
     final ok = await voice.init();
     if (!ok) {
       messenger.showSnackBar(const SnackBar(
-          content: Text('Không dùng được micro trên máy này.',
-              style: TextStyle(fontSize: 20))));
+          content: Text('Không dùng được micro trên máy này.')));
       return;
     }
     if (!mounted) return;
@@ -172,6 +189,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
   Widget build(BuildContext context) {
     final c = _controller;
     final favorite = PrefsService.isFavorite(_channel.id);
+    final playing = c?.value.isPlaying ?? false;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -183,7 +201,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              // VIDEO
+              // ================= VIDEO / TRẠNG THÁI =================
               if (c != null && c.value.isInitialized)
                 Center(
                   child: AspectRatio(
@@ -193,24 +211,54 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 )
               else
                 Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (_status.startsWith('Đang kết nối') ||
-                          _status.startsWith('Đang tải'))
-                        const CircularProgressIndicator(color: Ui.accent),
-                      const SizedBox(height: 16),
-                      Text(
-                        _status.isEmpty ? _channel.name : _status,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontSize: 16, color: Ui.textPrimary),
-                      ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (_loading)
+                          const SizedBox(
+                            width: 44,
+                            height: 44,
+                            child: CircularProgressIndicator(
+                              color: _accent,
+                              strokeWidth: 3,
+                            ),
+                          )
+                        else if (_hasError)
+                          const Icon(Icons.wifi_off_rounded,
+                              color: Colors.white38, size: 52),
+                        const SizedBox(height: 18),
+                        Text(
+                          _status.isEmpty ? _channel.name : _status,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            height: 1.4,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        if (_hasError) ...[
+                          const SizedBox(height: 22),
+                          FilledButton.icon(
+                            style: FilledButton.styleFrom(
+                              backgroundColor: _accent,
+                              foregroundColor: Colors.black,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 26, vertical: 14),
+                            ),
+                            icon: const Icon(Icons.refresh_rounded, size: 22),
+                            label: const Text('Thử lại'),
+                            onPressed: _retry,
+                          ),
+                        ],
+                      ],
+                    ),
                   ),
                 ),
 
-              // CONTROLS
+              // ================= OVERLAY ĐIỀU KHIỂN =================
               AnimatedOpacity(
                 opacity: _controlsVisible ? 1 : 0,
                 duration: const Duration(milliseconds: 250),
@@ -221,81 +269,125 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [Colors.black54, Colors.transparent, Colors.black54],
+                        colors: [
+                          Color(0xCC000000),
+                          Color(0x14000000),
+                          Color(0x22000000),
+                          Color(0xE0000000),
+                        ],
+                        stops: [0.0, 0.3, 0.7, 1.0],
                       ),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Hàng trên: tên kênh + yêu thích + đóng
+                        // ---------- hàng trên ----------
                         SafeArea(
-                          child: Row(
-                            children: [
-                              const SizedBox(width: 16),
-                              Text(
-                                _channel.name,
-                                style: const TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Ui.textPrimary,
+                          bottom: false,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(Sp.l, Sp.s, Sp.s, 0),
+                            child: Row(
+                              children: [
+                                ChannelLogo(channel: _channel, size: 44),
+                                const SizedBox(width: Sp.m),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        _channel.name,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          fontSize: 19,
+                                          fontWeight: FontWeight.w800,
+                                          color: Colors.white,
+                                          letterSpacing: 0.2,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 3),
+                                      _PlaybackChip(
+                                        status: _status,
+                                        error: _hasError,
+                                        loading: _loading,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              const Spacer(),
-                              _BigIconButton(
-                                icon: favorite
-                                    ? Icons.star
-                                    : Icons.star_border,
-                                label: 'Yêu thích',
-                                color: favorite ? Ui.accent : Colors.white,
-                                onPressed: () async {
-                                  await PrefsService.toggleFavorite(_channel.id);
-                                  if (mounted) setState(() {});
-                                  _showControls();
-                                },
-                              ),
-                              _BigIconButton(
-                                icon: Icons.close,
-                                label: 'Thoát',
-                                onPressed: () => Navigator.of(context).pop(),
-                              ),
-                              const SizedBox(width: 8),
-                            ],
+                                _GlassButton(
+                                  icon: favorite
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  iconColor: favorite ? _accent : Colors.white,
+                                  tooltip: 'Yêu thích',
+                                  onPressed: () async {
+                                    await PrefsService.toggleFavorite(_channel.id);
+                                    if (mounted) setState(() {});
+                                    _showControls();
+                                  },
+                                ),
+                                const SizedBox(width: Sp.s),
+                                _GlassButton(
+                                  icon: Icons.close_rounded,
+                                  tooltip: 'Thoát',
+                                  onPressed: () => Navigator.of(context).pop(),
+                                ),
+                                const SizedBox(width: Sp.s),
+                              ],
+                            ),
                           ),
                         ),
-                        // Hàng dưới: kênh trước | pause | kênh sau | micro
+
+                        // ---------- hàng dưới ----------
                         SafeArea(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              _BigIconButton(
-                                icon: Icons.skip_previous,
-                                label: 'Kênh trước',
-                                onPressed: () => _switchChannel(-1),
-                              ),
-                              const SizedBox(width: 24),
-                              _BigIconButton(
-                                icon: (c?.value.isPlaying ?? false)
-                                    ? Icons.pause
-                                    : Icons.play_arrow,
-                                label: 'Dừng / Phát',
-                                onPressed: _togglePlay,
-                              ),
-                              const SizedBox(width: 24),
-                              _BigIconButton(
-                                icon: Icons.skip_next,
-                                label: 'Kênh sau',
-                                onPressed: () => _switchChannel(1),
-                              ),
-                              if (PrefsService.voiceEnabled) ...[
-                                const SizedBox(width: 24),
-                                _BigIconButton(
-                                  icon: Icons.mic,
-                                  label: 'Nói lệnh',
-                                  color: Ui.accent,
-                                  onPressed: _openVoice,
+                          top: false,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: Sp.m),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    _ControlButton(
+                                      icon: Icons.skip_previous_rounded,
+                                      label: 'Kênh trước',
+                                      onPressed: () => _switchChannel(-1),
+                                    ),
+                                    const SizedBox(width: Sp.xl + Sp.s),
+                                    _PlayPauseButton(
+                                      playing: playing,
+                                      onPressed: _togglePlay,
+                                    ),
+                                    const SizedBox(width: Sp.xl + Sp.s),
+                                    _ControlButton(
+                                      icon: Icons.skip_next_rounded,
+                                      label: 'Kênh sau',
+                                      onPressed: () => _switchChannel(1),
+                                    ),
+                                    if (PrefsService.voiceEnabled) ...[
+                                      const SizedBox(width: Sp.xl + Sp.s),
+                                      _ControlButton(
+                                        icon: Icons.mic_rounded,
+                                        label: 'Giọng nói',
+                                        accent: true,
+                                        onPressed: _openVoice,
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                                const SizedBox(height: Sp.s),
+                                Text(
+                                  '↑↓ đổi kênh · OK dừng/phát · Back thoát',
+                                  style: TextStyle(
+                                    fontSize: 11.5,
+                                    color: Colors.white.withValues(alpha: 0.45),
+                                    letterSpacing: 0.2,
+                                  ),
                                 ),
                               ],
-                            ],
+                            ),
                           ),
                         ),
                       ],
@@ -342,61 +434,156 @@ class _PlayerScreenState extends State<PlayerScreen> {
   }
 }
 
-/// Nút tròn to có nhãn — chuẩn chạm cho người già (>= 64dp).
-class _BigIconButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onPressed;
-  final Color color;
+/// Chip trạng thái phát trên overlay: LIVE / đang tải / mất kết nối.
+class _PlaybackChip extends StatelessWidget {
+  final String status;
+  final bool error;
+  final bool loading;
 
-  const _BigIconButton({
-    required this.icon,
-    required this.label,
-    required this.onPressed,
-    this.color = Colors.white,
+  const _PlaybackChip({
+    required this.status,
+    required this.error,
+    required this.loading,
   });
 
   @override
   Widget build(BuildContext context) {
-    final focused = Focus.of(context).hasFocus;
+    late final String label;
+    late final Color color;
+    if (error) {
+      label = 'MẤT KẾT NỐI';
+      color = const Color(0xFFFF6B6B);
+    } else if (loading) {
+      label = status.toUpperCase();
+      color = const Color(0xFFFFC93C);
+    } else {
+      label = 'LIVE';
+      color = const Color(0xFF39D98A);
+    }
+    return StatusChip(text: label, color: color, pulsing: !error && !loading);
+  }
+}
+
+/// Nút tròn kiểu "glass" trên video (48dp).
+class _GlassButton extends StatelessWidget {
+  final IconData icon;
+  final String tooltip;
+  final VoidCallback onPressed;
+  final Color iconColor;
+
+  const _GlassButton({
+    required this.icon,
+    required this.tooltip,
+    required this.onPressed,
+    this.iconColor = Colors.white,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: tooltip,
+      child: Material(
+        color: Colors.white.withValues(alpha: 0.10),
+        shape: const CircleBorder(),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onPressed,
+          child: SizedBox(
+            width: 48,
+            height: 48,
+            child: Icon(icon, size: 24, color: iconColor),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Nút phụ dưới đáy (kênh trước/sau, micro).
+class _ControlButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onPressed;
+  final bool accent;
+
+  const _ControlButton({
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+    this.accent = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Semantics(
       button: true,
       label: label,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: focused ? Ui.focusBorder : Colors.transparent,
-                width: 3,
-              ),
-            ),
-            child: Material(
-              color: Colors.black45,
-              shape: const CircleBorder(),
-              child: InkWell(
-                customBorder: const CircleBorder(),
-                onTap: onPressed,
-                child: SizedBox(
-                  width: Ui.minTouchTarget,
-                  height: Ui.minTouchTarget,
-                  child: Icon(icon, size: 28, color: color),
+          Material(
+            color: Colors.white.withValues(alpha: 0.10),
+            shape: const CircleBorder(),
+            clipBehavior: Clip.antiAlias,
+            child: InkWell(
+              onTap: onPressed,
+              child: SizedBox(
+                width: 52,
+                height: 52,
+                child: Icon(
+                  icon,
+                  size: 26,
+                  color: accent
+                      ? const Color(0xFFFFC93C)
+                      : Colors.white,
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 4),
-          Text(label,
-              style: const TextStyle(fontSize: 13, color: Ui.textSecondary)),
+          const SizedBox(height: 6),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11.5,
+              color: Colors.white.withValues(alpha: 0.65),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-/// Hộp thoại giọng nói: nghe → hiện kết quả TO → người dùng OK → thực hiện.
+/// Nút phát/dừng chính — nổi bật bằng accent, 64dp.
+class _PlayPauseButton extends StatelessWidget {
+  final bool playing;
+  final VoidCallback onPressed;
+
+  const _PlayPauseButton({required this.playing, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: const Color(0xFFFFC93C),
+      shape: const CircleBorder(),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onPressed,
+        child: SizedBox(
+          width: 64,
+          height: 64,
+          child: Icon(
+            playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
+            size: 34,
+            color: Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Hộp thoại giọng nói: nghe → hiện kết quả → người dùng xác nhận → thực hiện.
 class _VoiceDialog extends StatefulWidget {
   final AppConfig config;
   final VoiceService voice;
@@ -449,94 +636,88 @@ class _VoiceDialogState extends State<_VoiceDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final c = context.c;
     final cmd = _command;
     return Dialog(
-      backgroundColor: Ui.surface,
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(Sp.xxl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              _listening ? Icons.mic : Icons.hearing,
-              size: 72,
-              color: Ui.accent,
+            Container(
+              width: 64,
+              height: 64,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: c.accent.withValues(alpha: 0.16),
+              ),
+              child: Icon(
+                _listening ? Icons.mic_rounded : Icons.hearing_rounded,
+                size: 32,
+                color: c.accent,
+              ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: Sp.l),
             Text(
               _listening ? 'Xin mời nói...' : 'Bạn vừa nói:',
-              style: const TextStyle(fontSize: 16, color: Ui.textSecondary),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: Sp.s),
             Text(
               _heard.isEmpty ? '...' : _heard,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Ui.textPrimary),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             if (cmd != null && !cmd.isUnknown) ...[
-              const SizedBox(height: 16),
+              const SizedBox(height: Sp.l),
               Text(
                 cmd.confirmation,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 18, color: Ui.accent),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: c.accent, fontWeight: FontWeight.w600),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: Sp.xl),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32, vertical: 16),
-                      textStyle: const TextStyle(fontSize: 18),
+                  Expanded(
+                    child: FilledButton(
+                      onPressed: () => Navigator.of(context).pop(cmd),
+                      child: const Text('Đồng ý'),
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pop(cmd);
-                    },
-                    child: const Text('Đồng ý'),
                   ),
-                  const SizedBox(width: 16),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32, vertical: 16),
-                      textStyle: const TextStyle(fontSize: 18),
+                  const SizedBox(width: Sp.m),
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: _start,
+                      child: const Text('Nói lại'),
                     ),
-                    onPressed: _start,
-                    child: const Text('Nói lại'),
                   ),
                 ],
               ),
             ] else if (!_listening) ...[
-              const SizedBox(height: 16),
-              const Text('Không hiểu lệnh. Thử nói: "Bật VTV3"',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, color: Ui.textSecondary)),
-              const SizedBox(height: 24),
+              const SizedBox(height: Sp.l),
+              Text(
+                'Không hiểu lệnh. Thử nói: "Bật VTV3"',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              const SizedBox(height: Sp.xl),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32, vertical: 16),
-                      textStyle: const TextStyle(fontSize: 18),
+                  Expanded(
+                    child: FilledButton(
+                      onPressed: _start,
+                      child: const Text('Nói lại'),
                     ),
-                    onPressed: _start,
-                    child: const Text('Nói lại'),
                   ),
-                  const SizedBox(width: 16),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32, vertical: 16),
-                      textStyle: const TextStyle(fontSize: 18),
+                  const SizedBox(width: Sp.m),
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('Đóng'),
                     ),
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Đóng'),
                   ),
                 ],
               ),

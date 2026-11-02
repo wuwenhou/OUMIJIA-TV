@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 
 import '../services/update_service.dart';
-import '../ui.dart';
+import '../theme/design_system.dart';
 
-/// Hộp thoại cập nhật lớn, chữ to, dành cho người già.
+/// Luồng cập nhật trong app (bản APK độc lập → GitHub Releases):
+/// - [checkAndShowUpdate] : kiểm tra thầm lặng khi mở app, có bản mới mới hỏi.
+/// - [showUpdateFlow]     : có hộp "Đang kiểm tra" + thông báo kết quả
+///                          (dùng cho nút "Kiểm tra cập nhật ngay" ở Cài đặt).
+///
+/// Tải về qua UpdateService, cài đặt nhờ trình cài Android (OpenFilex) —
+/// người dùng vẫn phải xác nhận cài đặt như Android yêu cầu.
+Future<void> checkAndShowUpdate(BuildContext context) async {
+  final info = await UpdateService.checkForUpdate();
+  if (info == null || !context.mounted) return;
+  final want = await _askUpdate(context, info);
+  if (want == true && context.mounted) await _downloadAndInstall(context, info);
+}
+
 Future<void> showUpdateFlow(BuildContext context) async {
-  // 1. Đang kiểm tra
   showDialog(
     context: context,
     barrierDismissible: false,
@@ -15,41 +27,37 @@ Future<void> showUpdateFlow(BuildContext context) async {
   final info = await UpdateService.checkForUpdate();
 
   if (!context.mounted) return;
-  Navigator.of(context).pop(); // đóng hộp kiểm tra
+  Navigator.of(context).pop(); // đóng hộp đang kiểm tra
 
   if (info == null) {
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Bạn đang dùng bản mới nhất. 👍',
-          style: TextStyle(fontSize: 20)),
-      duration: Duration(seconds: 3),
+      content: Text('Bạn đang dùng bản mới nhất.'),
+      duration: Duration(seconds: 2),
     ));
     return;
   }
 
-  // 2. Có bản mới → hỏi
-  if (!context.mounted) return;
-  final want = await showDialog<bool>(
+  final want = await _askUpdate(context, info);
+  if (want == true && context.mounted) await _downloadAndInstall(context, info);
+}
+
+Future<bool?> _askUpdate(BuildContext context, UpdateInfo info) {
+  return showDialog<bool>(
     context: context,
     barrierDismissible: false,
     builder: (_) => _UpdateAvailableDialog(info: info),
   );
-  if (want != true || !context.mounted) return;
-
-  // 3. Tải + cài đặt
-  await _downloadAndInstall(context, info);
 }
 
 Future<void> _downloadAndInstall(BuildContext context, UpdateInfo info) async {
   double progress = 0;
-  // Hộp thoại tải
   showDialog(
     context: context,
     barrierDismissible: false,
     builder: (ctx) => StatefulBuilder(
       builder: (ctx, setState) {
-        // Cập nhật progress từ bên ngoài qua ValueNotifier sẽ phức tạp;
-        // dùng closure đơn giản: lưu setState vào biến toàn cục tạm.
+        // Callback từ UpdateService gọi lại setState của hộp thoại này.
         _downloadProgress = (p) {
           progress = p;
           setState(() {});
@@ -70,8 +78,7 @@ Future<void> _downloadAndInstall(BuildContext context, UpdateInfo info) async {
     if (!context.mounted) return;
     Navigator.of(context).pop();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('Tải cập nhật thất bại: $e',
-          style: const TextStyle(fontSize: 20)),
+      content: Text('Tải bản cập nhật thất bại: $e'),
       duration: const Duration(seconds: 4),
     ));
   } finally {
@@ -79,7 +86,7 @@ Future<void> _downloadAndInstall(BuildContext context, UpdateInfo info) async {
   }
 }
 
-// Biến tạm để cập nhật progress từ callback
+// Nối callback tiến trình từ UpdateService vào hộp thoại đang mở.
 void Function(double)? _downloadProgress;
 
 class _CheckingDialog extends StatelessWidget {
@@ -88,16 +95,15 @@ class _CheckingDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Ui.surface,
-      child: const Padding(
-        padding: EdgeInsets.all(32),
+      child: Padding(
+        padding: const EdgeInsets.all(Sp.xxl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircularProgressIndicator(color: Ui.accent),
-            SizedBox(height: 20),
-            Text('Đang kiểm tra cập nhật...',
-                style: TextStyle(fontSize: 24, color: Ui.textPrimary)),
+            const CircularProgressIndicator(),
+            const SizedBox(height: Sp.l),
+            Text('Đang kiểm tra bản mới...',
+                style: Theme.of(context).textTheme.bodyLarge),
           ],
         ),
       ),
@@ -113,57 +119,58 @@ class _UpdateAvailableDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Ui.surface,
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(Sp.xxl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(Icons.system_update, size: 72, color: Ui.accent),
-            const SizedBox(height: 16),
-            const Text('Có bản mới!',
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Ui.textPrimary)),
-            const SizedBox(height: 8),
-            Text('Phiên bản ${info.version}${info.sizeText.isEmpty ? '' : '  •  ${info.sizeText}'}',
-                style: const TextStyle(fontSize: 22, color: Ui.accent)),
+            Container(
+              width: 52,
+              height: 52,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Radii.m),
+                color: context.c.accent.withValues(alpha: 0.16),
+              ),
+              child:
+                  Icon(Icons.system_update_alt, color: context.c.accent, size: 28),
+            ),
+            const SizedBox(height: Sp.l),
+            Text('Có bản mới', style: Theme.of(context).textTheme.headlineMedium),
+            const SizedBox(height: Sp.xs),
+            Text(
+              'Phiên bản ${info.version}'
+              '${info.sizeText.isEmpty ? '' : '  •  ${info.sizeText}'}',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: context.c.accent, fontWeight: FontWeight.w600),
+            ),
             if (info.releaseNotes.trim().isNotEmpty) ...[
-              const SizedBox(height: 16),
-              Container(
-                constraints: const BoxConstraints(maxHeight: 200),
+              const SizedBox(height: Sp.l),
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: 180),
                 child: SingleChildScrollView(
-                  child: Text(
-                    info.releaseNotes,
-                    style: const TextStyle(
-                        fontSize: 18, color: Ui.textSecondary),
-                  ),
+                  child: Text(info.releaseNotes,
+                      style: Theme.of(context).textTheme.bodyMedium),
                 ),
               ),
             ],
-            const SizedBox(height: 24),
+            const SizedBox(height: Sp.xl),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 28, vertical: 16),
-                    textStyle: const TextStyle(fontSize: 22),
+                Expanded(
+                  child: FilledButton(
+                    onPressed: () => Navigator.of(context).pop(true),
+                    child: const Text('Cập nhật ngay'),
                   ),
-                  onPressed: () => Navigator.of(context).pop(true),
-                  child: const Text('Cập nhật ngay'),
                 ),
-                const SizedBox(width: 16),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 28, vertical: 16),
-                    textStyle: const TextStyle(fontSize: 22),
+                const SizedBox(width: Sp.m),
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    child: const Text('Để sau'),
                   ),
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text('Để sau'),
                 ),
               ],
             ),
@@ -183,24 +190,27 @@ class _DownloadingDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final pct = (progress * 100).clamp(0, 100).toStringAsFixed(0);
     return Dialog(
-      backgroundColor: Ui.surface,
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(Sp.xxl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('Đang tải bản cập nhật...',
-                style: TextStyle(fontSize: 24, color: Ui.textPrimary)),
-            const SizedBox(height: 20),
+            Text('Đang tải bản cập nhật...',
+                style: Theme.of(context).textTheme.bodyLarge),
+            const SizedBox(height: Sp.l),
             LinearProgressIndicator(
               value: progress > 0 ? progress : null,
-              minHeight: 12,
-              color: Ui.accent,
-              backgroundColor: Ui.bg,
+              minHeight: 10,
+              borderRadius: BorderRadius.circular(5),
             ),
-            const SizedBox(height: 12),
-            Text('$pct%',
-                style: const TextStyle(fontSize: 22, color: Ui.accent)),
+            const SizedBox(height: Sp.s),
+            Text(
+              progress > 0 ? '$pct%' : 'Đang kết nối...',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: context.c.accent),
+            ),
           ],
         ),
       ),

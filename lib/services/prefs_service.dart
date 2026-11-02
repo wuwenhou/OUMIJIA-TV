@@ -17,8 +17,20 @@ class PrefsService {
 
   // ---- Kênh xem lần cuối ----
   static String get lastChannelId => _prefs.getString(_kLastChannel) ?? 'vtv1';
-  static Future<void> setLastChannel(String id) =>
-      _prefs.setString(_kLastChannel, id);
+
+  /// Ghi nhận mở kênh: cập nhật lastChannel + hàng "Vừa xem" (mới nhất đứng đầu).
+  static Future<void> recordChannelOpened(String id) async {
+    await _prefs.setString(_kLastChannel, id);
+    final recents = recentChannelIds..remove(id);
+    recents.insert(0, id);
+    if (recents.length > 10) recents.removeRange(10, recents.length);
+    await _prefs.setStringList(_kRecentChannels, recents);
+  }
+
+  // ---- Kênh vừa xem (dùng cho hàng Home, tối đa 10) ----
+  static const _kRecentChannels = 'recent_channels';
+  static List<String> get recentChannelIds =>
+      _prefs.getStringList(_kRecentChannels) ?? [];
 
   // ---- Kênh yêu thích ----
   static List<String> get favorites => _prefs.getStringList(_kFavorites) ?? [];
@@ -48,4 +60,9 @@ class PrefsService {
   // ---- Cập nhật ----
   static bool get autoUpdate => _prefs.getBool(_kAutoUpdate) ?? true;
   static Future<void> setAutoUpdate(bool v) => _prefs.setBool(_kAutoUpdate, v);
+
+  // ---- Kiểu xem tab Kênh: danh sách (list) hay lưới (grid) ----
+  static const _kGridView = 'channels_grid_view';
+  static bool get gridView => _prefs.getBool(_kGridView) ?? false;
+  static Future<void> setGridView(bool v) => _prefs.setBool(_kGridView, v);
 }
