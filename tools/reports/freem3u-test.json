@@ -1,0 +1,351 @@
+{
+    "generatedAt":  "2026-11-02T18:06:53.8604248+07:00",
+    "mode":  "m3u",
+    "source":  "tools\\freem3u-test.m3u",
+    "summary":  {
+                    "total":  16,
+                    "working":  6,
+                    "degraded":  7,
+                    "offline":  3,
+                    "invalid":  0
+                },
+    "note":  "Kiem tra playlist + segment dau tien (container signature). Khong thay the kiem thu giai ma tren thiet bi that.",
+    "channels":  [
+                     {
+                         "id":  "on-bibi",
+                         "name":  "ON BiBi (freem3u)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "DEGRADED",
+                         "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 6237ms",
+                         "latencyMs":  6237,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec03-pop1-hlc.tv360.vn/bpk-token/g4eeobnbqjdalcnlozmtmcchau3qqryf/bpk-tv/263/output/263-audio_198800_eng_iv_2=196800-video_iv_2=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:05:26.7524517+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=178",
+                                          "status":  "DEGRADED",
+                                          "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 6237ms",
+                                          "latencyMs":  6237
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "on-kids",
+                         "name":  "ON Kids (freem3u)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "DEGRADED",
+                         "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 11643ms",
+                         "latencyMs":  11643,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec05-pop1-hlc.tv360.vn/bpk-token/63w5cyrrm7igfp2b4a7pp3orml3o3ulc/bpk-tv/234/output/234-audio_198800_eng_iv_1=196800-video_iv_1=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:05:38.9026006+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=179",
+                                          "status":  "DEGRADED",
+                                          "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 11643ms",
+                                          "latencyMs":  11643
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "on-cine",
+                         "name":  "ON Cine (freem3u)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  4894,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec01-pop1-hlc.tv360.vn/bpk-token/3d6m62g3o3hgrgkm7y2nt7gpndmpzt3i/bpk-tv/226/output/226-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:05:44.2987446+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=176",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  4894
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "on-movies",
+                         "name":  "ON Movies (freem3u)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "DEGRADED",
+                         "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 6262ms",
+                         "latencyMs":  6262,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec03-pop1-hlc.tv360.vn/bpk-token/gvebw2v3yingvhp4fi3disa3ni2uqg3k/bpk-tv/346/output/346-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:05:51.0632478+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=181",
+                                          "status":  "DEGRADED",
+                                          "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 6262ms",
+                                          "latencyMs":  6262
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "on-vie-dramas",
+                         "name":  "ON Vie Dramas (freem3u)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "DEGRADED",
+                         "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 8757ms",
+                         "latencyMs":  8757,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec01-pop1-hlc.tv360.vn/bpk-token/l7yp43dopl7wzzclz4yf54h6nrp7b7tm/bpk-tv/339/output/339-audio_214835_und_iv_2=214800-video_iv_2=1064800.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:06:00.3223456+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=177",
+                                          "status":  "DEGRADED",
+                                          "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 8757ms",
+                                          "latencyMs":  8757
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "on-e",
+                         "name":  "ON E Channel (freem3u)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "DEGRADED",
+                         "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 7337ms",
+                         "latencyMs":  7337,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec03-pop1-hlc.tv360.vn/bpk-token/7ck3qemsd64rdrkvrfg7tfnych4jloar/bpk-tv/212/output/212-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:06:08.1630051+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=182",
+                                          "status":  "DEGRADED",
+                                          "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 7337ms",
+                                          "latencyMs":  7337
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "on-vie-giai-tri",
+                         "name":  "ON Vie Giai Tri (freem3u)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "DEGRADED",
+                         "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 7371ms",
+                         "latencyMs":  7371,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec01-pop1-hlc.tv360.vn/bpk-token/fuuoyxv5ulwv44xn3ubcykhmlywsr3c6/bpk-tv/211/output/211-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:06:16.0376214+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=180",
+                                          "status":  "DEGRADED",
+                                          "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 7371ms",
+                                          "latencyMs":  7371
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "on-life",
+                         "name":  "ON Life (freem3u)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  4469,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec04-pop1-hlc.tv360.vn/bpk-token/qwlheawsdrzqeck4inpijftsakczm4qc/bpk-tv/347/output/347-audio_214835_und_iv_2=214800-video_iv_2=1064800.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:06:21.0094797+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=188",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  4469
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "on-music",
+                         "name":  "ON Music (freem3u)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  5333,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec03-pop1-hlc.tv360.vn/bpk-token/ja444uxdwphvfuhu74hesoookjedttss/bpk-tv/220/output/220-audio_214835_und_iv_3=214800-video_iv_3=1064800.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:06:26.8452692+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=185",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  5333
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "on-style",
+                         "name":  "ON Style TV (freem3u)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "DEGRADED",
+                         "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 6358ms",
+                         "latencyMs":  6358,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec01-pop1-hlc.tv360.vn/bpk-token/nvyqyxdn7mgvzk5ahuagy4imlrwxcdc4/bpk-tv/219/output/219-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:06:33.7079384+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=184",
+                                          "status":  "DEGRADED",
+                                          "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 6358ms",
+                                          "latencyMs":  6358
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "htv4",
+                         "name":  "HTV4 (freem3u)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  3595,
+                         "container":  "",
+                         "testedUrl":  "https://freem3u.xyz/api/live/play.m3u8?vid=9",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:06:37.8047459+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=9",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  3595
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "htv5",
+                         "name":  "HTV5 (freem3u)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  4998,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec05-pop1-hlc.tv360.vn/bpk-token/3lliikgmlscsrvipwv2nxvuefdnnnbbi/bpk-tv/246/output/246-audio_279600_eng_iv_1=277600-video_iv_1=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:06:43.3075862+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=151",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  4998
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "dongnai1",
+                         "name":  "Dong Nai 1 (vtvgo ott3)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2145,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-ott3.vtvdigital.vn/live/dongnai1tv/chunklist_2.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:06:45.9548890+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-ott3.vtvdigital.vn/live/dongnai1tv/chunklist_2.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2145
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "dongnai2",
+                         "name":  "Dong Nai 2 (vtvgo ott3)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  3744,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-ott3.vtvdigital.vn/live/dongnai2tv/chunklist_2.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:06:50.2014167+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-ott3.vtvdigital.vn/live/dongnai2tv/chunklist_2.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  3744
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "travinh",
+                         "name":  "Tra Vinh (vtvgo ott3)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 404",
+                         "latencyMs":  941,
+                         "container":  "",
+                         "testedUrl":  "https://vtvgolive-ott3.vtvdigital.vn/live/travinhtv/chunklist_2.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:06:51.6445482+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-ott3.vtvdigital.vn/live/travinhtv/chunklist_2.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 404",
+                                          "latencyMs":  941
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "quangnam",
+                         "name":  "Quang Nam (vtvgo ott3)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 404",
+                         "latencyMs":  1194,
+                         "container":  "",
+                         "testedUrl":  "https://vtvgolive-ott3.vtvdigital.vn/live/quangnamtv/chunklist_2.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T18:06:53.3428465+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-ott3.vtvdigital.vn/live/quangnamtv/chunklist_2.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 404",
+                                          "latencyMs":  1194
+                                      }
+                                  ]
+                     }
+                 ]
+}

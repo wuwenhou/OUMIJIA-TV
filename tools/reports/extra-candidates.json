@@ -1,0 +1,414 @@
+{
+    "generatedAt":  "2026-11-02T17:53:53.0336549+07:00",
+    "mode":  "m3u",
+    "source":  "tools\\extra-candidates.m3u",
+    "summary":  {
+                    "total":  19,
+                    "working":  2,
+                    "degraded":  0,
+                    "offline":  17,
+                    "invalid":  0
+                },
+    "note":  "Kiem tra playlist + segment dau tien (container signature). Khong thay the kiem thu giai ma tren thiet bi that.",
+    "channels":  [
+                     {
+                         "id":  "vtv1-fpt",
+                         "name":  "VTV1 (FPT)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  422,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv1/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:52:13.8240533+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv1/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  422
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv2-fpt",
+                         "name":  "VTV2 (FPT)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  379,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv2/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:52:14.7063419+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv2/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  379
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv2-tvon",
+                         "name":  "VTV2 (tvon)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "Lỗi kết nối: Exception calling \"GetResult\" with \"0\" argument(s): \"A task was canceled.\"",
+                         "latencyMs":  12018,
+                         "container":  "",
+                         "testedUrl":  "https://live.tvon.vn/g2/vtv2/video_hd_compat/playlist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:52:27.2279932+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://live.tvon.vn/g2/vtv2/video_hd_compat/playlist.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Lỗi kết nối: Exception calling \"GetResult\" with \"0\" argument(s): \"A task was canceled.\"",
+                                          "latencyMs":  12018
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv3-fpt",
+                         "name":  "VTV3 (FPT)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  730,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv3/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:52:28.4610668+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv3/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  730
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv4-fpt",
+                         "name":  "VTV4 (FPT)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  433,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv4/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:52:29.3990920+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv4/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  433
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv4-tvon",
+                         "name":  "VTV4 (tvon)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "Lỗi kết nối: Exception calling \"GetResult\" with \"0\" argument(s): \"A task was canceled.\"",
+                         "latencyMs":  12006,
+                         "container":  "",
+                         "testedUrl":  "https://live.tvon.vn/g2/vtv4/video_hd_compat/playlist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:52:41.9097261+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://live.tvon.vn/g2/vtv4/video_hd_compat/playlist.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Lỗi kết nối: Exception calling \"GetResult\" with \"0\" argument(s): \"A task was canceled.\"",
+                                          "latencyMs":  12006
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv5-fpt",
+                         "name":  "VTV5 (FPT)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  443,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv5/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:52:42.8599954+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv5/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  443
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv5-tvon",
+                         "name":  "VTV5 (tvon)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "Lỗi kết nối: Exception calling \"GetResult\" with \"0\" argument(s): \"A task was canceled.\"",
+                         "latencyMs":  12004,
+                         "container":  "",
+                         "testedUrl":  "https://live.tvon.vn/g2/vtv5/video_hd_compat/playlist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:52:55.3689794+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://live.tvon.vn/g2/vtv5/video_hd_compat/playlist.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Lỗi kết nối: Exception calling \"GetResult\" with \"0\" argument(s): \"A task was canceled.\"",
+                                          "latencyMs":  12004
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv6-fpt",
+                         "name":  "VTV6 (FPT)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  261,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv6/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:52:56.1368865+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv6/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  261
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv6-tvon",
+                         "name":  "VTV6 (tvon)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "Lỗi kết nối: Exception calling \"GetResult\" with \"0\" argument(s): \"A task was canceled.\"",
+                         "latencyMs":  12015,
+                         "container":  "",
+                         "testedUrl":  "https://live.tvon.vn/g2/vtv6/video_hd_compat/playlist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:53:08.6565171+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://live.tvon.vn/g2/vtv6/video_hd_compat/playlist.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Lỗi kết nối: Exception calling \"GetResult\" with \"0\" argument(s): \"A task was canceled.\"",
+                                          "latencyMs":  12015
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv7-fpt",
+                         "name":  "VTV7 (FPT)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  330,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv7/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:53:09.4904707+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv7/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  330
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv7-tvon",
+                         "name":  "VTV7 (tvon)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "Lỗi kết nối: Exception calling \"GetResult\" with \"0\" argument(s): \"A task was canceled.\"",
+                         "latencyMs":  12013,
+                         "container":  "",
+                         "testedUrl":  "https://live.tvon.vn/g2/vtv7/video_hd_compat/playlist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:53:22.0079583+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://live.tvon.vn/g2/vtv7/video_hd_compat/playlist.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Lỗi kết nối: Exception calling \"GetResult\" with \"0\" argument(s): \"A task was canceled.\"",
+                                          "latencyMs":  12013
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv8-fpt",
+                         "name":  "VTV8 (FPT)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  193,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv8/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:53:22.7040021+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv8/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  193
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv8-tvon",
+                         "name":  "VTV8 (tvon)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "Lỗi kết nối: Exception calling \"GetResult\" with \"0\" argument(s): \"A task was canceled.\"",
+                         "latencyMs":  12004,
+                         "container":  "",
+                         "testedUrl":  "https://live.tvon.vn/g2/vtv8/video_hd_compat/playlist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:53:35.2111695+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://live.tvon.vn/g2/vtv8/video_hd_compat/playlist.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Lỗi kết nối: Exception calling \"GetResult\" with \"0\" argument(s): \"A task was canceled.\"",
+                                          "latencyMs":  12004
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv9-fpt",
+                         "name":  "VTV9 (FPT)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  237,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv9/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:53:35.9526820+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv9/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  237
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv9-tvon",
+                         "name":  "VTV9 (tvon)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "Lỗi kết nối: Exception calling \"GetResult\" with \"0\" argument(s): \"A task was canceled.\"",
+                         "latencyMs":  12002,
+                         "container":  "",
+                         "testedUrl":  "https://live.tvon.vn/g2/vtv9/video_hd_compat/playlist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:53:48.4602111+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://live.tvon.vn/g2/vtv9/video_hd_compat/playlist.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Lỗi kết nối: Exception calling \"GetResult\" with \"0\" argument(s): \"A task was canceled.\"",
+                                          "latencyMs":  12002
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv10-fpt",
+                         "name":  "VTV10 (FPT)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  265,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv10/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:53:49.2284252+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv10/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  265
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "vtv10-tvon",
+                         "name":  "VTV10 (tvon)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment fMP4 hợp lệ",
+                         "latencyMs":  969,
+                         "container":  "fMP4",
+                         "testedUrl":  "https://live.tvon.vn/g2/vtv10/video_hd_compat/playlist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:53:50.7039886+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://live.tvon.vn/g2/vtv10/video_hd_compat/playlist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment fMP4 hợp lệ",
+                                          "latencyMs":  969
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "qpvn",
+                         "name":  "QPVN (vtvprime)",
+                         "group":  "",
+                         "logo":  "",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1309,
+                         "container":  "TS",
+                         "testedUrl":  "https://liveh12.vtvprime.vn/hls/QPTV/01.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:53:52.5183694+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://liveh12.vtvprime.vn/hls/QPTV/index.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1309
+                                      }
+                                  ]
+                     }
+                 ]
+}

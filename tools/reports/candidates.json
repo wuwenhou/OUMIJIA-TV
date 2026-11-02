@@ -1,0 +1,2010 @@
+{
+    "generatedAt":  "2026-11-02T17:51:43.7415989+07:00",
+    "mode":  "m3u",
+    "source":  "https://iptv-org.github.io/iptv/countries/vn.m3u",
+    "summary":  {
+                    "total":  95,
+                    "working":  63,
+                    "degraded":  2,
+                    "offline":  29,
+                    "invalid":  1
+                },
+    "note":  "Kiem tra playlist + segment dau tien (container signature). Khong thay the kiem thu giai ma tren thiet bi that.",
+    "channels":  [
+                     {
+                         "id":  "AnGiangTV1.vn@SD",
+                         "name":  "An Giang TV 1 (1080p) [Geo-blocked]",
+                         "group":  "General",
+                         "logo":  "https://i.imgur.com/mgp6RAU.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2539,
+                         "container":  "TS",
+                         "testedUrl":  "https://tv.angiangtv.vn/live/kgtv/kgtv.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:05.6477239+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://tv.angiangtv.vn/live/kgtv/kgtv.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2539
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "AnGiangTV2.vn@SD",
+                         "name":  "An Giang TV 2 (1080p) [Geo-blocked]",
+                         "group":  "Entertainment",
+                         "logo":  "https://i.imgur.com/efrauLr.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1515,
+                         "container":  "TS",
+                         "testedUrl":  "https://tv.angiangtv.vn/live/kgtv2/kgtv2.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:07.9726141+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://tv.angiangtv.vn/live/kgtv2/kgtv2.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1515
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "AnGiangTV3.vn@SD",
+                         "name":  "An Giang TV 3 (1080p) [Geo-blocked]",
+                         "group":  "Entertainment",
+                         "logo":  "https://i.imgur.com/gZUV4z8.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1853,
+                         "container":  "TS",
+                         "testedUrl":  "https://tv.angiangtv.vn/live/kgtv1/kgtv1.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:10.6387051+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://tv.angiangtv.vn/live/kgtv1/kgtv1.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1853
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "AnNinhTV.vn@HD",
+                         "name":  "An Ninh TV HD (1080p)",
+                         "group":  "Undefined",
+                         "logo":  "https://static.wikia.nocookie.net/logos/images/1/1a/ANTV_2023.png/revision/latest/scale-to-width-down/512?path-prefix=vi",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1767,
+                         "container":  "TS",
+                         "testedUrl":  "https://liveh12.vtvprime.vn/hls/ANNINHTV/01.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:13.2096350+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://liveh12.vtvprime.vn/hls/ANNINHTV/index.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1767
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "AsianFoodNetwork.sg@Vietnam",
+                         "name":  "Asian Food Network Vietnam (1080p)",
+                         "group":  "Cooking",
+                         "logo":  "https://i.imgur.com/pux6WN8.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  4388,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec03-pop1-hlc.tv360.vn/bpk-token/fmdj4mknz22tdow2lnbcubu6gevqnhrr/bpk-tv/178/output/178-audio_198800_eng_iv_1=196800-video_iv_1=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:18.4103090+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=215",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  4388
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "BinhThuanTV.vn@SD",
+                         "name":  "Binh Thuan TV (1080p) [Geo-blocked]",
+                         "group":  "Undefined",
+                         "logo":  "",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2550,
+                         "container":  "TS",
+                         "testedUrl":  "https://1011154949.vnns.net/CDN-FPT02/BINHTHUAN-SD-720p/chunks.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:21.7734000+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://1011154949.vnns.net/CDN-FPT02/BINHTHUAN-SD-720p/playlist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2550
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "CaMauTV.vn@SD",
+                         "name":  "Ca Mau TV (720p) [Geo-blocked]",
+                         "group":  "Undefined",
+                         "logo":  "https://raw.githubusercontent.com/HaNoiIPTV/HaNoiIPTV.m3u/refs/heads/master/Logo%20kh%C3%A1c/CTV%20-%20Truy%E1%BB%81n%20h%C3%ACnh%20C%C3%A0%20Mau%20HD/CTV%20-%20Truy%E1%BB%81n%20h%C3%ACnh%20C%C3%A0%20Mau.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2268,
+                         "container":  "TS",
+                         "testedUrl":  "https://tv.ctvcamau.vn/live/tv/tv.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:24.8499448+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://tv.ctvcamau.vn/live/tv/tv.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2268
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "CanThoTV2.vn@SD",
+                         "name":  "Can Tho TV 2 (1080p)",
+                         "group":  "Education;Science",
+                         "logo":  "https://i.ibb.co/JjVvkMsf/cantho2-2025.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1832,
+                         "container":  "TS",
+                         "testedUrl":  "https://live.canthotv.vn/cs2/live.stream/chunklist_w1958019981.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:27.4941765+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://live.canthotv.vn/cs2/live.stream/playlist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1832
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "CanThoTV3.vn@SD",
+                         "name":  "Can Tho TV 3 (1080p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.ibb.co/d4G2PD9s/cantho3-2025.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  4032,
+                         "container":  "TS",
+                         "testedUrl":  "https://live.canthotv.vn/cs3/tv/chunklist_w990049041.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:32.3325731+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://live.canthotv.vn/cs3/tv/chunklist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  4032
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "CanThoTV.vn@SD",
+                         "name":  "Can Tho TV (1080p)",
+                         "group":  "General",
+                         "logo":  "https://i.ibb.co/MDhNH26J/cantho1-2025.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2112,
+                         "container":  "TS",
+                         "testedUrl":  "https://live.canthotv.vn/live/tv/chunklist_w388776572.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:35.2612660+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://live.canthotv.vn/live/tv/chunklist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2112
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "CaoBangTV.vn@SD",
+                         "name":  "Cao Bang TV (720p)",
+                         "group":  "General",
+                         "logo":  "https://i.imgur.com/dGonewm.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2583,
+                         "container":  "TS",
+                         "testedUrl":  "https://stream.thingnet.vn/live/smil:CRTV.smil/chunklist_w233577027_b584000.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:38.6506083+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://stream.thingnet.vn/live/smil:CRTV.smil/chunklist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2583
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "DaNangTV1.vn@SD",
+                         "name":  "Da Nang TV 1 (1080p) [Not 24/7]",
+                         "group":  "General",
+                         "logo":  "https://i.imgur.com/EOMuO1z.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  731,
+                         "container":  "TS",
+                         "testedUrl":  "https://live.mediatech.vn/live/285b59a111d76974225a8e3004bfc31a509/chunklist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:40.1886770+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://live.mediatech.vn/live/285b59a111d76974225a8e3004bfc31a509/chunklist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  731
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "DaNangTV2.vn@SD",
+                         "name":  "Da Nang TV2 (1080p) [Not 24/7]",
+                         "group":  "General",
+                         "logo":  "https://raw.githubusercontent.com/HaNoiIPTV/HaNoiIPTV.m3u/refs/heads/master/Logo%20kh%C3%A1c/DRT%20-%20Da%20Nang%20TV/DRT2%20-%20Truy%E1%BB%81n%20h%C3%ACnh%20%C4%90%C3%A0%20N%E1%BA%B5ng%202%20%E2%80%A2%20B%E1%BA%A3n%202.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  223,
+                         "container":  "TS",
+                         "testedUrl":  "https://live.mediatech.vn/live/2859145290d0d7947ef88b6240123b62474/chunklist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:41.2302664+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://live.mediatech.vn/live/2859145290d0d7947ef88b6240123b62474/chunklist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  223
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "DaVinciAsia.de@Vietnam",
+                         "name":  "Da Vinci Asia Vietnam (1080p)",
+                         "group":  "Education",
+                         "logo":  "https://i.imgur.com/iBx7K1M.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1770,
+                         "container":  "TS",
+                         "testedUrl":  "http://27.67.80.69:18080//173_1.m3u8?AdaptiveType=HLS\u0026SessionID=8af376cf-a060-48c6-b66e-31ab6c9b37ed\u0026MinBw=0\u0026MaxBw=4500000",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:43.8089803+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vmttv.dpdns.org/tv360/?id=davinci-hd",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1770
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "DienBienTV.vn@SD",
+                         "name":  "Dien Bien TV (1080p)",
+                         "group":  "General",
+                         "logo":  "https://i.imgur.com/u308o8q.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  3135,
+                         "container":  "TS",
+                         "testedUrl":  "https://stream.langsontv.vn/live/2855dfeccb7f49a41a2b0441b3bfeda413c/chunklist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:47.7494728+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://stream.langsontv.vn/live/2855dfeccb7f49a41a2b0441b3bfeda413c/playlist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  3135
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "DongNaiTV1.vn@SD",
+                         "name":  "Dong Nai TV 1 (1080p)",
+                         "group":  "General;News",
+                         "logo":  "https://i.imgur.com/oQyioVa.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2950,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec05-pop1-hlc.tv360.vn/bpk-token/rquaccoh4avas763yr5i2kabbggcqaij/bpk-tv/371/output/371-audio_214835_eng_iv_1=214800-video_iv_1=1064800.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:51.5020182+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=53",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2950
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "DongNaiTV2.vn@SD",
+                         "name":  "Dong Nai TV 2 (1080p)",
+                         "group":  "Entertainment;Sports",
+                         "logo":  "https://i.imgur.com/tNKPSkO.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  1138,
+                         "container":  "",
+                         "testedUrl":  "https://freem3u.xyz/api/live/play.m3u8?vid=255",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:53.4586530+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=255",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  1138
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "DongNaiTV3.vn@SD",
+                         "name":  "Dong Nai TV 3 (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/6P39BiA.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  1783,
+                         "container":  "",
+                         "testedUrl":  "https://dethich.pw/dongnai3/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:47:56.0542318+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://dethich.pw/dongnai3/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  1783
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "DongThapTV.vn@SD",
+                         "name":  "Dong Thap TV (720p)",
+                         "group":  "General",
+                         "logo":  "https://i.ibb.co/XFX7yw0/logo2-1.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  5136,
+                         "container":  "TS",
+                         "testedUrl":  "https://liveh34.vtvprime.vn/hls/DONGTHAPTV/01.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:02.0007684+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://liveh34.vtvprime.vn/hls/DONGTHAPTV/index.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  5136
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "GiaLaiTV.vn@SD",
+                         "name":  "Gia Lai TV (720p)",
+                         "group":  "General",
+                         "logo":  "https://i.imgur.com/oUSJX0X.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1816,
+                         "container":  "TS",
+                         "testedUrl":  "http://tldigital-17th06day-tl9648290.duckdns.org/tv.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:04.6196337+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "http://tldigital-17th06day-tl9648290.duckdns.org/tv.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1816
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "HaTinhTV.vn@SD",
+                         "name":  "Ha Tinh TV (720p)",
+                         "group":  "General",
+                         "logo":  "https://i.imgur.com/4yIgKKx.png",
+                         "status":  "INVALID",
+                         "detail":  "Nội dung rỗng",
+                         "latencyMs":  1131,
+                         "container":  "",
+                         "testedUrl":  "https://cohauw9bgpvod.vcdn.cloud/httv1/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:06.5575163+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://cohauw9bgpvod.vcdn.cloud/httv1/index.m3u8",
+                                          "status":  "INVALID",
+                                          "detail":  "Nội dung rỗng",
+                                          "latencyMs":  1131
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "HanoiTV1.vn@SD",
+                         "name":  "HanoiTV1 (720p)",
+                         "group":  "General",
+                         "logo":  "https://i.imgur.com/Je3K25E.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1709,
+                         "container":  "TS",
+                         "testedUrl":  "https://liveh34.vtvprime.vn/hls/HANOI1TV/01.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:09.0743343+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://liveh34.vtvprime.vn/hls/HANOI1TV/index.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1709
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "HmongTVNetwork.us@SD",
+                         "name":  "Hmong TV Network (720p)",
+                         "group":  "Culture",
+                         "logo":  "https://yt3.googleusercontent.com/aj3kdBQTgfxP-bDnleou4m1ykjPRFexvfTZZuvWlNc75Hn9-NTqXYEdEJ_KOcTSsbKj24K1B9BM=s512-c-k-c0x00ffffff-no-rj",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2882,
+                         "container":  "TS",
+                         "testedUrl":  "https://livefta.malimarcdn.com/ftaedge00/cvabroadcasting.stream/chunklist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:12.7617843+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://livefta.malimarcdn.com/ftaedge00/cvabroadcasting.stream/playlist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2882
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "HTV1.vn@SD",
+                         "name":  "HTV1 (720p)",
+                         "group":  "General",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/HTV1.png/960px-HTV1.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  1225,
+                         "container":  "",
+                         "testedUrl":  "https://dethich.pw/htv1/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:14.7929002+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://dethich.pw/htv1/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  1225
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "HTV2.vn@SD",
+                         "name":  "HTV2 (720p)",
+                         "group":  "Entertainment;General",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/d/d2/HTV2_-_Vie_Channel.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  2090,
+                         "container":  "",
+                         "testedUrl":  "https://dethich.pw/htv2/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:17.6906481+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://dethich.pw/htv2/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  2090
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "HTV3.vn@SD",
+                         "name":  "HTV3 (720p)",
+                         "group":  "Entertainment;General;Series",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/6/65/HTV3-2018.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  1181,
+                         "container":  "",
+                         "testedUrl":  "https://dethich.pw/htv3/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:19.6869812+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://dethich.pw/htv3/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  1181
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "HTV4.vn@SD",
+                         "name":  "HTV4 (1080p)",
+                         "group":  "Education",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/HTV4_logo.webp/960px-HTV4_logo.webp.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  4417,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec03-pop1-hlc.tv360.vn/bpk-token/6orymtmsnowu2knjia7pfi4gjxz2hbsn/bpk-tv/443/output/443-audio_214835_und_iv_1=214800-video_iv_1=1064800.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:24.9076836+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=9",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  4417
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "HTV5.vn@HD",
+                         "name":  "HTV5 (1080p)",
+                         "group":  "Culture",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/c/c3/HTV5_Bchannel.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  3377,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec05-pop1-hlc.tv360.vn/bpk-token/tdlvmunxd56vdd6zsarjtv2wkgmnovsr/bpk-tv/246/output/246-audio_279600_eng_iv_1=277600-video_iv_1=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:29.0872825+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=151",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  3377
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "HTV7.vn@SD",
+                         "name":  "HTV7 (720p)",
+                         "group":  "General",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/c/c0/HTV7_logo.webp",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 404",
+                         "latencyMs":  504,
+                         "container":  "",
+                         "testedUrl":  "https://dethich.pw/htv7/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:30.3999551+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://dethich.pw/htv7/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 404",
+                                          "latencyMs":  504
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "HTV9.vn@SD",
+                         "name":  "HTV9 (720p)",
+                         "group":  "General;News",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/b/bf/HTV9_logo.webp",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  1654,
+                         "container":  "",
+                         "testedUrl":  "https://dethich.pw/htv9/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:32.8611775+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://dethich.pw/htv9/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  1654
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "HTVSports.vn@SD",
+                         "name":  "HTV Sports (1080i)",
+                         "group":  "Sports",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/vi/3/3f/HTV_THETHAO_2014.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  3948,
+                         "container":  "",
+                         "testedUrl":  "https://vmttv.dpdns.org/tv360/?id=htv-the-thao",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:37.6260166+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vmttv.dpdns.org/tv360/?id=htv-the-thao",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  3948
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "HTVCFamily.vn@SD",
+                         "name":  "HTVC Family (720p)",
+                         "group":  "Family",
+                         "logo":  "https://i.ibb.co/BVQtkHgF/IMG-2899.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  1295,
+                         "container":  "",
+                         "testedUrl":  "https://dethich.pw/htvcgiadinh/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:39.7247172+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://dethich.pw/htvcgiadinh/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  1295
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "HTVCMovies.vn@SD",
+                         "name":  "HTVC Movies (720p)",
+                         "group":  "Movies;Series",
+                         "logo":  "https://raw.githubusercontent.com/HaNoiIPTV/HaNoiIPTV.m3u/refs/heads/master/HTVC%20Phim%20HD.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  1704,
+                         "container":  "",
+                         "testedUrl":  "https://dethich.pw/htvcphim/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:42.2431431+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://dethich.pw/htvcphim/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  1704
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "HTVCWomen.vn@SD",
+                         "name":  "HTVC Women (720p)",
+                         "group":  "Lifestyle",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/vi/a/a9/HTVC_PHUNU.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  713,
+                         "container":  "",
+                         "testedUrl":  "https://dethich.pw/htvcphunu/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:43.7671166+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://dethich.pw/htvcphunu/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  713
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "HungYenTV.vn@SD",
+                         "name":  "Hung Yen TV (480p)",
+                         "group":  "General",
+                         "logo":  "https://i.imgur.com/TH1DWdm.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1664,
+                         "container":  "TS",
+                         "testedUrl":  "https://ott3.nethubtv.vn/live/hungyentv/chunklist_0.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:46.2494998+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://ott3.nethubtv.vn/live/hungyentv/playlist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1664
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "LangSonTV.vn@SD",
+                         "name":  "Lang Son TV (720p) [Geo-blocked]",
+                         "group":  "General",
+                         "logo":  "https://i.imgur.com/Sj7EjYT.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  3558,
+                         "container":  "TS",
+                         "testedUrl":  "https://stream.langsontv.vn/live/285c78da0c246524c90917842f8de03bd21/chunklist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:50.6108095+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://stream.langsontv.vn/live/285c78da0c246524c90917842f8de03bd21/playlist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  3558
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "LaoSVTV.vn@SD",
+                         "name":  "Lao SV TV (480p)",
+                         "group":  "Shop",
+                         "logo":  "https://i.imgur.com/ZIXtazI.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  4115,
+                         "container":  "TS",
+                         "testedUrl":  "https://livefta.malimarcdn.com/ftaedge00/laosvtv.stream/chunklist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:48:55.5435014+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://livefta.malimarcdn.com/ftaedge00/laosvtv.stream/playlist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  4115
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "LaoThaiTV.us@SD",
+                         "name":  "Lao-Thai TV (720p)",
+                         "group":  "Shop",
+                         "logo":  "https://i.imgur.com/q6cQzbv.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  3837,
+                         "container":  "TS",
+                         "testedUrl":  "https://livefta.malimarcdn.com/ftaedge00/laothaius.sdp/chunklist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:00.1856697+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://livefta.malimarcdn.com/ftaedge00/laothaius.sdp/playlist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  3837
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "MNBWorld.mn@SD",
+                         "name":  " like Gecko) Chrome/144.0.0.0 Safari/537.36\" group-title=\"General\",MNB World (1080p)",
+                         "group":  "General",
+                         "logo":  "https://www.mongolsat.mn/assets/img/channel/22.png",
+                         "status":  "DEGRADED",
+                         "detail":  "File media không nhận diện container",
+                         "latencyMs":  1081,
+                         "container":  "UNKNOWN",
+                         "testedUrl":  "https://cdn4.skygo.mn/live/disk1/MNB_World/DASH-FTA/MNB_World.mpd",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:02.0702634+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://cdn4.skygo.mn/live/disk1/MNB_World/DASH-FTA/MNB_World.mpd",
+                                          "status":  "DEGRADED",
+                                          "detail":  "File media không nhận diện container",
+                                          "latencyMs":  1081
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "NgheAnTV.vn@SD",
+                         "name":  "Nghe An TV (720p)",
+                         "group":  "General",
+                         "logo":  "https://i.imgur.com/d9YEEwC.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1112,
+                         "container":  "TS",
+                         "testedUrl":  "https://67tz1gnwrvxic.cmccdn.net/hls/NGHEANTV/03.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:03.9910433+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://67tz1gnwrvxic.cmccdn.net/hls/NGHEANTV/03.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1112
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "ONBiBi.vn@SD",
+                         "name":  "ON BiBi (1080p)",
+                         "group":  "Kids",
+                         "logo":  "https://raw.githubusercontent.com/HaNoiIPTV/HaNoiIPTV.m3u/refs/heads/master/VTVCab8%20-%20ON%20BiBi.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2975,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec04-pop1-hlc.tv360.vn/bpk-token/jwqvgo5nmz4dwrmlsveezikthng2cuz3/bpk-tv/263/output/263-audio_198800_eng_iv_2=196800-video_iv_2=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:07.7780183+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=178",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2975
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "ONCine.vn@SD",
+                         "name":  "ON Cine",
+                         "group":  "Series",
+                         "logo":  "https://i.ibb.co/Jw0J5fnW/IMG-2509.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  4282,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec01-pop1-hlc.tv360.vn/bpk-token/i4joo3772xgg7qr6eeoemexhn5drfz3p/bpk-tv/226/output/226-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:12.8640555+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=176",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  4282
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "ONEChannel.vn@HD",
+                         "name":  "ON E Channel (1080p)",
+                         "group":  "Entertainment",
+                         "logo":  "https://raw.githubusercontent.com/HaNoiIPTV/HaNoiIPTV.m3u/refs/heads/master/VTVCab5%20-%20ON%20E%20Channel.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2467,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec04-pop1-hlc.tv360.vn/bpk-token/slscyn4qfqdtohwu5jcjhzbmg6joilbx/bpk-tv/212/output/212-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:16.1454452+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=182",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2467
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "ONKids.vn@SD",
+                         "name":  "ON Kids (720p)",
+                         "group":  "Kids",
+                         "logo":  "https://i.ibb.co/RGsg8XfM/IMG-2512.webp",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2186,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec05-pop1-hlc.tv360.vn/bpk-token/clk3udgnckiqyjhhpr7rhvn2bqjnloqm/bpk-tv/234/output/234-audio_198800_eng_iv_1=196800-video_iv_1=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:19.1442665+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=179",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2186
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "ONLife.vn@SD",
+                         "name":  "ON Life (720p)",
+                         "group":  "Lifestyle",
+                         "logo":  "https://i.ibb.co/XxtcgQQv/IMG-2513.webp",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1843,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec03-pop1-hlc.tv360.vn/bpk-token/h3zd22lshilgsaog7mnd74r5ne7peplj/bpk-tv/347/output/347-audio_214835_und_iv_2=214800-video_iv_2=1064800.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:21.8026994+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=188",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1843
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "ONMovies.vn@SD",
+                         "name":  "ON Movies (720p)",
+                         "group":  "Movies",
+                         "logo":  "https://i.ibb.co/fdbgvtT8/IMG-2523.webp",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2541,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec02-pop1-hlc.tv360.vn/bpk-token/2uaauhixy4qr35jwzrxniaakdxkqacq5/bpk-tv/346/output/346-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:25.1566361+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=181",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2541
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "ONMusic.vn@SD",
+                         "name":  "ON Music (1080p)",
+                         "group":  "Music",
+                         "logo":  "https://i.ibb.co/DHk2gv86/IMG-2524.webp",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1017,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec04-pop1-hlc.tv360.vn/bpk-token/nywfuble4ryqkdyutr3g6lc2avxcywqf/bpk-tv/220/output/220-audio_214835_und_iv_3=214800-video_iv_3=1064800.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:26.9766710+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=185",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1017
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "ONO2TV.vn@SD",
+                         "name":  "ON O2TV (1080p)",
+                         "group":  "Lifestyle",
+                         "logo":  "https://raw.githubusercontent.com/HaNoiIPTV/HaNoiIPTV.m3u/refs/heads/master/VTVCab7%20-%20ON%20O2TV.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  3502,
+                         "container":  "",
+                         "testedUrl":  "https://freem3u.xyz/api/live/play.m3u8?vid=136",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:31.2891740+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=136",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  3502
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "ONPhimViet.vn@SD",
+                         "name":  "ON Phim Viet (1080p)",
+                         "group":  "Series",
+                         "logo":  "https://i.ibb.co/Swvp1vwM/IMG-2525.jpg",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 404",
+                         "latencyMs":  1538,
+                         "container":  "",
+                         "testedUrl":  "https://vmttv.dpdns.org/tv360/?id=175",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:33.6377269+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vmttv.dpdns.org/tv360/?id=175",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 404",
+                                          "latencyMs":  1538
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "ONStyleTV.vn@SD",
+                         "name":  "ON Style TV (1080p)",
+                         "group":  "Lifestyle",
+                         "logo":  "https://i.ibb.co/JFw65Mtk/IMG-2529.webp",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2581,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec01-pop1-hlc.tv360.vn/bpk-token/nsio47eik7cxzl5ofahw3ehoprwjb3t4/bpk-tv/219/output/219-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:37.0238053+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=184",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2581
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "ONVieDramas.vn@SD",
+                         "name":  "ON Vie Dramas (1080i)",
+                         "group":  "Entertainment",
+                         "logo":  "https://i.ibb.co/VptvgFVx/IMG-2530.webp",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  3418,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec04-pop1-hlc.tv360.vn/bpk-token/krkd6txmsmke44yv7e6vkvb7jzkfip2o/bpk-tv/339/output/339-audio_214835_und_iv_2=214800-video_iv_2=1064800.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:41.2538415+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=177",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  3418
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "ONVieGiaiTri.vn@HD",
+                         "name":  "ON Vie Giai Tri (1080p)",
+                         "group":  "Entertainment",
+                         "logo":  "https://raw.githubusercontent.com/HaNoiIPTV/HaNoiIPTV.m3u/refs/heads/master/VTVCab1%20-%20ON%20Vie%20GI%E1%BA%A2I%20TR%C3%8D.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1162,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec01-pop1-hlc.tv360.vn/bpk-token/baj2yura3odvevsqniqqse5mkiebhlcs/bpk-tv/211/output/211-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:43.2312887+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=180",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1162
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "OutdoorChannel.us@Vietnam",
+                         "name":  "Outdoor Channel Vietnam (1080p)",
+                         "group":  "Outdoor",
+                         "logo":  "https://i.imgur.com/Kh4MWaY.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  3804,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec02-pop1-hlc.tv360.vn/bpk-token/kyd3o4l4z6ohdokdoebfob5xoflapn3r/bpk-tv/146/output/146-audio_198800_eng_iv_3=196800-video_iv_3=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:47.8401995+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=216",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  3804
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "QPVN.vn@HD",
+                         "name":  "QPVN HD (1080p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/GQO7UNu.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1808,
+                         "container":  "TS",
+                         "testedUrl":  "https://liveh12.vtvprime.vn/hls/QPTV/01.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:50.4554963+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://liveh12.vtvprime.vn/hls/QPTV/index.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1808
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "QuangNamTV.vn@SD",
+                         "name":  "Quang Nam TV",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/uWiOoVg.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1296,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec04-pop1-hlc.tv360.vn/bpk-token/3rbdckn7rinctpai65nn2qrrfhoeemjj/bpk-tv/377/output/377-audio_198800_eng_iv_3=196800-video_iv_3=1067600.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:52.5674697+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=80",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1296
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "RTMASEAN.my@SD",
+                         "name":  "RTM ASEAN",
+                         "group":  "News",
+                         "logo":  "https://i.imgur.com/skAiUxg.png",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  739,
+                         "container":  "",
+                         "testedUrl":  "https://d25tgymtnqzu8s.cloudfront.net/event/smil:event1/chunklist_b2596000_slENG.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:54.1190838+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://d25tgymtnqzu8s.cloudfront.net/event/smil:event1/chunklist_b2596000_slENG.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  739
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "SCTV2.vn@SD",
+                         "name":  "SCTV2 SD (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/8i5DXIg.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1396,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv2/playlist_720p.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:56.3238107+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv2/master.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1396
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "SCTV3.vn@SD",
+                         "name":  "SCTV3 (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/tfk298I.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1401,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-sctvdrm.vtvdigital.vn/bsod999cuteptgyoutuber/1234567890/manifest/sctv3/playlist_720p.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:49:58.5316572+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-sctvdrm.vtvdigital.vn/bsod999cuteptgyoutuber/1234567890/manifest/sctv3/master.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1401
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "SCTV4.vn@SD",
+                         "name":  "SCTV4 (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/qkZhzQq.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2289,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv4/playlist_720p.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:01.6232481+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv4/master.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2289
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "SCTV6.vn@SD",
+                         "name":  "SCTV6 (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/2oOVS42.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  443,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv6/playlist_720p.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:02.8691301+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv6/master.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  443
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "SCTV7.vn@SD",
+                         "name":  "SCTV7 (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/xbIUZYd.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2673,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv7/playlist_720p.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:06.3494769+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv7/master.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2673
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "SCTV9.vn@SD",
+                         "name":  "SCTV9 (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/OJMbhow.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2001,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv9/playlist_720p.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:09.1610733+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv9/master.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2001
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "SCTV11.vn@SD",
+                         "name":  "SCTV11 (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/ZmFfy9o.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1222,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv11/playlist_720p.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:11.1958729+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv11/master.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1222
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "SCTV12.vn@SD",
+                         "name":  "SCTV12 (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/5pDFkH0.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  459,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv12/playlist_720p.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:12.4649902+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv12/master.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  459
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "SCTV13.vn@SD",
+                         "name":  "SCTV13 (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/aoz1iDw.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2309,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv13/playlist_720p.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:15.5820834+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv13/master.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2309
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "SCTV14.vn@SD",
+                         "name":  "SCTV14 (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/rIqmRNK.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2376,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv14/playlist_720p.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:18.7714207+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv14/master.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2376
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "SCTV16.vn@SD",
+                         "name":  "SCTV16 (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/ldCYtvt.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1216,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv16/playlist_720p.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:20.7997881+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv16/master.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1216
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "SCTV18.vn@SD",
+                         "name":  "SCTV18 (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/FfUSlgI.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2038,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv18/playlist_720p.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:23.6495298+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv18/master.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2038
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "SCTV19.vn@SD",
+                         "name":  "SCTV19 (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/yBAFZRs.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2968,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv19/playlist_720p.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:27.4264010+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv19/master.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2968
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "SCTV20.vn@SD",
+                         "name":  "SCTV20 (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/7ABZhfZ.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  3647,
+                         "container":  "TS",
+                         "testedUrl":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv20/playlist_720p.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:31.8893188+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv20/master.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  3647
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "TayNinhTV.vn@SD",
+                         "name":  "Tay Ninh TV (720p)",
+                         "group":  "General",
+                         "logo":  "https://tayninhtv.vn/static/images/logo.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2885,
+                         "container":  "TS",
+                         "testedUrl":  "https://live-hq.evgcdn.net/live/2851dc2c9af68834814a89e61db0faee561/chunklist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:35.5768211+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://live-hq.evgcdn.net/live/2851dc2c9af68834814a89e61db0faee561/chunklist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2885
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "TeaTV.vn@SD",
+                         "name":  "Tea TV (720p)",
+                         "group":  "Shop",
+                         "logo":  "https://i.imgur.com/WorbnyD.jpg",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  3007,
+                         "container":  "TS",
+                         "testedUrl":  "https://livefta.malimarcdn.com/ftaedge00/teatv.sdp/chunklist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:39.3874649+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://livefta.malimarcdn.com/ftaedge00/teatv.sdp/playlist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  3007
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "ThaiNguyenTV.vn@SD",
+                         "name":  "Thai Nguyen TV (720p)",
+                         "group":  "General",
+                         "logo":  "https://thainguyentv.vn/modules/frontend/themes/ptthtn/images/logo.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2005,
+                         "container":  "TS",
+                         "testedUrl":  "https://streaming.thainguyentv.vn/hls/livestream.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:42.1998832+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://streaming.thainguyentv.vn/hls/livestream.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2005
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "TienGiangTV.vn@SD",
+                         "name":  "Tien Giang TV (540p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/yonKxgZ.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1921,
+                         "container":  "TS",
+                         "testedUrl":  "https://618b88f69e53b.streamlock.net/THDT2/thdttv2/chunklist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:44.9262998+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://618b88f69e53b.streamlock.net/THDT2/thdttv2/chunklist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1921
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "TraVinhTV.vn@SD",
+                         "name":  "Tra Vinh TV (1080p)",
+                         "group":  "Culture;Entertainment;Music;News",
+                         "logo":  "https://i.imgur.com/F12VdKO.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  2284,
+                         "container":  "TS",
+                         "testedUrl":  "https://ec03-pop1-hlc.tv360.vn/bpk-token/co24ioytpxxtxggfajebfnoehmj3lrb3/bpk-tv/423/output/423-audio_214835_eng_iv_2=214800-video_iv_2=1064800.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:48.0230394+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://freem3u.xyz/api/live/play.m3u8?vid=91",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  2284
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "TVBVietnam.vn@SD",
+                         "name":  "TVB Vietnam (1080p)",
+                         "group":  "General",
+                         "logo":  "https://raw.githubusercontent.com/songwenhui239/Songwenhui239/refs/heads/main/TVB%20Vietnam.jpeg",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  3713,
+                         "container":  "TS",
+                         "testedUrl":  "https://amg01868-amg01868c3-tvbanywhere-us-4491.playouts.now.amagi.tv/ts-us-e2-n2/playlist/amg01868-tvbusa-tvbvietnam-tvbanywhereus/cb7c3e1e7b736fdbcfca356281f643aadf5562815d35dc3d39a053c32192150d81e9f1c9ea4de93b7ec062812b53310d0c78ce07de6c19a08724fc0e733f070afe88b37bc7991919d581512c2eb86a5657fa1705a165137edcde1f0aae34a1365040bf473d0072c59621c90b2ed99056d2247c9bda88326222434fec051fbafd0bbcfee4585bd872a1af1c58f67e13b6c01bd6d11fbc9ed75d8c578275f61494c1f0dece4484d7c37ea856e4654459217ec0cd2e92995ee0df99313fc9232d740f3f97cb352f7146e4716d1e9fc9c2ba71f112c3fb4aeb0216887053cb1952f00f8b1aaee034cdc5236942335e80c51b4f26aee2e2fb93e9f5a9149986c7a7145898b63a7949ce27b8706c50389cbadc22e8427fc773a5cd10790eaedc2ba0bdf8f3cea3844bd30dc5f8d790347d636a0a0abc90c3f062f626c771a4c2126e090314edd262cd88dd5127710fa8b41e854355e980cbb4d6006d9e3b5b42be34901b247cdc38694be02fd2932823dc755dcb666bbb101ea876d19460b5abd2ee037b92dbc449f026af9602c0f90fac226d0c57fda2620f0b1c3de3ef600c22708c10b78484b2217b75869dfaf7ce5737102a57035cf985c944dbdf90674d6c823940477b1f109a01ac19fc085b0f23cc5e9eec3e7d8b022e3af5e558795f7f9ddcbe918db49317551e3b793c8e49c5c4b0322bc3b8791a1a4e400601024f/93/640x360_1020588/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:52.5457712+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://amg01868-amg01868c3-tvbanywhere-us-4491.playouts.now.amagi.tv/playlist/amg01868-tvbusa-tvbvietnam-tvbanywhereus/playlist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  3713
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "UniquelyThai.vn@SD",
+                         "name":  "Uniquely Thai (720p)",
+                         "group":  "Shop",
+                         "logo":  "https://i.imgur.com/cTSDB8O.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  3125,
+                         "container":  "TS",
+                         "testedUrl":  "https://livefta.malimarcdn.com/ftaedge00/uniquely.sdp/chunklist.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:50:56.4744657+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://livefta.malimarcdn.com/ftaedge00/uniquely.sdp/playlist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  3125
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VBSTV.us@SD",
+                         "name":  "VBS TV (480p) [Not 24/7]",
+                         "group":  "General",
+                         "logo":  "https://i.imgur.com/OkslYzP.png",
+                         "status":  "DEGRADED",
+                         "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 9030ms",
+                         "latencyMs":  9030,
+                         "container":  "TS",
+                         "testedUrl":  "https://tgn.bozztv.com/vbstvcdn/vbstv/ngrp:vbstv_all/chunklist_w385922731_b2128000.m3u8?nimblesessionid=1951231652",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:06.3142718+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://tgn.bozztv.com/vbstvcdn/vbstv/ngrp:vbstv_all/playlist.m3u8",
+                                          "status":  "DEGRADED",
+                                          "detail":  "Playlist + segment TS hợp lệ; phản hồi chậm 9030ms",
+                                          "latencyMs":  9030
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VietnamToday.vn@HD",
+                         "name":  "Vietnam Today (1080p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/xW9rY7s.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  5498,
+                         "container":  "TS",
+                         "testedUrl":  "https://amg01923-amg01923c162-amgplt0456.playout.now3.amagi.tv/playlist_1e4d76a3_88353259571126965.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:12.6261730+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://amagi-live.ondemandkorea.com/amgplt0456.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  5498
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VinhLongTV1.vn@SD",
+                         "name":  "Vinh Long TV 1 (720p)",
+                         "group":  "General;News",
+                         "logo":  "https://i.imgur.com/5YFsqPx.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  1967,
+                         "container":  "",
+                         "testedUrl":  "https://dethich.pw/thvl1/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:15.4089792+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://dethich.pw/thvl1/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  1967
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VinhLongTV2.vn@SD",
+                         "name":  "Vinh Long TV 2 (1080p)",
+                         "group":  "Culture;Entertainment",
+                         "logo":  "https://i.imgur.com/iluoazf.png",
+                         "status":  "WORKING",
+                         "detail":  "Playlist + segment TS hợp lệ",
+                         "latencyMs":  1952,
+                         "container":  "TS",
+                         "testedUrl":  "https://1011154949.vnns.net/CDN-FPT02/THVL2-HD-1080p/chunks.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:18.1765565+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://1011154949.vnns.net/CDN-FPT02/THVL2-HD-1080p/playlist.m3u8",
+                                          "status":  "WORKING",
+                                          "detail":  "Playlist + segment TS hợp lệ",
+                                          "latencyMs":  1952
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VinhLongTV3.vn@SD",
+                         "name":  "Vinh Long TV 3 (720p)",
+                         "group":  "Entertainment;Movies",
+                         "logo":  "https://i.imgur.com/OQXEhqu.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  2105,
+                         "container":  "",
+                         "testedUrl":  "https://dethich.pw/thvl3/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:21.0949529+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://dethich.pw/thvl3/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  2105
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VinhLongTV4.vn@SD",
+                         "name":  "Vinh Long TV 4 (720p)",
+                         "group":  "Culture;Entertainment;Sports;Travel",
+                         "logo":  "https://i.imgur.com/ARhIkvR.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  2220,
+                         "container":  "",
+                         "testedUrl":  "https://dethich.pw/thvl4/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:24.1299896+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://dethich.pw/thvl4/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  2220
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VTV1.vn@HD",
+                         "name":  "VTV1 HD (1080p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/vZYlGIW.png",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  1056,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv1/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:26.0016314+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv1/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  1056
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VTV2.vn@HD",
+                         "name":  "VTV2 HD (1080p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/qWWpYRR.png",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  457,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv2/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:27.2755967+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv2/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  457
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VTV3.vn@HD",
+                         "name":  "VTV3 HD (1080p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/4lJG1fu.png",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  760,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv3/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:28.8421734+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv3/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  760
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VTV4.vn@HD",
+                         "name":  "VTV4 HD (1080p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/WsLLmR2.png",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  345,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv4/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:29.9928238+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv4/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  345
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VTV5.vn@HD",
+                         "name":  "VTV5 HD (1080p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/Vnnna1C.png",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  906,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv5/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:31.7106599+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv5/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  906
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VTV5TayNamBo.vn@HD",
+                         "name":  "VTV5 Tay Nam Bo HD",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/xiuHjEQ.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  942,
+                         "container":  "",
+                         "testedUrl":  "https://dethich.pw/vtv5tnb/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:33.4655939+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://dethich.pw/vtv5tnb/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  942
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VTV5TayNguyen.vn@HD",
+                         "name":  "VTV5 Tay Nguyen HD",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/Hlcnqqt.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  1048,
+                         "container":  "",
+                         "testedUrl":  "http://dethich.pw/vtv5tn/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:35.3217011+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "http://dethich.pw/vtv5tn/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  1048
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VTV6.vn@HD",
+                         "name":  "VTV6 (1080p)",
+                         "group":  "Sports",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/VTV6_logo_2026_final.svg/960px-VTV6_logo_2026_final.svg.png",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  62,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv6/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:36.1938766+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv6/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  62
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VTV7.vn@HD",
+                         "name":  "VTV7 HD (1080p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/ZwoP823.png",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  453,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv7/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:37.4598968+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv7/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  453
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VTV8.vn@HD",
+                         "name":  "VTV8 HD (720p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/rf9adGJ.png",
+                         "status":  "OFFLINE",
+                         "detail":  "Variant không tải được (HTTP 404)",
+                         "latencyMs":  2246,
+                         "container":  "",
+                         "testedUrl":  "https://dethich.pw/vtv8/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:40.5163297+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://dethich.pw/vtv8/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "Variant không tải được (HTTP 404)",
+                                          "latencyMs":  2246
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VTV9.vn@HD",
+                         "name":  "VTV9 HD (1080p)",
+                         "group":  "Undefined",
+                         "logo":  "https://i.imgur.com/QiY55sy.png",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  290,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv9/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:41.6234552+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv9/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  290
+                                      }
+                                  ]
+                     },
+                     {
+                         "id":  "VTV10.vn@HD",
+                         "name":  "VTV10 (1080p)",
+                         "group":  "Undefined",
+                         "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/VTV10_logo_2026.png/960px-VTV10_logo_2026.png",
+                         "status":  "OFFLINE",
+                         "detail":  "HTTP 403",
+                         "latencyMs":  492,
+                         "container":  "",
+                         "testedUrl":  "https://vips-livecdn.fptplay.net/live/media/vtv10/live247-hls-avc/index.m3u8",
+                         "usedFallback":  false,
+                         "checkedAt":  "2026-11-02T17:51:42.9198864+07:00",
+                         "urls":  [
+                                      {
+                                          "url":  "https://vips-livecdn.fptplay.net/live/media/vtv10/live247-hls-avc/index.m3u8",
+                                          "status":  "OFFLINE",
+                                          "detail":  "HTTP 403",
+                                          "latencyMs":  492
+                                      }
+                                  ]
+                     }
+                 ]
+}

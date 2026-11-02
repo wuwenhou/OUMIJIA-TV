@@ -203,8 +203,9 @@
                          "name":  "HTV4",
                          "group":  "Văn hoá - Giáo dục",
                          "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/HTV4_logo.webp/960px-HTV4_logo.webp.png",
-                         "primary":  "https://freem3u.xyz/api/live/play.m3u8?vid=9",
+                         "primary":  "https://live.fptplay53.net/epzhd1/htv4_hls.smil/chunklist.m3u8",
                          "fallback":  [
+                                          "https://freem3u.xyz/api/live/play.m3u8?vid=9",
                                           "https://ec03-pop1-hlc.tv360.vn/bpk-token/6orymtmsnowu2knjia7pfi4gjxz2hbsn/bpk-tv/443/output/443-audio_214835_und_iv_1=214800-video_iv_1=1064800.m3u8"
                                       ],
                          "health":  "UNVERIFIED",
@@ -579,7 +580,7 @@
                          "fallback":  [
                                           "https://ec01-pop1-hlc.tv360.vn/bpk-token/i4joo3772xgg7qr6eeoemexhn5drfz3p/bpk-tv/226/output/226-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8"
                                       ],
-                         "health":  "WORKING",
+                         "health":  "DEGRADED",
                          "lastVerified":  "2026-11-02"
                      },
                      {
@@ -639,7 +640,7 @@
                          "fallback":  [
                                           "https://ec03-pop1-hlc.tv360.vn/bpk-token/h3zd22lshilgsaog7mnd74r5ne7peplj/bpk-tv/347/output/347-audio_214835_und_iv_2=214800-video_iv_2=1064800.m3u8"
                                       ],
-                         "health":  "WORKING",
+                         "health":  "DEGRADED",
                          "lastVerified":  "2026-11-02"
                      },
                      {
@@ -651,7 +652,7 @@
                          "fallback":  [
                                           "https://ec04-pop1-hlc.tv360.vn/bpk-token/nywfuble4ryqkdyutr3g6lc2avxcywqf/bpk-tv/220/output/220-audio_214835_und_iv_3=214800-video_iv_3=1064800.m3u8"
                                       ],
-                         "health":  "WORKING",
+                         "health":  "DEGRADED",
                          "lastVerified":  "2026-11-02"
                      },
                      {
@@ -747,7 +748,7 @@
                          "fallback":  [
 
                                       ],
-                         "health":  "DEGRADED",
+                         "health":  "WORKING",
                          "lastVerified":  "2026-11-02"
                      },
                      {
@@ -759,7 +760,7 @@
                          "fallback":  [
 
                                       ],
-                         "health":  "DEGRADED",
+                         "health":  "WORKING",
                          "lastVerified":  "2026-11-02"
                      },
                      {
@@ -807,7 +808,7 @@
                          "fallback":  [
 
                                       ],
-                         "health":  "DEGRADED",
+                         "health":  "WORKING",
                          "lastVerified":  "2026-11-02"
                      },
                      {
@@ -855,7 +856,7 @@
                          "fallback":  [
 
                                       ],
-                         "health":  "DEGRADED",
+                         "health":  "WORKING",
                          "lastVerified":  "2026-11-02"
                      },
                      {
@@ -903,7 +904,7 @@
                          "fallback":  [
 
                                       ],
-                         "health":  "WORKING",
+                         "health":  "DEGRADED",
                          "lastVerified":  "2026-11-02"
                      },
                      {
@@ -915,7 +916,7 @@
                          "fallback":  [
                                           "https://vtvgolive-ott3.vtvdigital.vn/live/quangnamtv/chunklist_2.m3u8"
                                       ],
-                         "health":  "UNVERIFIED",
+                         "health":  "OFFLINE",
                          "lastVerified":  "2026-11-02"
                      },
                      {
@@ -963,7 +964,7 @@
                          "fallback":  [
                                           "https://vtvgolive-ott3.vtvdigital.vn/live/travinhtv/chunklist_2.m3u8"
                                       ],
-                         "health":  "UNVERIFIED",
+                         "health":  "OFFLINE",
                          "lastVerified":  "2026-11-02"
                      },
                      {
