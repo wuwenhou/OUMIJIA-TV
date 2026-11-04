@@ -3,21 +3,24 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Độ sáng riêng của cửa sổ OUMIJIA TV (chỉ Android).
+/// Độ sáng riêng của OUMIJIA TV trên Android và iOS.
 ///
-/// Cơ chế: MethodChannel `oumijia_tv/brightness` → Kotlin đổi
-/// `WindowManager.LayoutParams.screenBrightness` của Activity.
-/// - Không đổi độ sáng hệ thống, không cần quyền WRITE_SETTINGS.
-/// - Thoát app: các ứng dụng khác không bị ảnh hưởng.
-/// - Tắt công tắc: trả về chế độ độ sáng mặc định của Android.
+/// Cơ chế: MethodChannel `oumijia_tv/brightness`.
+/// - Android: Kotlin đổi `WindowManager.LayoutParams.screenBrightness` của
+///   Activity. Không đổi độ sáng hệ thống, không cần quyền WRITE_SETTINGS;
+///   thoát app thì ứng dụng khác không bị ảnh hưởng.
+/// - iOS: `UIScreen.main.brightness` là độ sáng toàn hệ thống. App lưu mức gốc,
+///   áp dụng mức đã chọn khi đang mở, và tự khôi phục khi app rời foreground
+///   hoặc kết thúc.
+/// - Tắt công tắc: trả về chế độ độ sáng mặc định của hệ thống.
 class BrightnessService {
   static const _channel = MethodChannel('oumijia_tv/brightness');
   static const _kEnabled = 'custom_brightness_enabled';
   static const _kValue = 'custom_brightness_value';
   static const double defaultValue = 0.8;
 
-  /// Chỉ Android có window-level brightness.
-  static bool get supported => Platform.isAndroid;
+  /// Android và iOS đều có cầu nối native.
+  static bool get supported => Platform.isAndroid || Platform.isIOS;
 
   static Future<SharedPreferences> _prefs() => SharedPreferences.getInstance();
 

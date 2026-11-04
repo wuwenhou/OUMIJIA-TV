@@ -1,6 +1,6 @@
 # OUMIJIA TV
 
-Ứng dụng xem **truyền hình Việt Nam, phim và YouTube tuyển chọn** — giao diện
+Ứng dụng xem **truyền hình Việt Nam, phim và YouTube không quảng cáo** — giao diện
 streaming hiện đại, tối giản, không quảng cáo. Xây dựng bằng Flutter cho Android
 và iOS, tối ưu thao tác đơn giản cho cả gia đình.
 
@@ -12,14 +12,16 @@ và iOS, tối ưu thao tác đơn giản cho cả gia đình.
   "Vừa xem" trên trang chủ; lưu tại thiết bị.
 - 🎨 **Cài đặt giao diện**: Light / Dark / System, 5 bảng màu chủ đạo,
   cỡ chữ 90–130%, khôi phục mặc định — áp dụng ngay, không cần khởi động lại.
-- 🔆 **Độ sáng riêng (Android)**: điều chỉnh độ sáng chỉ cho cửa sổ ứng dụng
-  (`WindowManager.LayoutParams.screenBrightness`), không đổi độ sáng hệ thống,
-  không cần quyền `WRITE_SETTINGS`.
+- 🔆 **Độ sáng riêng (Android + iOS)**: Android chỉ đổi cửa sổ ứng dụng
+  (`WindowManager.LayoutParams.screenBrightness`), không cần `WRITE_SETTINGS`.
+  iOS dùng `UIScreen.main.brightness`, tự khôi phục khi app rời foreground.
 - 🎬 **Phim**: danh mục cấu hình từ xa, poster, trình phát toàn màn hình.
-- ▶️ **YouTube tuyển chọn**: chỉ danh mục đã duyệt, phát không quảng cáo,
-  playlist chạy liên tục.
-- 🎙️ **Giọng nói tiếng Việt & remote TV**: nói "Bật VTV3"; D-pad đổi kênh,
-  OK dừng/phát, Back thoát.
+- ▶️ **YouTube không quảng cáo**: bảng tin video theo chủ đề + tìm kiếm tự do,
+  phát trực tiếp bằng luồng của video (không iframe/webview, không quảng cáo).
+  Không cần duyệt kênh trước.
+- 🕹️ **Remote TV**: D-pad đổi kênh, OK dừng/phát, Back thoát.
+- 🌙 **Dừng phát khi rời app**: TV, phim và YouTube tự dừng khi app vào nền
+  hoặc tắt màn hình; quay lại mới tự phát tiếp (trừ khi người dùng đã bấm dừng).
 - 🔄 **Cập nhật trong app**: kiểm tra GitHub Releases, tải APK, mở trình cài đặt
   (người dùng vẫn xác nhận cài như Android yêu cầu).
 - 📡 **Trạng thái kênh**: WORKING / DEGRADED / OFFLINE / INVALID / UNVERIFIED,
@@ -31,7 +33,8 @@ Android + iOS (Flutter 3.47.8). Không có bản web.
 
 ## Cấu hình nội dung
 
-Toàn bộ kênh, phim, danh mục YouTube nằm trong `config/channels.json`.
+Toàn bộ kênh và phim nằm trong `config/channels.json`. Tab YouTube lấy bảng tin
+theo từ khóa trực tiếp từ YouTube, không phụ thuộc danh sách kênh đã duyệt.
 App nạp theo thứ tự: **GitHub (main) → bản lưu trên máy → bản đóng gói trong APK**.
 Sửa file trên GitHub là cập nhật nội dung cho mọi máy — không cần phát hành APK mới.
 
@@ -112,8 +115,8 @@ CI dùng GitHub Secrets `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_PASSWORD`,
 Phát hành thủ công:
 
 ```bash
-gh release create v2.0.0 "OUMIJIA-TV v2.0.0.apk" "OUMIJIA-TV v2.0.0.ipa" \
-  --title "OUMIJIA TV v2.0.0" --notes-file CHANGELOG.md
+gh release create v2.1.0 "OUMIJIA-TV v2.1.0.apk" "OUMIJIA-TV v2.1.0.ipa" \
+  --title "OUMIJIA TV v2.1.0" --notes-file CHANGELOG.md
 ```
 
 ## Cài đặt
@@ -132,11 +135,11 @@ IPA unsigned build trên GitHub Actions (Actions → run → Artifacts →
 
 ```
 oumijia_tv/
-├── config/channels.json        # Danh mục kênh/phim/YouTube (phát hành qua GitHub)
+├── config/channels.json        # Danh mục kênh/phim (phát hành qua GitHub)
 ├── lib/
 │   ├── theme/                  # Design system + controller giao diện
 │   ├── screens/                # Home, Kênh, Phim, YouTube, Cài đặt, Player, Yêu thích
-│   ├── services/               # config, prefs, brightness, voice, youtube, update
+│   ├── services/               # config, prefs, brightness, youtube, update
 │   └── widgets/                # ChannelCard, dialog cập nhật...
 ├── tools/
 │   ├── channel_health.ps1      # Kiểm tra nguồn phát + báo cáo
@@ -153,7 +156,12 @@ oumijia_tv/
   thay đổi hoặc chặn theo vùng địa lý. App không lưu trữ hay phân phối lại video.
 - Một số kênh chỉ hoạt động trong mạng Việt Nam; trạng thái kiểm tra phụ thuộc
   mạng tại thời điểm chạy.
-- Tính năng độ sáng riêng chỉ có trên Android; iOS dùng độ sáng hệ thống.
+- Độ sáng iOS là độ sáng màn hình hệ thống trong lúc app đang mở; app tự khôi
+  phục mức cũ khi rời foreground hoặc kết thúc. Nếu app bị buộc dừng đột ngột,
+  iOS có thể giữ mức sáng đã đặt cho đến khi người dùng chỉnh lại.
+- Bảng tin YouTube đọc dữ liệu công khai từ trang tìm kiếm YouTube; nếu YouTube
+  đổi cấu trúc trang, tab YouTube có thể tạm trống cho đến khi cập nhật parser.
+- Chưa có bản web; YouTube không hỗ trợ đăng nhập/tài khoản cá nhân.
 
 ## Giấy phép
 

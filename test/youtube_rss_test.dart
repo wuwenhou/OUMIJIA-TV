@@ -2,47 +2,110 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:oumijia_tv/services/youtube_service.dart';
 
-/// RSS YouTube: chỉ lấy videoId/title/published, giải mã entity, tôn trọng limit.
+/// Bảng tin YouTube: đọc `ytInitialData`, gom `videoRenderer`, bỏ livestream,
+/// chuẩn hoá thời lượng và tránh trùng video.
 void main() {
-  const xml = '''
-<?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015" xmlns:media="http://search.yahoo.com/mrss/">
-  <title>Kênh thử</title>
-  <entry>
-    <id>yt:video:abc123def45</id>
-    <yt:videoId>abc123def45</yt:videoId>
-    <title>Fallback title</title>
-    <published>2026-11-01T10:00:00+00:00</published>
-    <media:group>
-      <media:title>Tin &amp; sự kiện &lt;hôm nay&gt;</media:title>
-    </media:group>
-  </entry>
-  <entry>
-    <yt:videoId>xyz987uvw65</yt:videoId>
-    <published>2026-10-30T08:30:00+00:00</published>
-    <media:group>
-      <media:title>Video thứ hai</media:title>
-    </media:group>
-  </entry>
-  <entry>
-    <yt:videoId>ignored00000</yt:videoId>
-    <media:group><media:title>Bị cắt bởi limit</media:title></media:group>
-  </entry>
-</feed>
-''';
+  Map<String, dynamic> renderer({
+    required String id,
+    required String title,
+    String author = 'Kênh thử',
+    String length = '12:34',
+    String views = '1.234 lượt xem',
+    String published = '2 giờ trước',
+    bool live = false,
+    String thumb = '//i.ytimg.com/vi/abc/hqdefault.jpg',
+  }) =>
+      {
+        'videoId': id,
+        'title': {
+          'runs': [
+            {'text': title},
+          ],
+        },
+        'ownerText': {
+          'runs': [
+            {'text': author},
+          ],
+        },
+        'lengthText': {'simpleText': length},
+        'viewCountText': {'simpleText': views},
+        'publishedTimeText': {'simpleText': published},
+        'isLiveNow': live,
+        'thumbnail': {
+          'thumbnails': [
+            {'url': 'https://i.ytimg.com/vi/$id/default.jpg'},
+            {'url': thumb},
+          ],
+        },
+      };
 
-  test('parse RSS đúng video id, title, ngày', () {
-    final videos = YouTubeService.parseRss(xml, limit: 2);
+  test('gom videoRenderer, đọc đủ trường và bỏ video trùng', () {
+    final data = <String, dynamic>{
+      'contents': {
+        'section': {
+          'items': [
+            {'videoRenderer': renderer(id: 'abc123def45', title: 'Tin & sự kiện')},
+            {'videoRenderer': renderer(id: 'abc123def45', title: 'Bản trùng')},
+            {'videoRenderer': renderer(id: 'xyz987uvw65', title: 'Video hai')},
+          ],
+        },
+      },
+    };
+
+    final videos = YouTubeService.parseSearchData(data, limit: 10);
     expect(videos.length, 2);
     expect(videos[0].id, 'abc123def45');
-    expect(videos[0].title, 'Tin & sự kiện <hôm nay>');
-    expect(videos[0].published, DateTime.parse('2026-11-01T10:00:00+00:00'));
+    expect(videos[0].title, 'Tin & sự kiện');
+    expect(videos[0].author, 'Kênh thử');
+    expect(videos[0].viewsText, '1.234 lượt xem');
+    expect(videos[0].publishedText, '2 giờ trước');
+    expect(videos[0].durationLabel, '12:34');
+    expect(videos[0].thumbnail, 'https://i.ytimg.com/vi/abc/hqdefault.jpg');
     expect(videos[1].id, 'xyz987uvw65');
-    expect(videos[1].title, 'Video thứ hai');
   });
 
-  test('RSS hỏng/rỗng trả danh sách rỗng, không ném lỗi', () {
-    expect(YouTubeService.parseRss('<feed></feed>'), isEmpty);
-    expect(YouTubeService.parseRss('not xml'), isEmpty);
+  test('bỏ livestream và video thiếu thời lượng; tôn trọng limit', () {
+    final data = <String, dynamic>{
+      'items': [
+        {'videoRenderer': renderer(id: 'live0000001', title: 'Live', live: true)},
+        {
+          'videoRenderer': {
+            'videoId': 'nolength001',
+            'title': {
+              'runs': [
+                {'text': 'Không có độ dài'}
+              ]
+            }
+          }
+        },
+        {'videoRenderer': renderer(id: 'ok000000001', title: 'OK 1')},
+        {'videoRenderer': renderer(id: 'ok000000002', title: 'OK 2')},
+      ],
+    };
+
+    final videos = YouTubeService.parseSearchData(data, limit: 1);
+    expect(videos.length, 1);
+    expect(videos.single.id, 'ok000000001');
+  });
+
+  test('tách ytInitialData bằng đếm ngoặc, không nhầm ngoặc trong chuỗi', () {
+    const html = '<script>var ytInitialData = '
+        '{"a":{"b":"}","c":[1,2]},"d":"x"};</script>';
+    final data = YouTubeService.extractInitialData(html);
+    expect(data, isNotNull);
+    expect((data!['a'] as Map)['b'], '}');
+    expect(data['d'], 'x');
+
+    expect(YouTubeService.extractInitialData('<html></html>'), isNull);
+    expect(YouTubeService.extractInitialData('ytInitialData = {broken;'), isNull);
+  });
+
+  test('parse thời lượng mm:ss và hh:mm:ss', () {
+    expect(YouTubeService.parseDuration('12:34'),
+        const Duration(minutes: 12, seconds: 34));
+    expect(YouTubeService.parseDuration('1:02:03'),
+        const Duration(hours: 1, minutes: 2, seconds: 3));
+    expect(YouTubeService.parseDuration('Streamed'), isNull);
+    expect(YouTubeService.parseDuration(''), isNull);
   });
 }

@@ -6,7 +6,6 @@ class PrefsService {
   static const _kFavorites = 'favorites';
   static const _kFontScale = 'font_scale';
   static const _kAutoPlay = 'auto_play';
-  static const _kVoiceEnabled = 'voice_enabled';
   static const _kAutoUpdate = 'auto_update';
 
   static late SharedPreferences _prefs;
@@ -52,10 +51,6 @@ class PrefsService {
   // ---- Tự phát khi mở app ----
   static bool get autoPlay => _prefs.getBool(_kAutoPlay) ?? true;
   static Future<void> setAutoPlay(bool v) => _prefs.setBool(_kAutoPlay, v);
-
-  // ---- Giọng nói ----
-  static bool get voiceEnabled => _prefs.getBool(_kVoiceEnabled) ?? true;
-  static Future<void> setVoiceEnabled(bool v) => _prefs.setBool(_kVoiceEnabled, v);
 
   // ---- Cập nhật ----
   static bool get autoUpdate => _prefs.getBool(_kAutoUpdate) ?? true;

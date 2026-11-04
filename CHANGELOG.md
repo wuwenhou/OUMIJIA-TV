@@ -4,6 +4,44 @@ Mọi thay đổi đáng chú ý của OUMIJIA TV được ghi tại đây.
 Định dạng dựa trên [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/),
 phiên bản theo [Semantic Versioning](https://semver.org/lang/vi/).
 
+## [2.1.0] — 2026-11-04
+
+### Thay đổi
+- **Home 3 khu vực đúng thứ tự**: Truyền hình → Phim → YouTube; bỏ danh sách
+  toàn bộ kênh dài trên Home, thêm hàng poster phim và thẻ giới thiệu YouTube.
+  Tab chỉ được dựng khi mở lần đầu để tránh gọi mạng lúc khởi động.
+- **YouTube kiểu bảng tin**: tìm kiếm tự do + chip chủ đề (Tin tức, Âm nhạc,
+  Phim, Hài, Thiếu nhi, Thể thao, Công nghệ, Du lịch), danh sách video có
+  thumbnail/thời lượng/kênh/lượt xem. Bỏ cơ chế danh mục kênh được duyệt.
+  Dữ liệu đọc từ `ytInitialData` của trang tìm kiếm YouTube, có cache 10 phút
+  và gộp request trùng; phát trực tiếp không quảng cáo.
+- **Độ sáng iOS**: thêm MethodChannel native dùng `UIScreen.main.brightness`,
+  tự khôi phục độ sáng hệ thống khi app rời foreground/kết thúc và áp dụng lại
+  khi quay lại. Android giữ nguyên hành vi chỉ đổi cửa sổ ứng dụng.
+- **Vòng đời trình phát**: TV, phim và YouTube tự dừng khi app vào nền/tắt màn
+  hình; chỉ tự phát lại khi quay lại nếu trước đó không bị người dùng bấm dừng.
+- **Đổi kênh**: dùng "thế hệ" request + dừng/giải phóng controller cũ trước khi
+  kết nối kênh mới, xoá video cũ khỏi giao diện ngay — sửa lỗi kênh trước vẫn
+  phát tiếp sau khi chuyển kênh.
+- **Trình phát phim**: áp dụng cùng cơ chế vòng đời và chống race khi thử lại.
+
+### Loại bỏ
+- **Điều khiển bằng giọng nói**: xoá dịch vụ, hộp thoại, công tắc cài đặt,
+  quyền `RECORD_AUDIO` (Android), `NSMicrophoneUsageDescription` (iOS) và
+  dependency `speech_to_text`. Không còn yêu cầu quyền micro.
+
+### Kiểm thử
+- `flutter analyze`: 0 lỗi.
+- `flutter test`: 12/12 pass (Home/tab, tìm kênh, parser bảng tin YouTube,
+  thời lượng, theme).
+- Kiểm tra mạng thực tế: trang tìm kiếm YouTube trả 20 video; lấy được luồng
+  phát muxed (kết quả `stream=OK`).
+
+### Chưa kiểm chứng trên thiết bị thật
+- Chưa có Android/iOS thật trong môi trường build: chưa xác nhận hình/tiếng,
+  độ sáng iOS, xoay màn hình và luồng cập nhật cài đè end-to-end. CI chỉ build
+  và chạy kiểm thử tự động.
+
 ## [2.0.2] — 2026-11-02
 
 ### Sửa lỗi

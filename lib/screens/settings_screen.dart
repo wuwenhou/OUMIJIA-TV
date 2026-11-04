@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -157,8 +159,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             children: [
               if (!canBrightness)
                 Text(
-                  'Tính năng này chỉ hỗ trợ trên Android. '
-                  'Trên iOS, độ sáng do hệ thống điều khiển.',
+                  'Thiết bị này không hỗ trợ điều chỉnh độ sáng trong ứng dụng.',
                   style: Theme.of(context).textTheme.bodyMedium,
                 )
               else ...[
@@ -172,7 +173,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   title: Text('Độ sáng tuỳ chỉnh',
                       style: Theme.of(context).textTheme.bodyLarge),
                   subtitle: Text(
-                    'Chỉ đổi cửa sổ ứng dụng, không ảnh hưởng độ sáng hệ thống.',
+                    Platform.isIOS
+                        ? 'Đổi độ sáng khi đang dùng app; tự khôi phục khi rời app.'
+                        : 'Chỉ đổi cửa sổ ứng dụng, không ảnh hưởng độ sáng hệ thống.',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
@@ -233,18 +236,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           _Section(
             title: 'Trình phát & cập nhật',
             children: [
-              SwitchListTile(
-                contentPadding: EdgeInsets.zero,
-                value: PrefsService.voiceEnabled,
-                onChanged: (v) async {
-                  await PrefsService.setVoiceEnabled(v);
-                  if (mounted) setState(() {});
-                },
-                title: Text('Điều khiển bằng giọng nói',
-                    style: Theme.of(context).textTheme.bodyLarge),
-                subtitle: Text('Nói "Bật VTV3" khi đang mở trình phát',
-                    style: Theme.of(context).textTheme.bodySmall),
-              ),
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
                 value: PrefsService.autoUpdate,

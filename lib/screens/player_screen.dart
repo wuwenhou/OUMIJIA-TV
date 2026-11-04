@@ -6,14 +6,15 @@ import 'package:video_player/video_player.dart';
 
 import '../models.dart';
 import '../services/prefs_service.dart';
-import '../services/voice_service.dart';
 import '../theme/design_system.dart';
 import '../widgets/channel_card.dart';
 
 /// Trình phát TRUYỀN HÌNH toàn màn hình.
 /// - Điều khiển TV: ↑↓ = đổi kênh, OK = dừng/phát, Back = thoát
 /// - Link hỏng → tự thử link dự phòng → hiện lỗi + nút "Thử lại"
-/// - Overlay: logo + tên kênh + trạng thái LIVE, yêu thích, giọng nói.
+/// - Rời app / tắt màn hình → dừng phát; quay lại mới tự phát tiếp
+/// - Đổi kênh → dừng và giải phóng video cũ trước khi kết nối kênh mới
+/// - Overlay: logo + tên kênh + trạng thái LIVE, yêu thích.
 ///
 /// Giao diện player luôn tối (media surface), kể cả app đang ở Light Mode.
 class PlayerScreen extends StatefulWidget {
@@ -26,13 +27,23 @@ class PlayerScreen extends StatefulWidget {
   State<PlayerScreen> createState() => _PlayerScreenState();
 }
 
-class _PlayerScreenState extends State<PlayerScreen> {
+class _PlayerScreenState extends State<PlayerScreen>
+    with WidgetsBindingObserver {
   late Channel _channel;
   VideoPlayerController? _controller;
   String _status = 'Đang kết nối...';
   bool _controlsVisible = true;
   Timer? _hideTimer;
   int _urlIndex = 0;
+
+  /// Tăng mỗi lần đổi kênh/nguồn. Callback của lần tải cũ bị bỏ qua.
+  int _generation = 0;
+
+  /// Người dùng chủ động dừng → không tự phát lại khi app quay lại.
+  bool _manualPause = false;
+
+  /// App đã tự dừng khi vào nền → được phép tự phát lại.
+  bool _autoPaused = false;
 
   /// màu nhấn cố định của vùng media (đảm bảo tương phản trên nền video)
   static const _accent = Color(0xFFFFC93C);
@@ -44,6 +55,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _channel = widget.channel;
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     SystemChrome.setPreferredOrientations([
@@ -56,16 +68,56 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
   @override
   void dispose() {
+    _generation++;
     _hideTimer?.cancel();
+    WidgetsBinding.instance.removeObserver(this);
     _controller?.dispose();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.dispose();
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final ctrl = _controller;
+    if (state == AppLifecycleState.resumed) {
+      // Chỉ tự phát lại nếu lần dừng trước do app vào nền, không phải do
+      // người dùng bấm dừng.
+      if (_autoPaused && !_manualPause && ctrl != null) {
+        ctrl.play();
+      }
+      _autoPaused = false;
+    } else if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused ||
+        state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.detached) {
+      if (ctrl != null && ctrl.value.isPlaying) {
+        _autoPaused = true;
+        ctrl.pause();
+      }
+    }
+  }
+
   Future<void> _play() async {
-    setState(() => _status = 'Đang kết nối...');
-    await _controller?.dispose();
+    final gen = ++_generation;
+    final old = _controller;
     _controller = null;
+    if (mounted) {
+      setState(() {
+        _status = 'Đang kết nối...';
+        _manualPause = false;
+        _autoPaused = false;
+      });
+    }
+
+    // Dừng + giải phóng video cũ trước khi lấy nguồn mới. Đây là điểm quan
+    // trọng để kênh trước không tiếp tục phát sau khi đổi kênh.
+    if (old != null) {
+      try {
+        await old.pause();
+        await old.dispose();
+      } catch (_) {}
+    }
+    if (!mounted || gen != _generation) return;
 
     final urls = _channel.allUrls;
     if (_urlIndex >= urls.length) {
@@ -81,9 +133,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
     try {
       await ctrl.initialize();
+      if (!mounted || gen != _generation) {
+        await ctrl.dispose();
+        return;
+      }
       await ctrl.setLooping(true);
       await ctrl.play();
-      if (!mounted) {
+      if (!mounted || gen != _generation) {
         await ctrl.dispose();
         return;
       }
@@ -92,11 +148,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
         _status = '';
       });
       await PrefsService.recordChannelOpened(_channel.id);
+      if (!mounted || gen != _generation) return;
       ctrl.addListener(() {
-        if (!mounted) return;
+        if (!mounted || gen != _generation) return;
         if (ctrl.value.hasError) {
           // Link hỏng → tự thử link dự phòng
-          _tryNextUrl();
+          _tryNextUrl(gen);
         } else if (ctrl.value.isBuffering && _status != 'Đang kết nối...') {
           setState(() => _status = 'Đang tải...');
         } else if (!ctrl.value.isBuffering && _status == 'Đang tải...') {
@@ -107,19 +164,19 @@ class _PlayerScreenState extends State<PlayerScreen> {
       _scheduleHideControls();
     } catch (_) {
       await ctrl.dispose();
+      if (!mounted || gen != _generation) return;
       // Thử link dự phòng
       _urlIndex++;
       if (_urlIndex < urls.length) {
         _play();
       } else {
-        if (mounted) {
-          setState(() => _status = 'Kênh này tạm lỗi. Vui lòng chọn kênh khác.');
-        }
+        setState(() => _status = 'Kênh này tạm lỗi. Vui lòng chọn kênh khác.');
       }
     }
   }
 
-  Future<void> _tryNextUrl() async {
+  Future<void> _tryNextUrl(int gen) async {
+    if (!mounted || gen != _generation) return;
     if (_urlIndex + 1 < _channel.allUrls.length) {
       _urlIndex++;
       await _play();
@@ -134,12 +191,27 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
   void _switchChannel(int delta) {
     final channels = widget.config.channels;
+    if (channels.isEmpty) return;
     final i = channels.indexWhere((c) => c.id == _channel.id);
-    final next = channels[(i + delta + channels.length) % channels.length];
+    final current = i < 0 ? 0 : i;
+    final next = channels[(current + delta + channels.length) % channels.length];
+
+    // Dừng ngay video cũ và xoá khỏi giao diện trước khi đổi kênh.
+    final old = _controller;
+    _controller = null;
+    _hideTimer?.cancel();
     setState(() {
       _channel = next;
       _urlIndex = 0;
+      _status = 'Đang kết nối...';
+      _controlsVisible = true;
+      _manualPause = false;
+      _autoPaused = false;
     });
+    if (old != null) {
+      unawaited(old.pause());
+      unawaited(old.dispose());
+    }
     _play();
   }
 
@@ -154,35 +226,20 @@ class _PlayerScreenState extends State<PlayerScreen> {
     final c = _controller;
     if (c == null) return;
     if (c.value.isPlaying) {
+      _manualPause = true;
       await c.pause();
     } else {
+      _manualPause = false;
+      _autoPaused = false;
       await c.play();
     }
     _showControls();
   }
 
   void _showControls() {
+    if (!mounted) return;
     setState(() => _controlsVisible = true);
     _scheduleHideControls();
-  }
-
-  Future<void> _openVoice() async {
-    _showControls();
-    if (!PrefsService.voiceEnabled) return;
-    final messenger = ScaffoldMessenger.of(context);
-    final voice = VoiceService();
-    final ok = await voice.init();
-    if (!ok) {
-      messenger.showSnackBar(const SnackBar(
-          content: Text('Không dùng được micro trên máy này.')));
-      return;
-    }
-    if (!mounted) return;
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (_) => _VoiceDialog(config: widget.config, voice: voice),
-    );
   }
 
   @override
@@ -366,15 +423,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                       label: 'Kênh sau',
                                       onPressed: () => _switchChannel(1),
                                     ),
-                                    if (PrefsService.voiceEnabled) ...[
-                                      const SizedBox(width: Sp.xl + Sp.s),
-                                      _ControlButton(
-                                        icon: Icons.mic_rounded,
-                                        label: 'Giọng nói',
-                                        accent: true,
-                                        onPressed: _openVoice,
-                                      ),
-                                    ],
                                   ],
                                 ),
                                 const SizedBox(height: Sp.s),
@@ -499,18 +547,16 @@ class _GlassButton extends StatelessWidget {
   }
 }
 
-/// Nút phụ dưới đáy (kênh trước/sau, micro).
+/// Nút phụ dưới đáy (kênh trước/sau).
 class _ControlButton extends StatelessWidget {
   final IconData icon;
   final String label;
   final VoidCallback onPressed;
-  final bool accent;
 
   const _ControlButton({
     required this.icon,
     required this.label,
     required this.onPressed,
-    this.accent = false,
   });
 
   @override
@@ -533,9 +579,7 @@ class _ControlButton extends StatelessWidget {
                 child: Icon(
                   icon,
                   size: 26,
-                  color: accent
-                      ? const Color(0xFFFFC93C)
-                      : Colors.white,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -577,152 +621,6 @@ class _PlayPauseButton extends StatelessWidget {
             size: 34,
             color: Colors.black,
           ),
-        ),
-      ),
-    );
-  }
-}
-
-/// Hộp thoại giọng nói: nghe → hiện kết quả → người dùng xác nhận → thực hiện.
-class _VoiceDialog extends StatefulWidget {
-  final AppConfig config;
-  final VoiceService voice;
-
-  const _VoiceDialog({required this.config, required this.voice});
-
-  @override
-  State<_VoiceDialog> createState() => _VoiceDialogState();
-}
-
-class _VoiceDialogState extends State<_VoiceDialog> {
-  String _heard = '';
-  VoiceCommand? _command;
-  bool _listening = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _start();
-  }
-
-  Future<void> _start() async {
-    setState(() {
-      _listening = true;
-      _heard = '';
-      _command = null;
-    });
-    final text = await widget.voice.listenOnce(onPartial: (t) {
-      if (mounted) setState(() => _heard = t);
-    });
-    if (!mounted) return;
-    if (text == null || text.isEmpty) {
-      setState(() {
-        _listening = false;
-        _command = VoiceCommand(type: VoiceCommandType.unknown, rawText: '');
-      });
-      return;
-    }
-    setState(() {
-      _listening = false;
-      _command = VoiceService.parse(text, widget.config);
-    });
-  }
-
-  @override
-  void dispose() {
-    widget.voice.stop();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final c = context.c;
-    final cmd = _command;
-    return Dialog(
-      child: Padding(
-        padding: const EdgeInsets.all(Sp.xxl),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 64,
-              height: 64,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: c.accent.withValues(alpha: 0.16),
-              ),
-              child: Icon(
-                _listening ? Icons.mic_rounded : Icons.hearing_rounded,
-                size: 32,
-                color: c.accent,
-              ),
-            ),
-            const SizedBox(height: Sp.l),
-            Text(
-              _listening ? 'Xin mời nói...' : 'Bạn vừa nói:',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(height: Sp.s),
-            Text(
-              _heard.isEmpty ? '...' : _heard,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            if (cmd != null && !cmd.isUnknown) ...[
-              const SizedBox(height: Sp.l),
-              Text(
-                cmd.confirmation,
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: c.accent, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: Sp.xl),
-              Row(
-                children: [
-                  Expanded(
-                    child: FilledButton(
-                      onPressed: () => Navigator.of(context).pop(cmd),
-                      child: const Text('Đồng ý'),
-                    ),
-                  ),
-                  const SizedBox(width: Sp.m),
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: _start,
-                      child: const Text('Nói lại'),
-                    ),
-                  ),
-                ],
-              ),
-            ] else if (!_listening) ...[
-              const SizedBox(height: Sp.l),
-              Text(
-                'Không hiểu lệnh. Thử nói: "Bật VTV3"',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(height: Sp.xl),
-              Row(
-                children: [
-                  Expanded(
-                    child: FilledButton(
-                      onPressed: _start,
-                      child: const Text('Nói lại'),
-                    ),
-                  ),
-                  const SizedBox(width: Sp.m),
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Đóng'),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ],
         ),
       ),
     );

@@ -153,37 +153,6 @@ class AppConfig {
     );
   }
 
-  /// Tìm kênh theo tên (dùng cho lệnh giọng nói "bật vtv3").
-  Channel? findChannelByName(String query) {
-    final q = _normalize(query);
-    for (final c in channels) {
-      if (q.contains(_normalize(c.name))) return c;
-      // "vtv3" khớp "VTV3 HD"
-      final idNoDash = c.id.replaceAll('-', '');
-      if (q.contains(_normalize(idNoDash))) return c;
-    }
-    return null;
-  }
-
-  /// Tìm danh mục YouTube theo tên ("mở nhạc trữ tình").
-  /// Khớp lỏng: nếu MỘT từ đáng kể trong tên danh mục xuất hiện trong câu.
-  YouTubeCategory? findCategoryByName(String query) {
-    final q = _normalize(query);
-    for (final c in youtubeCategories) {
-      if (q.contains(_normalize(c.name))) return c;
-      // Khớp từng từ: "nhạc trữ tình" → khớp "Ca nhạc" qua từ "nhạc"
-      final words = _normalize(c.name).split(' ');
-      final significant = words.where((w) => w.length >= 2 && !_stopWords.contains(w));
-      for (final w in significant) {
-        if (q.contains(w)) return c;
-      }
-    }
-    return null;
-  }
-
-  /// Từ yếu nghĩa không dùng để khớp danh mục.
-  static const _stopWords = {'ca', 'của', 'và'};
-
   /// Tìm kiếm kênh theo từ khóa (bỏ dấu, không phân biệt hoa/thường).
   List<Channel> searchChannels(String query) {
     final q = _normalize(query);

@@ -1,13 +1,12 @@
-// ignore_for_file: avoid_print, unintended_html_in_doc_comment
+// ignore_for_file: avoid_print
 import 'package:oumijia_tv/services/youtube_service.dart';
 
-/// Kiểm tra nhanh khả năng lấy video + luồng phát YouTube của app.
-/// Chạy: `dart run tool/youtube_probe.dart <channelId>` hoặc
-/// `dart run tool/youtube_probe.dart --video <videoId>`
+/// Kiểm tra nhanh khả năng lấy bảng tin + luồng phát YouTube của app.
+/// Chạy: `dart run tool/youtube_probe.dart "tin tức việt nam"`
 /// hoặc: `dart run tool/youtube_probe.dart --video <videoId>`
 Future<void> main(List<String> args) async {
   if (args.isEmpty) {
-    print('Cần truyền channelId (UC...) hoặc --video <id>');
+    print('Cần truyền từ khóa hoặc --video <id>');
     return;
   }
   if (args.first == '--video' && args.length > 1) {
@@ -20,18 +19,19 @@ Future<void> main(List<String> args) async {
     YouTubeService.close();
     return;
   }
-  for (final id in args) {
-    try {
-      final videos = await YouTubeService.channelVideos(id, limit: 3);
-      print('$id | videos=${videos.length}'
-          '${videos.isEmpty ? '' : ' | first=${videos.first.title}'}');
-      if (videos.isNotEmpty) {
-        final url = await YouTubeService.resolveStreamUrl(videos.first.id);
-        print('  stream=${url == null ? 'NULL' : 'OK'}');
-      }
-    } catch (e) {
-      print('$id | ERROR: $e');
+  final query = args.join(' ');
+  try {
+    final videos = await YouTubeService.fetchFeed(query, force: true);
+    print('query=$query videos=${videos.length}');
+    for (final v in videos.take(5)) {
+      print('${v.id} | ${v.title} | ${v.author} | ${v.durationLabel}');
     }
+    if (videos.isNotEmpty) {
+      final url = await YouTubeService.resolveStreamUrl(videos.first.id);
+      print('stream=${url == null ? 'NULL' : 'OK'}');
+    }
+  } catch (e) {
+    print('ERROR: $e');
   }
   YouTubeService.close();
 }

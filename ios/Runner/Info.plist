@@ -26,9 +26,6 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<!-- Quyền micro cho điều khiển giọng nói -->
-	<key>NSMicrophoneUsageDescription</key>
-	<string>OUMIJIA TV cần dùng micro để nghe lệnh tiếng Việt (ví dụ: "Bật VTV3").</string>
 	<!-- Cho phép phát stream HTTP (một số kênh dùng link không HTTPS) -->
 	<key>NSAppTransportSecurity</key>
 	<dict>

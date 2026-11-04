@@ -99,7 +99,7 @@ class _MovieCard extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
             fullscreenDialog: true,
-            builder: (_) => _MoviePlayerScreen(movie: movie),
+            builder: (_) => MoviePlayerScreen(movie: movie),
           ));
         },
         child: Container(
@@ -186,60 +186,125 @@ class _MovieCard extends StatelessWidget {
   }
 }
 
-/// Trình phát phim đơn giản — nền đen, điều khiển nổi, có thử lại khi lỗi.
-class _MoviePlayerScreen extends StatefulWidget {
+/// Trình phát phim — nền đen, điều khiển nổi, có thử lại khi lỗi.
+/// Tự dừng khi app vào nền; chỉ tự phát lại nếu trước đó không bị người dùng
+/// bấm dừng.
+class MoviePlayerScreen extends StatefulWidget {
   final MovieItem movie;
 
-  const _MoviePlayerScreen({required this.movie});
+  const MoviePlayerScreen({super.key, required this.movie});
 
   @override
-  State<_MoviePlayerScreen> createState() => _MoviePlayerScreenState();
+  State<MoviePlayerScreen> createState() => _MoviePlayerScreenState();
 }
 
-class _MoviePlayerScreenState extends State<_MoviePlayerScreen> {
+class _MoviePlayerScreenState extends State<MoviePlayerScreen>
+    with WidgetsBindingObserver {
   VideoPlayerController? _controller;
   String _error = '';
+  int _generation = 0;
+  bool _manualPause = false;
+  bool _autoPaused = false;
 
   static const _accent = Color(0xFFFFC93C);
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _init();
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final ctrl = _controller;
+    if (state == AppLifecycleState.resumed) {
+      if (_autoPaused && !_manualPause && ctrl != null) {
+        ctrl.play();
+      }
+      _autoPaused = false;
+    } else if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused ||
+        state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.detached) {
+      if (ctrl != null && ctrl.value.isPlaying) {
+        _autoPaused = true;
+        ctrl.pause();
+      }
+    }
+  }
+
   Future<void> _init() async {
-    setState(() => _error = '');
+    final gen = ++_generation;
+    final old = _controller;
+    _controller = null;
+    if (mounted) {
+      setState(() {
+        _error = '';
+        _manualPause = false;
+        _autoPaused = false;
+      });
+    }
+    if (old != null) {
+      try {
+        await old.pause();
+        await old.dispose();
+      } catch (_) {}
+    }
+    if (!mounted || gen != _generation) return;
+
     try {
       final ctrl = VideoPlayerController.networkUrl(
         Uri.parse(widget.movie.url),
         httpHeaders: widget.movie.headers,
       );
       await ctrl.initialize();
+      if (!mounted || gen != _generation) {
+        await ctrl.dispose();
+        return;
+      }
+      ctrl.addListener(() {
+        if (!mounted || gen != _generation) return;
+        if (ctrl.value.hasError) {
+          setState(() => _error = 'Không phát được phim này.');
+        } else if (mounted) {
+          setState(() {});
+        }
+      });
       await ctrl.play();
-      if (!mounted) {
+      if (!mounted || gen != _generation) {
         await ctrl.dispose();
         return;
       }
       setState(() => _controller = ctrl);
-      ctrl.addListener(() {
-        if (mounted && ctrl.value.hasError) {
-          setState(() => _error = 'Không phát được phim này.');
-        }
-      });
     } catch (_) {
-      if (mounted) setState(() => _error = 'Không phát được phim này.');
+      if (mounted && gen == _generation) {
+        setState(() => _error = 'Không phát được phim này.');
+      }
     }
   }
 
   Future<void> _retry() async {
-    await _controller?.dispose();
-    _controller = null;
     await _init();
+  }
+
+  void _togglePlay() {
+    final ctrl = _controller;
+    if (ctrl == null || !ctrl.value.isInitialized) return;
+    if (ctrl.value.isPlaying) {
+      _manualPause = true;
+      ctrl.pause();
+    } else {
+      _manualPause = false;
+      _autoPaused = false;
+      ctrl.play();
+    }
   }
 
   @override
   void dispose() {
+    _generation++;
+    WidgetsBinding.instance.removeObserver(this);
     _controller?.dispose();
     super.dispose();
   }
@@ -258,13 +323,7 @@ class _MoviePlayerScreenState extends State<_MoviePlayerScreen> {
             // video / trạng thái
             GestureDetector(
               behavior: HitTestBehavior.opaque,
-              onTap: () {
-                final ctrl = _controller;
-                if (ctrl == null || !ctrl.value.isInitialized) return;
-                setState(() {
-                  ctrl.value.isPlaying ? ctrl.pause() : ctrl.play();
-                });
-              },
+              onTap: _togglePlay,
               child: Center(
               child: _error.isNotEmpty
                   ? Column(
@@ -340,11 +399,7 @@ class _MoviePlayerScreenState extends State<_MoviePlayerScreen> {
                   shape: const CircleBorder(),
                   clipBehavior: Clip.antiAlias,
                   child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        playing ? c.pause() : c.play();
-                      });
-                    },
+                    onTap: _togglePlay,
                     child: SizedBox(
                       width: 68,
                       height: 68,

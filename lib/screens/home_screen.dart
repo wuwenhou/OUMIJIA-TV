@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../models.dart';
@@ -13,7 +14,7 @@ import 'settings_screen.dart';
 import 'youtube_screen.dart';
 
 /// Màn hình chính — 5 tab: Home · Kênh · Phim · YouTube · Cài đặt.
-/// Home: hero "Tiếp tục xem" + hàng yêu thích + vừa xem + toàn bộ kênh.
+/// Home giới thiệu 3 khu vực theo thứ tự: Truyền hình → Phim → YouTube.
 class HomeScreen extends StatefulWidget {
   final AppConfig config;
 
@@ -26,6 +27,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _tab = 0;
   late AppConfig _config = widget.config;
+
+  /// Chỉ dựng tab khi người dùng mở lần đầu — tránh gọi mạng YouTube,
+  /// đọc PackageInfo... ngay lúc khởi động.
+  final Set<int> _visited = {0};
+
+  void _selectTab(int index) {
+    setState(() {
+      _tab = index;
+      _visited.add(index);
+    });
+  }
 
   @override
   void initState() {
@@ -56,19 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
     _openPlayer(ch);
-  }
-
-  Future<void> _toggleFavorite(Channel ch) async {
-    final adding = !PrefsService.isFavorite(ch.id);
-    await PrefsService.toggleFavorite(ch.id);
-    if (!mounted) return;
-    setState(() {});
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(adding
-          ? 'Đã lưu ${ch.name} vào yêu thích'
-          : 'Đã bỏ ${ch.name} khỏi yêu thích'),
-      duration: const Duration(milliseconds: 1500),
-    ));
   }
 
   Future<void> _openFavorites() async {
@@ -109,23 +108,31 @@ class _HomeScreenState extends State<HomeScreen> {
           _HomeTab(
             config: _config,
             onPlay: _play,
-            onToggleFavorite: (ch) => _toggleFavorite(ch),
-            onGoChannels: () => setState(() => _tab = 1),
+            onGoChannels: () => _selectTab(1),
+            onGoMovies: () => _selectTab(2),
+            onGoYouTube: () => _selectTab(3),
             onOpenFavorites: _openFavorites,
-            onConfigChanged: (cfg) => setState(() => _config = cfg),
           ),
-          ChannelsScreen(
-            config: _config,
-            onConfigChanged: (cfg) => setState(() => _config = cfg),
-          ),
-          MoviesScreen(config: _config),
-          YouTubeScreen(config: _config),
-          SettingsScreen(config: _config),
+          _visited.contains(1)
+              ? ChannelsScreen(
+                  config: _config,
+                  onConfigChanged: (cfg) => setState(() => _config = cfg),
+                )
+              : const SizedBox.shrink(),
+          _visited.contains(2)
+              ? MoviesScreen(config: _config)
+              : const SizedBox.shrink(),
+          _visited.contains(3)
+              ? YouTubeScreen(config: _config)
+              : const SizedBox.shrink(),
+          _visited.contains(4)
+              ? SettingsScreen(config: _config)
+              : const SizedBox.shrink(),
         ],
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _tab,
-        onDestinationSelected: (i) => setState(() => _tab = i),
+        onDestinationSelected: _selectTab,
         destinations: destinations,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
       ),
@@ -137,18 +144,18 @@ class _HomeScreenState extends State<HomeScreen> {
 class _HomeTab extends StatelessWidget {
   final AppConfig config;
   final void Function(Channel) onPlay;
-  final void Function(Channel) onToggleFavorite;
   final VoidCallback onGoChannels;
+  final VoidCallback onGoMovies;
+  final VoidCallback onGoYouTube;
   final VoidCallback onOpenFavorites;
-  final void Function(AppConfig) onConfigChanged;
 
   const _HomeTab({
     required this.config,
     required this.onPlay,
-    required this.onToggleFavorite,
     required this.onGoChannels,
+    required this.onGoMovies,
+    required this.onGoYouTube,
     required this.onOpenFavorites,
-    required this.onConfigChanged,
   });
 
   @override
@@ -171,6 +178,11 @@ class _HomeTab extends StatelessWidget {
         .whereType<Channel>()
         .where((ch) => ch.id != hero?.id)
         .take(6)
+        .toList();
+    final favoriteIds = favorites.map((ch) => ch.id).toSet();
+    final others = config.channels
+        .where((ch) => ch.id != hero?.id && !favoriteIds.contains(ch.id))
+        .take(8)
         .toList();
 
     return CustomScrollView(
@@ -208,27 +220,43 @@ class _HomeTab extends StatelessWidget {
             ),
           ],
         ),
+
+        // ==================== 1. TRUYỀN HÌNH ====================
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(Sp.xl, Sp.s, Sp.xl, 0),
+          sliver: SliverToBoxAdapter(
+            child: SectionHeader(
+              title: 'Truyền hình',
+              trailing: TextButton(
+                onPressed: onGoChannels,
+                child: const Text('Xem tất cả'),
+              ),
+            ),
+          ),
+        ),
         if (config.channels.isEmpty)
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(Sp.xxl),
-              child: Text(
-                'Danh mục kênh đang trống. '
-                'Thêm kênh vào config/channels.json trên GitHub rồi kéo làm mới tab Kênh.',
-                style: Theme.of(context).textTheme.bodyMedium,
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(Sp.xl, 0, Sp.xl, 0),
+            sliver: SliverToBoxAdapter(
+              child: _EmptyCard(
+                icon: Icons.tv_off_outlined,
+                title: 'Danh mục kênh đang trống',
+                message: 'Thêm kênh vào config/channels.json trên GitHub '
+                    'rồi kéo làm mới tab Kênh.',
+                actionLabel: 'Mở tab Kênh',
+                onAction: onGoChannels,
               ),
             ),
           )
         else ...[
-          // ---- hero Tiếp tục xem ----
           if (hero != null)
             SliverPadding(
-              padding: const EdgeInsets.fromLTRB(Sp.xl, Sp.s, Sp.xl, 0),
+              padding: const EdgeInsets.fromLTRB(Sp.xl, 0, Sp.xl, 0),
               sliver: SliverToBoxAdapter(
-                child: ContinueWatchingCard(channel: hero, onPlay: () => onPlay(hero)),
+                child: ContinueWatchingCard(
+                    channel: hero, onPlay: () => onPlay(hero)),
               ),
             ),
-          // ---- yêu thích ----
           if (favorites.isNotEmpty) ...[
             SliverPadding(
               padding: const EdgeInsets.fromLTRB(Sp.xl, Sp.xl, Sp.xl, 0),
@@ -253,7 +281,6 @@ class _HomeTab extends StatelessWidget {
               ),
             ),
           ],
-          // ---- vừa xem ----
           if (recent.isNotEmpty) ...[
             SliverPadding(
               padding: const EdgeInsets.fromLTRB(Sp.xl, Sp.xl, Sp.xl, 0),
@@ -266,36 +293,301 @@ class _HomeTab extends StatelessWidget {
               ),
             ),
           ],
-          // ---- tất cả kênh ----
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(Sp.xl, Sp.xl, Sp.xl, 0),
-            sliver: SliverToBoxAdapter(
-              child: SectionHeader(
-                title: 'Tất cả kênh truyền hình',
-                trailing:
-                    TextButton(onPressed: onGoChannels, child: const Text('Xem tất cả')),
+          if (others.isNotEmpty) ...[
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(Sp.xl, Sp.xl, Sp.xl, 0),
+              sliver: SliverToBoxAdapter(
+                child: SectionHeader(
+                  title: 'Kênh nổi bật',
+                  trailing: IconButton(
+                    icon: const Icon(Icons.arrow_forward, size: 20),
+                    tooltip: 'Mở toàn bộ kênh',
+                    onPressed: onGoChannels,
+                  ),
+                ),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: Sp.xl),
+              sliver: SliverToBoxAdapter(
+                child: MiniChannelRow(channels: others, onOpen: onPlay),
+              ),
+            ),
+          ],
+        ],
+
+        // ==================== 2. PHIM ====================
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(Sp.xl, Sp.xxl, Sp.xl, 0),
+          sliver: SliverToBoxAdapter(
+            child: SectionHeader(
+              title: 'Phim',
+              trailing: TextButton(
+                onPressed: onGoMovies,
+                child: const Text('Xem tất cả'),
               ),
             ),
           ),
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(Sp.xl, 0, Sp.xl, 0),
-            sliver: SliverList.separated(
-              itemCount: config.channels.length,
-              itemBuilder: (context, i) {
-                final ch = config.channels[i];
-                return ChannelCard(
-                  channel: ch,
-                  favorite: PrefsService.isFavorite(ch.id),
-                  onTap: () => onPlay(ch),
-                  onLongPress: () => onToggleFavorite(ch),
-                );
-              },
-              separatorBuilder: (_, __) => const SizedBox(height: Sp.s + 2),
+        ),
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: Sp.xl),
+          sliver: SliverToBoxAdapter(
+            child: config.movies.isEmpty
+                ? _EmptyCard(
+                    icon: Icons.movie_outlined,
+                    title: 'Kho phim đang trống',
+                    message: 'Khi chủ ứng dụng thêm phim hợp lệ vào cấu hình, '
+                        'phim sẽ xuất hiện tại đây và trong tab Phim.',
+                    actionLabel: 'Mở tab Phim',
+                    onAction: onGoMovies,
+                  )
+                : _HomeMovieRow(movies: config.movies.take(10).toList()),
+          ),
+        ),
+
+        // ==================== 3. YOUTUBE ====================
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(Sp.xl, Sp.xxl, Sp.xl, 0),
+          sliver: SliverToBoxAdapter(
+            child: SectionHeader(
+              title: 'YouTube',
+              trailing: TextButton(
+                onPressed: onGoYouTube,
+                child: const Text('Mở'),
+              ),
             ),
           ),
-          const SliverToBoxAdapter(child: SizedBox(height: Sp.xxl + Sp.l)),
-        ],
+        ),
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(Sp.xl, 0, Sp.xl, 0),
+          sliver: SliverToBoxAdapter(
+            child: _YouTubePromoCard(onOpen: onGoYouTube),
+          ),
+        ),
+        const SliverToBoxAdapter(child: SizedBox(height: Sp.xxl + Sp.l)),
       ],
+    );
+  }
+}
+
+/// Hàng poster phim trên Home — bấm để phát ngay.
+class _HomeMovieRow extends StatelessWidget {
+  final List<MovieItem> movies;
+
+  const _HomeMovieRow({required this.movies});
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.c;
+    return SizedBox(
+      height: 246,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: movies.length,
+        separatorBuilder: (_, __) => const SizedBox(width: Sp.m),
+        itemBuilder: (context, i) {
+          final movie = movies[i];
+          return SizedBox(
+            width: 132,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(Radii.m),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (_) => MoviePlayerScreen(movie: movie),
+                ));
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(Radii.m),
+                    child: AspectRatio(
+                      aspectRatio: 2 / 3,
+                      child: movie.poster.isEmpty
+                          ? Container(
+                              color: c.surfaceAlt,
+                              child: Icon(Icons.movie_outlined,
+                                  size: 34, color: c.textLo),
+                            )
+                          : CachedNetworkImage(
+                              imageUrl: movie.poster,
+                              fit: BoxFit.cover,
+                              placeholder: (_, __) =>
+                                  Container(color: c.surfaceAlt),
+                              errorWidget: (_, __, ___) => Container(
+                                color: c.surfaceAlt,
+                                child: Icon(Icons.broken_image_outlined,
+                                    size: 30, color: c.textLo),
+                              ),
+                            ),
+                    ),
+                  ),
+                  const SizedBox(height: Sp.s),
+                  Text(
+                    movie.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: c.textHi,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+/// Thẻ giới thiệu YouTube trên Home (không gọi mạng).
+class _YouTubePromoCard extends StatelessWidget {
+  final VoidCallback onOpen;
+
+  const _YouTubePromoCard({required this.onOpen});
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.c;
+    return Container(
+      padding: const EdgeInsets.all(Sp.l),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(Radii.l),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [c.accent.withValues(alpha: 0.14), c.surfaceAlt],
+        ),
+        border: Border.all(color: c.accent.withValues(alpha: 0.32)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 46,
+                height: 46,
+                decoration: BoxDecoration(
+                  color: c.accent.withValues(alpha: 0.18),
+                  borderRadius: BorderRadius.circular(Radii.m),
+                ),
+                child: Icon(Icons.smart_display, color: c.accent, size: 26),
+              ),
+              const SizedBox(width: Sp.m),
+              Expanded(
+                child: Text(
+                  'Video YouTube không quảng cáo',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: Sp.s),
+          Text(
+            'Bảng tin video theo chủ đề, tìm kiếm tự do và phát trực tiếp '
+            'không qua quảng cáo.',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          const SizedBox(height: Sp.m),
+          Wrap(
+            spacing: Sp.s,
+            runSpacing: Sp.s,
+            children: const [
+              _FeatureChip(icon: Icons.search_rounded, label: 'Tìm kiếm'),
+              _FeatureChip(icon: Icons.category_outlined, label: 'Chủ đề'),
+              _FeatureChip(icon: Icons.block_rounded, label: 'Không quảng cáo'),
+            ],
+          ),
+          const SizedBox(height: Sp.m),
+          Align(
+            alignment: Alignment.centerRight,
+            child: FilledButton.icon(
+              onPressed: onOpen,
+              icon: const Icon(Icons.play_arrow_rounded, size: 22),
+              label: const Text('Khám phá'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FeatureChip extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const _FeatureChip({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.c;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: Sp.s + 2, vertical: 5),
+      decoration: BoxDecoration(
+        color: c.surface.withValues(alpha: 0.7),
+        borderRadius: BorderRadius.circular(Radii.xl),
+        border: Border.all(color: c.border),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14, color: c.textMed),
+          const SizedBox(width: 5),
+          Text(label, style: Theme.of(context).textTheme.bodySmall),
+        ],
+      ),
+    );
+  }
+}
+
+class _EmptyCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String message;
+  final String actionLabel;
+  final VoidCallback onAction;
+
+  const _EmptyCard({
+    required this.icon,
+    required this.title,
+    required this.message,
+    required this.actionLabel,
+    required this.onAction,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.c;
+    return Container(
+      padding: const EdgeInsets.all(Sp.l),
+      decoration: BoxDecoration(
+        color: c.surface,
+        borderRadius: BorderRadius.circular(Radii.m),
+        border: Border.all(color: c.border),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 34, color: c.textLo),
+          const SizedBox(width: Sp.m),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: Theme.of(context).textTheme.titleSmall),
+                const SizedBox(height: 2),
+                Text(message, style: Theme.of(context).textTheme.bodySmall),
+              ],
+            ),
+          ),
+          const SizedBox(width: Sp.s),
+          TextButton(onPressed: onAction, child: Text(actionLabel)),
+        ],
+      ),
     );
   }
 }
@@ -305,7 +597,8 @@ class ContinueWatchingCard extends StatelessWidget {
   final Channel channel;
   final VoidCallback onPlay;
 
-  const ContinueWatchingCard({super.key, required this.channel, required this.onPlay});
+  const ContinueWatchingCard(
+      {super.key, required this.channel, required this.onPlay});
 
   @override
   Widget build(BuildContext context) {
@@ -370,7 +663,8 @@ class MiniChannelRow extends StatelessWidget {
   final List<Channel> channels;
   final void Function(Channel) onOpen;
 
-  const MiniChannelRow({super.key, required this.channels, required this.onOpen});
+  const MiniChannelRow(
+      {super.key, required this.channels, required this.onOpen});
 
   @override
   Widget build(BuildContext context) {
@@ -389,7 +683,8 @@ class MiniChannelRow extends StatelessWidget {
                   borderRadius: BorderRadius.circular(Radii.xl),
                   onTap: () => onOpen(ch),
                   child: Container(
-                    padding: const EdgeInsets.fromLTRB(Sp.s + 2, Sp.s, Sp.l + 2, Sp.s),
+                    padding: const EdgeInsets.fromLTRB(
+                        Sp.s + 2, Sp.s, Sp.l + 2, Sp.s),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(Radii.xl),
                       border: Border.all(color: c.border),
@@ -398,7 +693,9 @@ class MiniChannelRow extends StatelessWidget {
                       children: [
                         ChannelLogo(channel: ch, size: 32),
                         const SizedBox(width: Sp.s + 4),
-                        Text(ch.name, style: Theme.of(context).textTheme.labelLarge),
+                        Text(ch.name,
+                            style:
+                                Theme.of(context).textTheme.labelLarge),
                       ],
                     ),
                   ),
@@ -423,7 +720,8 @@ class BrandBadge extends StatelessWidget {
       height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Radii.m),
-        gradient: LinearGradient(colors: [c.accent, c.accent.withValues(alpha: 0.68)]),
+        gradient:
+            LinearGradient(colors: [c.accent, c.accent.withValues(alpha: 0.68)]),
       ),
       child: const Icon(Icons.smart_display, color: Colors.black, size: 24),
     );
