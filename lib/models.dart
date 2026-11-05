@@ -122,16 +122,43 @@ class MovieItem {
       );
 }
 
+/// Nguồn phim động lấy từ kênh YouTube chính thức (RSS công khai).
+///
+/// Dùng cho các kênh có bản quyền đăng phim thuyết minh/lồng tiếng liên tục:
+/// app chỉ đọc danh sách video công khai, không tải lại nội dung.
+class MovieSource {
+  final String id;
+  final String name;
+  final String channelId;
+  final String note;
+
+  MovieSource({
+    required this.id,
+    required this.name,
+    required this.channelId,
+    this.note = '',
+  });
+
+  factory MovieSource.fromJson(Map<String, dynamic> j) => MovieSource(
+        id: j['id'] as String,
+        name: (j['name'] as String?) ?? 'Phim',
+        channelId: j['channelId'] as String,
+        note: (j['note'] as String?) ?? '',
+      );
+}
+
 class AppConfig {
   final List<Channel> channels;
   final List<YouTubeCategory> youtubeCategories;
   final List<MovieItem> movies;
+  final List<MovieSource> movieSources;
   final String source; // 'remote' hoặc 'bundled'
 
   AppConfig({
     required this.channels,
     required this.youtubeCategories,
     required this.movies,
+    this.movieSources = const [],
     this.source = 'bundled',
   });
 
@@ -148,6 +175,9 @@ class AppConfig {
           .toList(),
       movies: (j['movies'] as List<dynamic>? ?? [])
           .map((e) => MovieItem.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      movieSources: (j['movieSources'] as List<dynamic>? ?? [])
+          .map((e) => MovieSource.fromJson(e as Map<String, dynamic>))
           .toList(),
       source: source,
     );

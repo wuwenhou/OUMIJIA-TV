@@ -329,7 +329,10 @@ class _Section extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: Sp.m),
-                  Text(title, style: Theme.of(context).textTheme.titleMedium),
+                  Expanded(
+                    child: Text(title,
+                        style: Theme.of(context).textTheme.titleMedium),
+                  ),
                 ],
               ),
               const SizedBox(height: Sp.m),

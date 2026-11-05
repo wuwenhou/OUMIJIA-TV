@@ -4,6 +4,37 @@ Mọi thay đổi đáng chú ý của OUMIJIA TV được ghi tại đây.
 Định dạng dựa trên [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/),
 phiên bản theo [Semantic Versioning](https://semver.org/lang/vi/).
 
+## [2.1.1] — 2026-11-04
+
+### Sửa lỗi
+- **VTV1 / VTV3 mất tiếng**: nguồn `live.tvon.vn/g2/<id>/video_hd_compat/`
+  chỉ chứa track video (init segment `vide`/`avc1`). Chuyển sang `master.m3u8`,
+  nơi khai báo audio riêng `audio/playlist.m3u8` (AAC `mp4a`) — ExoPlayer và
+  AVPlayer tự ghép hình + tiếng. Áp dụng cho VTV1, VTV3 và VTV10.
+- **Bỏ tab Trang chủ**: điều hướng còn 4 tab Kênh · Phim · YouTube · Cài đặt;
+  app mở thẳng vào danh sách kênh. Nút "Kênh yêu thích" được đưa lên thanh
+  công cụ tab Kênh để không mất chức năng đã có.
+
+### Thêm
+- **Nguồn phim thuyết minh/lồng tiếng cập nhật liên tục**: tab Phim đọc RSS
+  công khai của hai kênh YouTube chính thức thuộc iQIYI —
+  `iQIYI Phim Thuyết Minh` và `Phim Lồng Tiếng Hay`. Mỗi nguồn là một hàng
+  ngang video mới nhất; bấm vào phát ngay bằng trình phát YouTube sẵn có
+  (không quảng cáo, không iframe). Có cache 10 phút, kéo xuống để làm mới,
+  báo lỗi và thử lại riêng từng nguồn.
+- Cấu hình `movieSources` trong `config/channels.json`: thêm/bớt kênh phim
+  bằng `id`, `name`, `channelId`, `note` — không cần phát hành APK mới.
+
+### Kiểm thử
+- `flutter analyze`: 0 lỗi (chỉ còn 2 gợi ý doc-comment trong `tool/`).
+- `flutter test`: bổ sung test parser RSS kênh phim và test điều hướng 4 tab
+  (không còn "Trang chủ").
+
+### Chưa kiểm chứng trên thiết bị thật
+- Chưa có Android/iOS thật trong môi trường build: chưa xác nhận trực tiếp
+  âm thanh VTV1/VTV3, luồng phát phim iQIYI và cài đè trong app. Đã kiểm tra
+  bằng HTTP: `master.m3u8` trả về audio track AAC; RSS hai kênh trả video mới.
+
 ## [2.1.0] — 2026-11-04
 
 ### Thay đổi

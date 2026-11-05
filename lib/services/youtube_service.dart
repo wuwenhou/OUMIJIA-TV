@@ -57,6 +57,9 @@ class YouTubeService {
   static final Map<String, _FeedCache> _cache = {};
   static final Map<String, Future<List<YouTubeVideo>>> _inFlight = {};
 
+  static final Map<String, _FeedCache> _uploadCache = {};
+  static final Map<String, Future<List<YouTubeVideo>>> _uploadInFlight = {};
+
   /// Lấy bảng tin video theo từ khóa. Có cache 10 phút + gộp request trùng.
   static Future<List<YouTubeVideo>> fetchFeed(String query,
       {bool force = false}) async {
@@ -108,6 +111,118 @@ class YouTubeService {
           'Không tìm thấy video cho "$query". Hãy thử từ khóa khác.');
     }
     return videos;
+  }
+
+  /// Lấy danh sách video mới nhất của một kênh qua RSS công khai.
+  ///
+  /// Dùng cho nguồn phim thuyết minh/lồng tiếng: kênh chính thức cập nhật
+  /// video mới thì tab Phim tự có nội dung mới, không cần phát hành app.
+  static Future<List<YouTubeVideo>> fetchChannelUploads(
+    String channelId, {
+    bool force = false,
+    int limit = 20,
+  }) async {
+    final key = '$channelId:$limit';
+    final cached = _uploadCache[key];
+    if (!force &&
+        cached != null &&
+        DateTime.now().difference(cached.at) < _cacheTtl) {
+      return cached.videos;
+    }
+    final running = _uploadInFlight[key];
+    if (running != null) return running;
+
+    final future = _fetchChannelUploads(channelId, limit).whenComplete(() {
+      _uploadInFlight.remove(key);
+    });
+    _uploadInFlight[key] = future;
+    final videos = await future;
+    _uploadCache[key] = _FeedCache(videos, DateTime.now());
+    return videos;
+  }
+
+  static Future<List<YouTubeVideo>> _fetchChannelUploads(
+    String channelId,
+    int limit,
+  ) async {
+    final uri = Uri.https('www.youtube.com', '/feeds/videos.xml', {
+      'channel_id': channelId,
+    });
+    final resp = await http.get(uri, headers: {
+      'User-Agent': _ua,
+      'Accept-Language': 'vi-VN,vi;q=0.9,en;q=0.6',
+    }).timeout(const Duration(seconds: 20));
+    if (resp.statusCode != 200) {
+      throw YouTubeSourceException(
+          'Kênh phim trả HTTP ${resp.statusCode}. Vui lòng thử lại.');
+    }
+    final xml = utf8.decode(resp.bodyBytes, allowMalformed: true);
+    final videos = parseChannelFeed(xml, limit: limit);
+    if (videos.isEmpty) {
+      throw YouTubeSourceException(
+          'Kênh phim chưa có video công khai. Vui lòng thử lại sau.');
+    }
+    return videos;
+  }
+
+  /// Tách các thẻ `<entry>` của RSS YouTube thành video.
+  /// Không phụ thuộc package XML để giữ app nhẹ.
+  static List<YouTubeVideo> parseChannelFeed(String xml, {int limit = 20}) {
+    final out = <YouTubeVideo>[];
+    final seen = <String>{};
+    final entries =
+        RegExp(r'<entry>(.*?)</entry>', dotAll: true).allMatches(xml);
+    for (final entry in entries) {
+      if (out.length >= limit) break;
+      final block = entry.group(1) ?? '';
+      final id = _tag(block, 'yt:videoId');
+      if (id.isEmpty || !seen.add(id)) continue;
+      final title = _unescape(_tag(block, 'title'));
+      if (title.isEmpty) continue;
+
+      final publishedRaw = _tag(block, 'published');
+      final published = DateTime.tryParse(publishedRaw);
+      final thumb = RegExp(r'<media:thumbnail url="([^"]+)"')
+              .firstMatch(block)
+              ?.group(1) ??
+          'https://i.ytimg.com/vi/$id/hqdefault.jpg';
+      final viewsRaw =
+          RegExp(r'<media:statistics views="(\d+)"').firstMatch(block)?.group(1);
+      final views = int.tryParse(viewsRaw ?? '');
+
+      out.add(YouTubeVideo(
+        id: id,
+        title: title,
+        author: _unescape(_tag(block, 'name')),
+        thumbnail: _unescape(thumb),
+        publishedText: _shortDate(published),
+        viewsText: views == null ? '' : '${_groupThousands(views)} lượt xem',
+      ));
+    }
+    return out;
+  }
+
+  static String _tag(String block, String tag) {
+    final m = RegExp('<$tag>(.*?)</$tag>', dotAll: true).firstMatch(block);
+    return (m?.group(1) ?? '').trim();
+  }
+
+  static String _shortDate(DateTime? date) {
+    if (date == null) return '';
+    final local = date.toLocal();
+    final d = local.day.toString().padLeft(2, '0');
+    final m = local.month.toString().padLeft(2, '0');
+    return '$d/$m/${local.year}';
+  }
+
+  static String _groupThousands(int value) {
+    final s = value.toString();
+    final b = StringBuffer();
+    for (var i = 0; i < s.length; i++) {
+      if (i > 0 && (s.length - i) % 3 == 0) b.write('.');
+      b.write(s[i]);
+    }
+    return b.toString();
   }
 
   /// Tách object `ytInitialData` khỏi HTML bằng cách đếm ngoặc (an toàn với
@@ -251,13 +366,25 @@ class YouTubeService {
     return simple is String ? simple.trim() : '';
   }
 
-  static String _unescape(String s) => s
-      .replaceAll('&amp;', '&')
-      .replaceAll('&lt;', '<')
-      .replaceAll('&gt;', '>')
-      .replaceAll('&quot;', '"')
-      .replaceAll('&#39;', "'")
-      .replaceAll('&apos;', "'");
+  static String _unescape(String s) {
+    var out = s
+        .replaceAll('&amp;', '&')
+        .replaceAll('&lt;', '<')
+        .replaceAll('&gt;', '>')
+        .replaceAll('&quot;', '"')
+        .replaceAll('&apos;', "'");
+    out = out.replaceAllMapped(
+      RegExp(r'&#(x?[0-9a-fA-F]+);'),
+      (m) {
+        final raw = m.group(1) ?? '';
+        final code = raw.startsWith('x') || raw.startsWith('X')
+            ? int.tryParse(raw.substring(1), radix: 16)
+            : int.tryParse(raw);
+        return code == null ? m.group(0)! : String.fromCharCode(code);
+      },
+    );
+    return out;
+  }
 
   /// Trả về chuỗi con từ `start` ({) đến ngoặc đóng tương ứng.
   static String? _balancedObject(String text, int start) {
@@ -291,6 +418,8 @@ class YouTubeService {
   static void clearCache() {
     _cache.clear();
     _inFlight.clear();
+    _uploadCache.clear();
+    _uploadInFlight.clear();
   }
 
   static void close() {

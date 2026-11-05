@@ -7,7 +7,7 @@ import 'package:oumijia_tv/screens/home_screen.dart';
 import 'package:oumijia_tv/services/prefs_service.dart';
 import 'package:oumijia_tv/theme/design_system.dart';
 
-/// Hồi quy lỗi màn xám: các tab phải render được với design system.
+/// Hồi quy lỗi màn xám + điều hướng 4 tab (đã bỏ tab Trang chủ).
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -39,6 +39,7 @@ void main() {
       },
     ],
     'youtubeCategories': [],
+    'movieSources': [],
     'movies': [],
   });
 
@@ -53,19 +54,27 @@ void main() {
     await tester.pump(const Duration(milliseconds: 350));
   }
 
-  testWidgets('Home render nội dung, không có ErrorWidget', (tester) async {
+  testWidgets('mở app vào thẳng tab Kênh, không có Trang chủ', (tester) async {
     await pumpHome(tester);
 
     expect(tester.takeException(), isNull);
-    expect(find.text('OUMIJIA TV'), findsOneWidget);
+    expect(find.text('Kênh truyền hình'), findsOneWidget);
     expect(find.text('VTV1'), findsWidgets);
+    expect(find.text('Trang chủ'), findsNothing);
     expect(find.byType(ErrorWidget), findsNothing);
+
+    // Đúng 4 tab điều hướng.
+    final nav = tester.widget<NavigationBar>(find.byType(NavigationBar));
+    expect(nav.destinations.length, 4);
+    expect(nav.selectedIndex, 0);
   });
 
-  testWidgets('chuyển tab Kênh / Phim / YouTube không lỗi', (tester) async {
+  testWidgets('chuyển tab Kênh / Phim / YouTube / Cài đặt không lỗi',
+      (tester) async {
     await pumpHome(tester);
 
-    for (final label in ['Kênh', 'Phim', 'YouTube', 'Trang chủ']) {
+    // Phim/YouTube/Cài đặt dùng surface 390px như thiết bị thật.
+    for (final label in ['Kênh', 'Phim', 'YouTube', 'Cài đặt']) {
       await tester.tap(find.text(label).last);
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 350));

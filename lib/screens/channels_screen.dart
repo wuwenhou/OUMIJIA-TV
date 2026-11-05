@@ -5,6 +5,7 @@ import '../services/config_service.dart';
 import '../services/prefs_service.dart';
 import '../theme/design_system.dart';
 import '../widgets/channel_card.dart';
+import 'favorites_screen.dart';
 import 'player_screen.dart';
 
 /// Tab KÊNH — tìm kiếm + lọc theo nhóm + list/grid + kéo-làm-mới cấu hình
@@ -109,6 +110,15 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
       appBar: AppBar(
         title: const Text('Kênh truyền hình'),
         actions: [
+          IconButton(
+            tooltip: 'Kênh yêu thích',
+            icon: const Icon(Icons.favorite_border_rounded),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => FavoritesScreen(config: widget.config),
+              ));
+            },
+          ),
           Padding(
             padding: const EdgeInsets.only(right: Sp.m),
             child: SegmentedButton<bool>(

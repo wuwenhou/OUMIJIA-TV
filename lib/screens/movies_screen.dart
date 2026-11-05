@@ -3,52 +3,401 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 import '../models.dart';
+import '../services/youtube_service.dart';
 import '../theme/design_system.dart';
 import '../widgets/channel_card.dart';
+import 'youtube_screen.dart';
 
-/// Tab PHIM — poster theo nhóm, mở trình phát toàn màn hình.
-/// Dữ liệu lấy từ config (GitHub), hiện đang trống → trạng thái rỗng lịch sự.
-class MoviesScreen extends StatelessWidget {
+/// Tab PHIM — hai phần:
+/// 1. Nguồn phim động từ kênh YouTube chính thức (RSS công khai) — kênh có
+///    phim thuyết minh/lồng tiếng cập nhật liên tục, không cần phát hành app.
+/// 2. Danh mục "movies" thủ công trong config (nếu chủ app khai báo).
+class MoviesScreen extends StatefulWidget {
   final AppConfig config;
 
   const MoviesScreen({super.key, required this.config});
 
   @override
-  Widget build(BuildContext context) {
-    final movies = config.movies;
+  State<MoviesScreen> createState() => _MoviesScreenState();
+}
 
-    // Nhóm phim theo "group" (giữ thứ tự trong config).
+class _MoviesScreenState extends State<MoviesScreen> {
+  final Map<String, List<YouTubeVideo>> _feeds = {};
+  final Map<String, String> _errors = {};
+  int _generation = 0;
+  bool _refreshing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  @override
+  void didUpdateWidget(covariant MoviesScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!identical(oldWidget.config, widget.config)) {
+      _feeds.clear();
+      _errors.clear();
+      _load(force: true);
+    }
+  }
+
+  @override
+  void dispose() {
+    _generation++;
+    super.dispose();
+  }
+
+  Future<void> _load({bool force = false}) async {
+    final sources = widget.config.movieSources;
+    if (sources.isEmpty) return;
+    final gen = ++_generation;
+    if (force && mounted) {
+      setState(() {
+        _refreshing = true;
+        _errors.clear();
+      });
+    }
+
+    await Future.wait(sources.map((source) async {
+      try {
+        final videos = await YouTubeService.fetchChannelUploads(
+          source.channelId,
+          force: force,
+        );
+        if (!mounted || gen != _generation) return;
+        setState(() {
+          _feeds[source.id] = videos;
+          _errors.remove(source.id);
+        });
+      } catch (e) {
+        if (!mounted || gen != _generation) return;
+        setState(() {
+          _errors[source.id] =
+              e is YouTubeSourceException ? e.message : 'Không tải được nguồn phim.';
+        });
+      }
+    }));
+
+    if (!mounted || gen != _generation) return;
+    if (_refreshing) setState(() => _refreshing = false);
+  }
+
+  Future<void> _retry(MovieSource source) async {
+    final gen = ++_generation;
+    setState(() {
+      _errors.remove(source.id);
+      _feeds.remove(source.id);
+    });
+    try {
+      final videos = await YouTubeService.fetchChannelUploads(
+        source.channelId,
+        force: true,
+      );
+      if (!mounted || gen != _generation) return;
+      setState(() => _feeds[source.id] = videos);
+    } catch (e) {
+      if (!mounted || gen != _generation) return;
+      setState(() {
+        _errors[source.id] =
+            e is YouTubeSourceException ? e.message : 'Không tải được nguồn phim.';
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final sources = widget.config.movieSources;
+    final movies = widget.config.movies;
+
+    if (sources.isEmpty && movies.isEmpty) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Phim')),
+        body: const _EmptyMovies(),
+      );
+    }
+
+    // Nhóm phim thủ công theo "group" (giữ thứ tự trong config).
     final groups = <String, List<MovieItem>>{};
     for (final m in movies) {
       groups.putIfAbsent(m.group, () => []).add(m);
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Phim')),
-      body: movies.isEmpty
-          ? const _EmptyMovies()
-          : ListView(
-              padding: const EdgeInsets.fromLTRB(Sp.xl, Sp.s, Sp.xl, Sp.xxl + Sp.l),
-              children: [
-                for (final entry in groups.entries) ...[
-                  SectionHeader(title: entry.key),
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 210,
-                      mainAxisSpacing: Sp.m,
-                      crossAxisSpacing: Sp.m,
-                      childAspectRatio: 0.62,
-                    ),
-                    itemCount: entry.value.length,
-                    itemBuilder: (context, i) =>
-                        _MovieCard(movie: entry.value[i]),
+      appBar: AppBar(
+        title: const Text('Phim'),
+        actions: [
+          if (_refreshing)
+            const Padding(
+              padding: EdgeInsets.only(right: Sp.l),
+              child: SizedBox(
+                width: 18,
+                height: 18,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              ),
+            ),
+        ],
+      ),
+      body: RefreshIndicator(
+        onRefresh: () => _load(force: true),
+        child: ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding:
+              const EdgeInsets.fromLTRB(Sp.xl, Sp.s, Sp.xl, Sp.xxl + Sp.l),
+          children: [
+            if (sources.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(bottom: Sp.s),
+                child: Text(
+                  'Phim thuyết minh/lồng tiếng từ kênh chính thức, '
+                  'tự cập nhật khi kênh đăng tập mới. Kéo xuống để làm mới.',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
+            for (final source in sources) ...[
+              SectionHeader(title: source.name),
+              if (source.note.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: Sp.m),
+                  child: Text(
+                    source.note,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
-                ],
+                ),
+              _SourceRow(
+                source: source,
+                videos: _feeds[source.id],
+                error: _errors[source.id],
+                onRetry: () => _retry(source),
+              ),
+            ],
+            for (final entry in groups.entries) ...[
+              SectionHeader(title: entry.key),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate:
+                    const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 210,
+                  mainAxisSpacing: Sp.m,
+                  crossAxisSpacing: Sp.m,
+                  childAspectRatio: 0.62,
+                ),
+                itemCount: entry.value.length,
+                itemBuilder: (context, i) =>
+                    _MovieCard(movie: entry.value[i]),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Một hàng ngang video mới nhất của một kênh phim.
+class _SourceRow extends StatelessWidget {
+  final MovieSource source;
+  final List<YouTubeVideo>? videos;
+  final String? error;
+  final VoidCallback onRetry;
+
+  const _SourceRow({
+    required this.source,
+    required this.videos,
+    required this.error,
+    required this.onRetry,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.c;
+
+    if (error != null) {
+      return Container(
+        margin: const EdgeInsets.only(bottom: Sp.l),
+        padding: const EdgeInsets.all(Sp.l),
+        decoration: BoxDecoration(
+          color: c.surfaceAlt,
+          borderRadius: BorderRadius.circular(Radii.m),
+          border: Border.all(color: c.border),
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.cloud_off_rounded, color: c.textLo),
+            const SizedBox(width: Sp.m),
+            Expanded(
+              child: Text(error!, style: Theme.of(context).textTheme.bodySmall),
+            ),
+            TextButton(onPressed: onRetry, child: const Text('Thử lại')),
+          ],
+        ),
+      );
+    }
+
+    final list = videos;
+    if (list == null) {
+      return const SizedBox(
+        height: 120,
+        child: Center(child: CircularProgressIndicator()),
+      );
+    }
+    if (list.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: Sp.l),
+        child: Text('Kênh chưa có video công khai.',
+            style: Theme.of(context).textTheme.bodySmall),
+      );
+    }
+
+    return SizedBox(
+      height: 202,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.only(bottom: Sp.s),
+        itemCount: list.length,
+        separatorBuilder: (_, __) => const SizedBox(width: Sp.m),
+        itemBuilder: (context, i) => _SourceVideoCard(
+          video: list[i],
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              fullscreenDialog: true,
+              builder: (_) => YouTubePlayerScreen(
+                videos: list,
+                initialIndex: i,
+              ),
+            ));
+          },
+        ),
+      ),
+    );
+  }
+}
+
+/// Thẻ video ngang cho nguồn phim động.
+class _SourceVideoCard extends StatelessWidget {
+  final YouTubeVideo video;
+  final VoidCallback onTap;
+
+  const _SourceVideoCard({required this.video, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.c;
+    final meta = [
+      if (video.publishedText.isNotEmpty) video.publishedText,
+      if (video.viewsText.isNotEmpty) video.viewsText,
+    ].join(' · ');
+
+    return SizedBox(
+      width: 212,
+      child: Material(
+        color: c.surface,
+        borderRadius: BorderRadius.circular(Radii.m),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(Radii.m),
+              border: Border.all(color: c.border),
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      CachedNetworkImage(
+                        imageUrl: video.thumbnail,
+                        fit: BoxFit.cover,
+                        placeholder: (_, __) => Container(color: c.surfaceAlt),
+                        errorWidget: (_, __, ___) => Container(
+                          color: c.surfaceAlt,
+                          child: Icon(Icons.movie_outlined,
+                              size: 28, color: c.textLo),
+                        ),
+                      ),
+                      Positioned(
+                        right: Sp.s,
+                        bottom: Sp.s,
+                        child: Container(
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.black.withValues(alpha: 0.55),
+                            border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.25)),
+                          ),
+                          child: const Icon(Icons.play_arrow_rounded,
+                              color: Colors.white, size: 19),
+                        ),
+                      ),
+                      if (video.durationLabel.isNotEmpty)
+                        Positioned(
+                          left: Sp.s,
+                          bottom: Sp.s,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: Colors.black.withValues(alpha: 0.7),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Text(
+                              video.durationLabel,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, Sp.s, 10, 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            video.title,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    color: c.textHi,
+                                    fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        if (meta.isNotEmpty) ...[
+                          const SizedBox(height: 2),
+                          Text(
+                            meta,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -67,12 +416,13 @@ class _EmptyMovies extends StatelessWidget {
           children: [
             Icon(Icons.movie_outlined, size: 52, color: c.textLo),
             const SizedBox(height: Sp.m),
-            Text('Chưa có phim trong danh mục',
+            Text('Chưa có nguồn phim',
                 style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: Sp.xs),
             Text(
-              'Chủ ứng dụng có thể thêm phim hợp lệ vào mục "movies" '
-              'trong config/channels.json — app sẽ tự cập nhật, không cần phát hành bản mới.',
+              'Chủ ứng dụng có thể thêm kênh phim chính thức vào mục '
+              '"movieSources" trong config/channels.json — app sẽ tự cập nhật, '
+              'không cần phát hành bản mới.',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium,
             ),

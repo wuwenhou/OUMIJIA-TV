@@ -8,14 +8,17 @@ và iOS, tối ưu thao tác đơn giản cho cả gia đình.
 
 - 📺 **Truyền hình trực tuyến**: kênh VTV, ANTV, HTV, SCTV, các đài địa phương —
   có phân nhóm, tìm kiếm, lọc, danh sách/lưới.
-- ⭐ **Yêu thích & vừa xem**: lưu kênh yêu thích, hàng "Tiếp tục xem" và
-  "Vừa xem" trên trang chủ; lưu tại thiết bị.
+- ⭐ **Yêu thích**: lưu kênh yêu thích tại thiết bị, mở lại từ nút trái tim
+  trên thanh công cụ tab Kênh.
 - 🎨 **Cài đặt giao diện**: Light / Dark / System, 5 bảng màu chủ đạo,
   cỡ chữ 90–130%, khôi phục mặc định — áp dụng ngay, không cần khởi động lại.
 - 🔆 **Độ sáng riêng (Android + iOS)**: Android chỉ đổi cửa sổ ứng dụng
   (`WindowManager.LayoutParams.screenBrightness`), không cần `WRITE_SETTINGS`.
   iOS dùng `UIScreen.main.brightness`, tự khôi phục khi app rời foreground.
-- 🎬 **Phim**: danh mục cấu hình từ xa, poster, trình phát toàn màn hình.
+- 🎬 **Phim thuyết minh/lồng tiếng**: đọc RSS công khai của các kênh YouTube
+  chính thức (iQIYI Phim Thuyết Minh, Phim Lồng Tiếng Hay) — video mới nhất
+  tự xuất hiện, phát không quảng cáo bằng trình phát sẵn có. Kèm danh mục
+  `movies` thủ công trong cấu hình cho nội dung có bản quyền khác.
 - ▶️ **YouTube không quảng cáo**: bảng tin video theo chủ đề + tìm kiếm tự do,
   phát trực tiếp bằng luồng của video (không iframe/webview, không quảng cáo).
   Không cần duyệt kênh trước.
@@ -37,6 +40,25 @@ Toàn bộ kênh và phim nằm trong `config/channels.json`. Tab YouTube lấy 
 theo từ khóa trực tiếp từ YouTube, không phụ thuộc danh sách kênh đã duyệt.
 App nạp theo thứ tự: **GitHub (main) → bản lưu trên máy → bản đóng gói trong APK**.
 Sửa file trên GitHub là cập nhật nội dung cho mọi máy — không cần phát hành APK mới.
+
+Nguồn phim động (kênh YouTube chính thức, cập nhật liên tục):
+
+```json
+{
+  "movieSources": [
+    {
+      "id": "iqiyi-thuyet-minh",
+      "name": "iQIYI Phim Thuyết Minh",
+      "channelId": "UC_mLtI_EeKBXkNew8QsFkYg",
+      "note": "Phim châu Á thuyết minh tiếng Việt."
+    }
+  ]
+}
+```
+
+App chỉ đọc RSS công khai (`youtube.com/feeds/videos.xml?channel_id=...`) và
+phát qua trình phát YouTube sẵn có; không tải lại hay phân phối nội dung.
+Chỉ thêm kênh chính thức có quyền phát nội dung đó.
 
 Mỗi kênh hỗ trợ:
 

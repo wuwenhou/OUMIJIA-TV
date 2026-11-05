@@ -1,6 +1,6 @@
 {
-    "version":  3,
-    "updated":  "2026-11-02",
+    "version":  4,
+    "updated":  "2026-11-04",
     "headers":  {
                     "User-Agent":  "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36"
                 },
@@ -10,7 +10,7 @@
                          "name":  "VTV1",
                          "group":  "Quốc gia",
                          "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/VTV1_logo_2020.png/512px-VTV1_logo_2020.png",
-                         "primary":  "https://live.tvon.vn/g2/vtv1/video_hd_compat/playlist.m3u8",
+                         "primary":  "https://live.tvon.vn/g2/vtv1/master.m3u8",
                          "fallback":  [
                                           "https://live-a.fptplay53.net/live/media/vtv1/live247-hls-avc/index.m3u8",
                                           "https://vips-livecdn.fptplay.net/live/media/vtv1/live247-hls-avc/index.m3u8",
@@ -37,7 +37,7 @@
                          "name":  "VTV3",
                          "group":  "Quốc gia",
                          "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/VTV3_logo_2020.png/512px-VTV3_logo_2020.png",
-                         "primary":  "https://live.tvon.vn/g2/vtv3/video_hd_compat/playlist.m3u8",
+                         "primary":  "https://live.tvon.vn/g2/vtv3/master.m3u8",
                          "fallback":  [
                                           "https://live-a.fptplay53.net/live/media/vtv3/live247-hls-avc/index.m3u8",
                                           "https://vips-livecdn.fptplay.net/live/media/vtv3/live247-hls-avc/index.m3u8",
@@ -129,7 +129,7 @@
                          "name":  "VTV10",
                          "group":  "Quốc gia",
                          "logo":  "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/VTV9_logo_2020.png/512px-VTV9_logo_2020.png",
-                         "primary":  "https://live.tvon.vn/g2/vtv10/video_hd_compat/playlist.m3u8",
+                         "primary":  "https://live.tvon.vn/g2/vtv10/master.m3u8",
                          "fallback":  [
                                           "https://live-a.fptplay53.net/live/media/vtv10/live247-hls-avc/index.m3u8",
                                           "https://vips-livecdn.fptplay.net/live/media/vtv10/live247-hls-avc/index.m3u8",
@@ -1005,6 +1005,20 @@
             "channels": [
                 { "name": "POPS Kids", "channelId": "UC5ezaYrzZpyItPSRG27MLpg" }
             ]
+        }
+    ],
+    "movieSources":  [
+        {
+            "id": "iqiyi-thuyet-minh",
+            "name": "iQIYI Phim Thuyết Minh",
+            "channelId": "UC_mLtI_EeKBXkNew8QsFkYg",
+            "note": "Phim châu Á thuyết minh tiếng Việt, cập nhật hằng ngày trên kênh chính thức của iQIYI."
+        },
+        {
+            "id": "iqiyi-long-tieng",
+            "name": "Phim Lồng Tiếng Hay",
+            "channelId": "UC8VIl6n2EXoP4pq-LmgR5pw",
+            "note": "Phim lồng tiếng Việt, cập nhật liên tục trên kênh iQIYI Kho Phim Hot."
         }
     ],
     "movies":  [
