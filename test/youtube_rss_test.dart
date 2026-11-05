@@ -100,63 +100,133 @@ void main() {
     expect(YouTubeService.extractInitialData('ytInitialData = {broken;'), isNull);
   });
 
-  test('parse RSS kênh phim: videoId, tiêu đề, thumbnail, ngày, lượt xem', () {
-    const xml = '''
-<?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015"
-      xmlns:media="http://search.yahoo.com/mrss/">
-  <title>iQIYI Phim Thuyết Minh</title>
-  <entry>
-    <id>yt:video:WlF0LxX_c8Q</id>
-    <yt:videoId>WlF0LxX_c8Q</yt:videoId>
-    <title>Phim &amp; Hay &#39;Tập 7&#39;</title>
-    <published>2026-11-03T12:00:00+00:00</published>
-    <author><name>iQIYI Phim Thuyết Minh</name></author>
-    <media:group>
-      <media:thumbnail url="https://i.ytimg.com/vi/WlF0LxX_c8Q/hqdefault.jpg"/>
-      <media:statistics views="1234567"/>
-    </media:group>
-  </entry>
-  <entry>
-    <yt:videoId>WlF0LxX_c8Q</yt:videoId>
-    <title>Bản trùng</title>
-  </entry>
-  <entry>
-    <yt:videoId>abc123def45</yt:videoId>
-    <title>Tập 6</title>
-    <published>2026-11-02T08:30:00+00:00</published>
-    <author><name>iQIYI Phim Thuyết Minh</name></author>
-  </entry>
-</feed>
-''';
+  Map<String, dynamic> lockup({
+    required String id,
+    required String title,
+    String? views,
+    String? viewsA11y,
+    String? published,
+    String? duration,
+    String contentType = 'LOCKUP_CONTENT_TYPE_VIDEO',
+  }) =>
+      {
+        'contentId': id,
+        'contentType': contentType,
+        'contentImage': {
+          'thumbnailViewModel': {
+            'overlays': [
+              if (duration != null)
+                {
+                  'thumbnailBottomOverlayViewModel': {
+                    'badges': [
+                      {
+                        'thumbnailBadgeViewModel': {'text': duration},
+                      },
+                    ],
+                  },
+                },
+            ],
+          },
+        },
+        'metadata': {
+          'lockupMetadataViewModel': {
+            'title': {'content': title},
+            'metadata': {
+              'contentMetadataViewModel': {
+                'metadataRows': [
+                  {
+                    'metadataParts': [
+                      if (views != null)
+                        {
+                          'text': {'content': views},
+                          'accessibilityLabel': viewsA11y ?? views,
+                        },
+                      if (published != null)
+                        {'text': {'content': published}},
+                    ],
+                  },
+                ],
+              },
+            },
+          },
+        },
+      };
 
-    final videos = YouTubeService.parseChannelFeed(xml, limit: 10);
+  test('parse lockupViewModel của kênh: tiêu đề, lượt xem, ngày, thời lượng', () {
+    final data = <String, dynamic>{
+      'contents': {
+        'richGridRenderer': {
+          'contents': [
+            {
+              'richItemRenderer': {
+                'content': {
+                  'lockupViewModel': lockup(
+                    id: 'WlF0LxX_c8Q',
+                    title: 'Phim hay tập 7',
+                    views: '1.234.567',
+                    viewsA11y: '1.234.567 lượt xem',
+                    published: '16 giờ trước',
+                    duration: '55:46',
+                  ),
+                },
+              },
+            },
+            // Bản trùng phải bị bỏ.
+            {
+              'lockupViewModel': lockup(
+                id: 'WlF0LxX_c8Q',
+                title: 'Bản trùng',
+              ),
+            },
+            // Playlist không phải video phải bị bỏ.
+            {
+              'lockupViewModel': lockup(
+                id: 'PL123456789',
+                title: 'Danh sách phát',
+                contentType: 'LOCKUP_CONTENT_TYPE_PLAYLIST',
+              ),
+            },
+            {
+              'lockupViewModel': lockup(
+                id: 'abc123def45',
+                title: 'Tập 6',
+                published: '2 ngày trước',
+              ),
+            },
+          ],
+        },
+      },
+    };
+
+    final videos = YouTubeService.parseLockupViewModels(data, limit: 10);
     expect(videos.length, 2);
 
     final first = videos.first;
     expect(first.id, 'WlF0LxX_c8Q');
-    expect(first.title, "Phim & Hay 'Tập 7'");
-    expect(first.author, 'iQIYI Phim Thuyết Minh');
-    expect(first.thumbnail,
-        'https://i.ytimg.com/vi/WlF0LxX_c8Q/hqdefault.jpg');
-    expect(first.publishedText, '03/11/2026');
+    expect(first.title, 'Phim hay tập 7');
     expect(first.viewsText, '1.234.567 lượt xem');
+    expect(first.publishedText, '16 giờ trước');
+    expect(first.durationLabel, '55:46');
+    expect(first.thumbnail, 'https://i.ytimg.com/vi/WlF0LxX_c8Q/hqdefault.jpg');
 
-    // Entry thiếu thumbnail tự dựng URL mặc định.
-    expect(videos[1].thumbnail,
-        'https://i.ytimg.com/vi/abc123def45/hqdefault.jpg');
-    expect(videos[1].viewsText, '');
+    expect(videos[1].id, 'abc123def45');
+    expect(videos[1].durationLabel, '');
   });
 
-  test('RSS kênh phim tôn trọng limit', () {
-    final xml = StringBuffer('<feed>');
-    for (var i = 0; i < 5; i++) {
-      xml.write('<entry><yt:videoId>vid0000000$i</yt:videoId>'
-          '<title>Video $i</title></entry>');
-    }
-    xml.write('</feed>');
+  test('parse lockupViewModel tôn trọng limit', () {
+    final data = {
+      'items': [
+        for (var i = 0; i < 5; i++)
+          {
+            'lockupViewModel': lockup(
+              id: 'vid0000000$i',
+              title: 'Video $i',
+            ),
+          },
+      ],
+    };
 
-    final videos = YouTubeService.parseChannelFeed(xml.toString(), limit: 3);
+    final videos = YouTubeService.parseLockupViewModels(data, limit: 3);
     expect(videos.length, 3);
     expect(videos.map((v) => v.id),
         ['vid00000000', 'vid00000001', 'vid00000002']);

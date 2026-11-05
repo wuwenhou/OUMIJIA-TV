@@ -252,7 +252,7 @@ class _SourceRow extends StatelessWidget {
     }
 
     return SizedBox(
-      height: 202,
+      height: 232,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.only(bottom: Sp.s),

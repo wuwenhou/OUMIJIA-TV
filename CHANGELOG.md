@@ -4,6 +4,28 @@ Mọi thay đổi đáng chú ý của OUMIJIA TV được ghi tại đây.
 Định dạng dựa trên [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/),
 phiên bản theo [Semantic Versioning](https://semver.org/lang/vi/).
 
+## [2.1.2] — 2026-11-05
+
+### Sửa lỗi
+- **Tab Phim báo "Kênh phim trả HTTP 404"**: YouTube đã ngừng trả feed
+  `feeds/videos.xml` cho nhiều kênh (trong đó có cả hai kênh iQIYI), dù kênh
+  vẫn đăng video bình thường. Bỏ hẳn phụ thuộc RSS.
+- Chuyển sang đọc danh sách video qua **Innertube** (`youtubei/v1/browse`,
+  tab Videos) và dự phòng bằng trang `/channel/<id>/videos`; cả hai dùng
+  chung parser `lockupViewModel` mới (tiêu đề, thời lượng, lượt xem, ngày đăng).
+- Ảnh thu nhỏ dựng trực tiếp từ `i.ytimg.com/vi/<id>/hqdefault.jpg`, không phụ
+  thuộc URL có chữ ký hết hạn.
+
+### Kiểm thử
+- Chạy thật với hai kênh iQIYI: mỗi kênh trả 20 video mới nhất, có thời lượng,
+  lượt xem và ngày đăng (ví dụ `55:46`, `16 giờ trước`).
+- `flutter analyze` + `flutter test` pass; thêm test parser `lockupViewModel`
+  (bỏ playlist, chống trùng, tôn trọng limit).
+
+### Chưa kiểm chứng trên thiết bị thật
+- Chưa có Android/iOS thật trong môi trường build: chưa xác nhận trực tiếp
+  việc tải thumbnail và phát video iQIYI trên máy.
+
 ## [2.1.1] — 2026-11-04
 
 ### Sửa lỗi

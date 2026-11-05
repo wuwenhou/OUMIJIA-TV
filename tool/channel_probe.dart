@@ -24,7 +24,7 @@ Future<void> main(List<String> args) async {
     print('NO ytInitialData');
     return;
   }
-  final videos = YouTubeService.parseSearchData(data, limit: 30);
+  final videos = YouTubeService.parseLockupViewModels(data, limit: 30);
   print('videos=${videos.length}');
   for (final v in videos) {
     print('${v.id} | ${v.durationLabel} | ${v.author} | ${v.title}');

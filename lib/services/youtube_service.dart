@@ -113,7 +113,8 @@ class YouTubeService {
     return videos;
   }
 
-  /// Lấy danh sách video mới nhất của một kênh qua RSS công khai.
+  /// Lấy danh sách video mới nhất của một kênh qua Innertube (browse) — không
+  /// cần API key riêng và không phụ thuộc RSS (YouTube trả 404 với nhiều kênh).
   ///
   /// Dùng cho nguồn phim thuyết minh/lồng tiếng: kênh chính thức cập nhật
   /// video mới thì tab Phim tự có nội dung mới, không cần phát hành app.
@@ -145,84 +146,198 @@ class YouTubeService {
     String channelId,
     int limit,
   ) async {
-    final uri = Uri.https('www.youtube.com', '/feeds/videos.xml', {
-      'channel_id': channelId,
-    });
-    final resp = await http.get(uri, headers: {
-      'User-Agent': _ua,
-      'Accept-Language': 'vi-VN,vi;q=0.9,en;q=0.6',
-    }).timeout(const Duration(seconds: 20));
-    if (resp.statusCode != 200) {
-      throw YouTubeSourceException(
-          'Kênh phim trả HTTP ${resp.statusCode}. Vui lòng thử lại.');
-    }
-    final xml = utf8.decode(resp.bodyBytes, allowMalformed: true);
-    final videos = parseChannelFeed(xml, limit: limit);
-    if (videos.isEmpty) {
-      throw YouTubeSourceException(
-          'Kênh phim chưa có video công khai. Vui lòng thử lại sau.');
-    }
-    return videos;
+    // 1) Innertube browse: JSON nhỏ hơn trang HTML, ổn định hơn RSS.
+    try {
+      final videos = await _fetchViaBrowse(channelId, limit);
+      if (videos.isNotEmpty) return videos;
+    } catch (_) {}
+
+    // 2) Trang /videos: cùng cấu trúc lockupViewModel.
+    try {
+      final videos = await _fetchViaChannelPage(channelId, limit);
+      if (videos.isNotEmpty) return videos;
+    } catch (_) {}
+
+    throw YouTubeSourceException(
+        'Kênh phim chưa có video công khai hoặc YouTube đang chặn. '
+        'Vui lòng thử lại sau.');
   }
 
-  /// Tách các thẻ `<entry>` của RSS YouTube thành video.
-  /// Không phụ thuộc package XML để giữ app nhẹ.
-  static List<YouTubeVideo> parseChannelFeed(String xml, {int limit = 20}) {
+  static const _browseParams = 'EgZ2aWRlb3PyBgQKAjoA';
+  static const _innertubeKey = 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8';
+  static const _clientVersion = '2.20241126.00.00';
+
+  static Future<List<YouTubeVideo>> _fetchViaBrowse(
+    String channelId,
+    int limit,
+  ) async {
+    final resp = await http
+        .post(
+          Uri.https('www.youtube.com', '/youtubei/v1/browse', {
+            'key': _innertubeKey,
+            'prettyPrint': 'false',
+          }),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'User-Agent': _ua,
+            'Accept-Language': 'vi-VN,vi;q=0.9,en;q=0.6',
+          },
+          body: jsonEncode({
+            'context': {
+              'client': {
+                'clientName': 'WEB',
+                'clientVersion': _clientVersion,
+                'hl': 'vi',
+                'gl': 'VN',
+              },
+            },
+            'browseId': channelId,
+            'params': _browseParams,
+          }),
+        )
+        .timeout(const Duration(seconds: 20));
+    if (resp.statusCode != 200) {
+      throw YouTubeSourceException('YouTube trả HTTP ${resp.statusCode}.');
+    }
+    final decoded =
+        jsonDecode(utf8.decode(resp.bodyBytes, allowMalformed: true));
+    if (decoded is! Map<String, dynamic>) return const [];
+    return parseLockupViewModels(decoded, limit: limit);
+  }
+
+  static Future<List<YouTubeVideo>> _fetchViaChannelPage(
+    String channelId,
+    int limit,
+  ) async {
+    final resp = await http.get(
+      Uri.https('www.youtube.com', '/channel/$channelId/videos'),
+      headers: {
+        'User-Agent': _ua,
+        'Accept-Language': 'vi-VN,vi;q=0.9,en;q=0.6',
+      },
+    ).timeout(const Duration(seconds: 20));
+    if (resp.statusCode != 200) {
+      throw YouTubeSourceException('YouTube trả HTTP ${resp.statusCode}.');
+    }
+    final html = utf8.decode(resp.bodyBytes, allowMalformed: true);
+    final data = extractInitialData(html);
+    if (data == null) return const [];
+    return parseLockupViewModels(data, limit: limit);
+  }
+
+  /// Gom `lockupViewModel` (giao diện kênh mới của YouTube) thành video.
+  static List<YouTubeVideo> parseLockupViewModels(
+    Object? root, {
+    int limit = 20,
+  }) {
     final out = <YouTubeVideo>[];
     final seen = <String>{};
-    final entries =
-        RegExp(r'<entry>(.*?)</entry>', dotAll: true).allMatches(xml);
-    for (final entry in entries) {
-      if (out.length >= limit) break;
-      final block = entry.group(1) ?? '';
-      final id = _tag(block, 'yt:videoId');
-      if (id.isEmpty || !seen.add(id)) continue;
-      final title = _unescape(_tag(block, 'title'));
-      if (title.isEmpty) continue;
 
-      final publishedRaw = _tag(block, 'published');
-      final published = DateTime.tryParse(publishedRaw);
-      final thumb = RegExp(r'<media:thumbnail url="([^"]+)"')
-              .firstMatch(block)
-              ?.group(1) ??
-          'https://i.ytimg.com/vi/$id/hqdefault.jpg';
-      final viewsRaw =
-          RegExp(r'<media:statistics views="(\d+)"').firstMatch(block)?.group(1);
-      final views = int.tryParse(viewsRaw ?? '');
-
-      out.add(YouTubeVideo(
-        id: id,
-        title: title,
-        author: _unescape(_tag(block, 'name')),
-        thumbnail: _unescape(thumb),
-        publishedText: _shortDate(published),
-        viewsText: views == null ? '' : '${_groupThousands(views)} lượt xem',
-      ));
+    void walk(Object? node) {
+      if (out.length >= limit) return;
+      if (node is Map) {
+        final lock = node['lockupViewModel'];
+        if (lock is Map) {
+          final video = _videoFromLockup(lock);
+          if (video != null && seen.add(video.id)) out.add(video);
+        }
+        for (final value in node.values) {
+          walk(value);
+        }
+      } else if (node is List) {
+        for (final value in node) {
+          walk(value);
+        }
+      }
     }
+
+    walk(root);
     return out;
   }
 
-  static String _tag(String block, String tag) {
-    final m = RegExp('<$tag>(.*?)</$tag>', dotAll: true).firstMatch(block);
-    return (m?.group(1) ?? '').trim();
-  }
+  static YouTubeVideo? _videoFromLockup(Map<dynamic, dynamic> lock) {
+    final type = lock['contentType'];
+    if (type is String && type != 'LOCKUP_CONTENT_TYPE_VIDEO') return null;
 
-  static String _shortDate(DateTime? date) {
-    if (date == null) return '';
-    final local = date.toLocal();
-    final d = local.day.toString().padLeft(2, '0');
-    final m = local.month.toString().padLeft(2, '0');
-    return '$d/$m/${local.year}';
-  }
+    final id = (lock['contentId'] as String?)?.trim() ?? '';
+    if (id.isEmpty) return null;
 
-  static String _groupThousands(int value) {
-    final s = value.toString();
-    final b = StringBuffer();
-    for (var i = 0; i < s.length; i++) {
-      if (i > 0 && (s.length - i) % 3 == 0) b.write('.');
-      b.write(s[i]);
+    final meta = lock['metadata']?['lockupMetadataViewModel'];
+    if (meta is! Map) return null;
+    final title =
+        ((meta['title'] as Map?)?['content'] as String?)?.trim() ?? '';
+    if (title.isEmpty) return null;
+
+    var viewsText = '';
+    var publishedText = '';
+    final rows = meta['metadata']?['contentMetadataViewModel']?['metadataRows'];
+    if (rows is List) {
+      final parts = <Map>[];
+      for (final row in rows) {
+        final p = row is Map ? row['metadataParts'] : null;
+        if (p is List) parts.addAll(p.whereType<Map>());
+      }
+      for (final part in parts) {
+        final text = ((part['text'] as Map?)?['content'] as String?)?.trim();
+        if (text == null || text.isEmpty) continue;
+        final a11y = (part['accessibilityLabel'] as String?)?.trim() ?? '';
+        final lower = text.toLowerCase();
+        final looksLikeViews = lower.contains('lượt xem') ||
+            lower.contains('views') ||
+            RegExp(r'^[\d.,]+\s*[nmkbt]?$').hasMatch(lower);
+        if (viewsText.isEmpty && looksLikeViews) {
+          viewsText = a11y.isNotEmpty && a11y.toLowerCase().contains('lượt xem')
+              ? a11y
+              : (lower.contains('lượt xem') || lower.contains('views')
+                  ? text
+                  : '$text lượt xem');
+        } else if (publishedText.isEmpty) {
+          publishedText = a11y.isNotEmpty ? a11y : text;
+        }
+      }
     }
-    return b.toString();
+
+    Duration? duration;
+    final overlays = lock['contentImage']?['thumbnailViewModel']?['overlays'];
+    if (overlays is List) {
+      for (final overlay in overlays) {
+        final badge = _findDurationBadge(overlay);
+        if (badge != null) {
+          duration = parseDuration(badge);
+          if (duration != null) break;
+        }
+      }
+    }
+
+    return YouTubeVideo(
+      id: id,
+      title: title,
+      author: '',
+      thumbnail: 'https://i.ytimg.com/vi/$id/hqdefault.jpg',
+      publishedText: publishedText,
+      viewsText: viewsText,
+      duration: duration,
+    );
+  }
+
+  static String? _findDurationBadge(Object? node) {
+    if (node is Map) {
+      final badge = node['thumbnailBadgeViewModel'];
+      if (badge is Map) {
+        final text = (badge['text'] as String?)?.trim() ?? '';
+        if (RegExp(r'^\d{1,2}:\d{2}(:\d{2})?$').hasMatch(text)) return text;
+      }
+      for (final value in node.values) {
+        final found = _findDurationBadge(value);
+        if (found != null) return found;
+      }
+    } else if (node is List) {
+      for (final value in node) {
+        final found = _findDurationBadge(value);
+        if (found != null) return found;
+      }
+    }
+    return null;
   }
 
   /// Tách object `ytInitialData` khỏi HTML bằng cách đếm ngoặc (an toàn với
