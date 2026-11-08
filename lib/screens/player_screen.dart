@@ -14,7 +14,7 @@ import '../widgets/channel_card.dart';
 /// - Link hỏng → tự thử link dự phòng → hiện lỗi + nút "Thử lại"
 /// - Rời app / tắt màn hình → dừng phát; quay lại mới tự phát tiếp
 /// - Đổi kênh → dừng và giải phóng video cũ trước khi kết nối kênh mới
-/// - Overlay: logo + tên kênh + trạng thái LIVE, yêu thích.
+/// - Overlay: tên kênh + trạng thái LIVE, yêu thích.
 ///
 /// Giao diện player luôn tối (media surface), kể cả app đang ở Light Mode.
 class PlayerScreen extends StatefulWidget {
@@ -189,8 +189,21 @@ class _PlayerScreenState extends State<PlayerScreen>
     await _play();
   }
 
+  List<Channel> get _displayChannels {
+    final favorites = <Channel>[];
+    final others = <Channel>[];
+    for (final channel in widget.config.channels) {
+      if (PrefsService.isFavorite(channel.id)) {
+        favorites.add(channel);
+      } else {
+        others.add(channel);
+      }
+    }
+    return [...favorites, ...others];
+  }
+
   void _switchChannel(int delta) {
-    final channels = widget.config.channels;
+    final channels = _displayChannels;
     if (channels.isEmpty) return;
     final i = channels.indexWhere((c) => c.id == _channel.id);
     final current = i < 0 ? 0 : i;
@@ -366,8 +379,6 @@ class _PlayerScreenState extends State<PlayerScreen>
                           padding: const EdgeInsets.fromLTRB(Sp.l, Sp.s, Sp.s, 0),
                           child: Row(
                             children: [
-                              ChannelLogo(channel: _channel, size: 44),
-                              const SizedBox(width: Sp.m),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

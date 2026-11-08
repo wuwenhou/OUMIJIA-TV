@@ -37,8 +37,21 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
     final all = query.isEmpty
         ? widget.config.channels
         : widget.config.searchChannels(query);
-    if (_group == 'Tất cả') return all;
-    return all.where((c) => c.group == _group).toList();
+    final base = _group == 'Tất cả'
+        ? all
+        : all.where((c) => c.group == _group).toList();
+
+    // Kênh yêu thích luôn lên đầu, giữ nguyên thứ tự gốc trong từng nhóm.
+    final favorites = <Channel>[];
+    final others = <Channel>[];
+    for (final channel in base) {
+      if (PrefsService.isFavorite(channel.id)) {
+        favorites.add(channel);
+      } else {
+        others.add(channel);
+      }
+    }
+    return [...favorites, ...others];
   }
 
   List<String> get _groups {

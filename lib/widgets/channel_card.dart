@@ -51,8 +51,7 @@ String statusShortLabel(String health) {
   }
 }
 
-/// Ô kênh — logo + tên, dùng cho cả grid & list.
-/// Logo tải từ config; lỗi ảnh → chữ viết tắt nền accent.
+/// Ô kênh — chỉ tên + trạng thái, dùng cho cả grid & list.
 class ChannelCard extends StatelessWidget {
   final Channel channel;
   final VoidCallback onTap;

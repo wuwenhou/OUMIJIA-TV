@@ -9,7 +9,8 @@ và iOS, tối ưu thao tác đơn giản cho cả gia đình.
 - 📺 **Truyền hình trực tuyến**: kênh VTV, ANTV, HTV, SCTV, các đài địa phương —
   có phân nhóm, tìm kiếm, lọc, danh sách/lưới.
 - ⭐ **Yêu thích**: lưu kênh yêu thích tại thiết bị, mở lại từ nút trái tim
-  trên thanh công cụ tab Kênh.
+  trên thanh công cụ tab Kênh. Kênh yêu thích được sắp xếp lên đầu danh sách
+  trong tab Kênh và trong thứ tự chuyển kênh của trình phát.
 - 🎨 **Cài đặt giao diện**: Light / Dark / System, 5 bảng màu chủ đạo,
   cỡ chữ 90–130%, khôi phục mặc định — áp dụng ngay, không cần khởi động lại.
 - 🔆 **Độ sáng riêng (Android + iOS)**: Android chỉ đổi cửa sổ ứng dụng

@@ -6,6 +6,7 @@ import 'package:oumijia_tv/models.dart';
 import 'package:oumijia_tv/screens/player_screen.dart';
 import 'package:oumijia_tv/services/prefs_service.dart';
 import 'package:oumijia_tv/theme/design_system.dart';
+import 'package:oumijia_tv/widgets/channel_card.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -54,6 +55,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 100));
 
     expect(find.text('Kênh tạm lỗi'), findsWidgets);
+    expect(find.byType(ChannelLogo), findsNothing);
     expect(find.text('Kênh trước'), findsOneWidget);
 
     await tester.tapAt(const Offset(195, 250));

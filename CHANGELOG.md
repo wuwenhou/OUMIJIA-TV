@@ -4,6 +4,21 @@ Mọi thay đổi đáng chú ý của OUMIJIA TV được ghi tại đây.
 Định dạng dựa trên [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/),
 phiên bản theo [Semantic Versioning](https://semver.org/lang/vi/).
 
+## [2.1.4] — 2026-11-08
+
+### Thay đổi
+- **Kênh yêu thích lên đầu danh sách**: kênh có dấu tim được sắp xếp trước các kênh còn lại. Thứ tự gốc trong từng nhóm được giữ nguyên; khi lọc nhóm hoặc tìm kiếm, kênh yêu thích tương ứng vẫn lên đầu. Nút Kênh trước/Sau trong trình phát đi theo cùng thứ tự.
+- **Trình phát không còn logo kênh ở góc trên bên trái**: chỉ còn tên kênh, trạng thái LIVE, nút yêu thích và nút đóng; không tải logo trong overlay.
+- **Đổi icon/launcher của app**: bộ icon mới dùng gradient xanh dương – tím, biểu tượng TV với Play vàng và chữ “OUMIJIA TV”, đồng bộ cho Android adaptive icon và iOS.
+
+### Kiểm thử
+- `dart analyze`: 0 lỗi.
+- `flutter test`: 19/19 pass, gồm test kênh yêu thích lên đầu và trình phát không chứa `ChannelLogo`.
+- Đã tạo lại icon bằng `flutter_launcher_icons` cho Android và iOS.
+
+### Chưa kiểm chứng trên thiết bị thật
+- Chưa có Android/iOS thật trong môi trường build để xác nhận trực tiếp thứ tự yêu thích, giao diện trình phát và icon launcher trên máy.
+
 ## [2.1.3] — 2026-11-08
 
 ### Sửa lỗi
