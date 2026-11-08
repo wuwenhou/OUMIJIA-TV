@@ -15,11 +15,11 @@ và iOS, tối ưu thao tác đơn giản cho cả gia đình.
 - 🔆 **Độ sáng riêng (Android + iOS)**: Android chỉ đổi cửa sổ ứng dụng
   (`WindowManager.LayoutParams.screenBrightness`), không cần `WRITE_SETTINGS`.
   iOS dùng `UIScreen.main.brightness`, tự khôi phục khi app rời foreground.
-- 🎬 **Phim thuyết minh/lồng tiếng**: đọc danh sách video mới nhất từ kênh
-  YouTube chính thức (iQIYI Phim Thuyết Minh, Phim Lồng Tiếng Hay) qua
-  Innertube/trang kênh — video mới tự xuất hiện, phát không quảng cáo bằng
-  trình phát sẵn có. Kèm danh mục `movies` thủ công trong cấu hình cho nội
-  dung có bản quyền khác.
+- 🎬 **Phim thuyết minh/lồng tiếng và phim Việt**: đọc danh sách video mới nhất
+  từ kênh YouTube chính thức (iQIYI Phim Thuyết Minh, SCTV14 và HTVC Phim
+  Thuần Việt) qua Innertube/trang kênh — video sắp công chiếu chưa có luồng
+  phát được bỏ qua; phát trực tiếp không quảng cáo bằng trình phát sẵn có.
+  Kèm danh mục `movies` thủ công trong cấu hình cho nội dung có bản quyền khác.
 - ▶️ **YouTube không quảng cáo**: bảng tin video theo chủ đề + tìm kiếm tự do,
   phát trực tiếp bằng luồng của video (không iframe/webview, không quảng cáo).
   Không cần duyệt kênh trước.

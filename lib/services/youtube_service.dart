@@ -282,6 +282,16 @@ class YouTubeService {
         if (text == null || text.isEmpty) continue;
         final a11y = (part['accessibilityLabel'] as String?)?.trim() ?? '';
         final lower = text.toLowerCase();
+        final a11yLower = a11y.toLowerCase();
+        final isUpcoming = lower.contains('nữa') ||
+            lower.contains('sắp') ||
+            lower.contains('premiere') ||
+            lower.contains('upcoming') ||
+            lower.contains('scheduled') ||
+            a11yLower.contains('nữa') ||
+            a11yLower.contains('premiere') ||
+            a11yLower.contains('upcoming');
+        if (isUpcoming) return null;
         final looksLikeViews = lower.contains('lượt xem') ||
             lower.contains('views') ||
             RegExp(r'^[\d.,]+\s*[nmkbt]?$').hasMatch(lower);
@@ -456,7 +466,15 @@ class YouTubeService {
       }
       return muxed.last.url.toString();
     } catch (e) {
-      throw YouTubeSourceException('Không lấy được luồng phát: $e');
+      final message = e.toString().toLowerCase();
+      if (message.contains('premiere') ||
+          message.contains('video is unplayable') ||
+          message.contains('streams are not available')) {
+        throw YouTubeSourceException(
+            'Video chưa công chiếu hoặc bị giới hạn phát. '
+            'Vui lòng thử tập khác.');
+      }
+      throw YouTubeSourceException('Không lấy được luồng phát.');
     }
   }
 

@@ -122,7 +122,7 @@ class MovieItem {
       );
 }
 
-/// Nguồn phim động lấy từ kênh YouTube chính thức (RSS công khai).
+/// Nguồn phim động lấy từ kênh YouTube chính thức (Innertube).
 ///
 /// Dùng cho các kênh có bản quyền đăng phim thuyết minh/lồng tiếng liên tục:
 /// app chỉ đọc danh sách video công khai, không tải lại nội dung.

@@ -1,6 +1,6 @@
 {
-    "version":  4,
-    "updated":  "2026-11-04",
+    "version":  5,
+    "updated":  "2026-11-08",
     "headers":  {
                     "User-Agent":  "Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36"
                 },
@@ -1012,13 +1012,19 @@
             "id": "iqiyi-thuyet-minh",
             "name": "iQIYI Phim Thuyết Minh",
             "channelId": "UC_mLtI_EeKBXkNew8QsFkYg",
-            "note": "Phim châu Á thuyết minh tiếng Việt, cập nhật hằng ngày trên kênh chính thức của iQIYI."
+            "note": "Phim châu Á thuyết minh tiếng Việt, cập nhật hằng ngày trên kênh chính thức của iQIYI. Video sắp công chiếu chưa có luồng phát sẽ được bỏ qua."
         },
         {
-            "id": "iqiyi-long-tieng",
-            "name": "Phim Lồng Tiếng Hay",
-            "channelId": "UC8VIl6n2EXoP4pq-LmgR5pw",
-            "note": "Phim lồng tiếng Việt, cập nhật liên tục trên kênh iQIYI Kho Phim Hot."
+            "id": "sctv14-phim-viet",
+            "name": "SCTV14 — Kênh Phim Việt (Official)",
+            "channelId": "UCuYZWZTkFswGfqsR7WbTQzA",
+            "note": "Phim truyền hình Việt Nam cập nhật liên tục trên kênh chính thức SCTV14."
+        },
+        {
+            "id": "htvc-phim-thuan-viet",
+            "name": "HTVC Phim Thuần Việt",
+            "channelId": "UCjbYAuXpd7693hO9UxwJAdA",
+            "note": "Phim Việt Nam từ các kênh HTVC/HTV, cập nhật thường xuyên trên kênh YouTube chính thức."
         }
     ],
     "movies":  [

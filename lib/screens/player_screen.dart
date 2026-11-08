@@ -250,201 +250,222 @@ class _PlayerScreenState extends State<PlayerScreen>
 
     return Scaffold(
       backgroundColor: Colors.black,
-      body: GestureDetector(
-        onTap: _showControls,
-        child: Focus(
-          autofocus: true,
-          onKeyEvent: _handleKey,
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              // ================= VIDEO / TRẠNG THÁI =================
-              if (c != null && c.value.isInitialized)
-                Center(
-                  child: AspectRatio(
-                    aspectRatio: c.value.aspectRatio,
-                    child: VideoPlayer(c),
-                  ),
-                )
-              else
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (_loading)
-                          const SizedBox(
-                            width: 44,
-                            height: 44,
-                            child: CircularProgressIndicator(
-                              color: _accent,
-                              strokeWidth: 3,
-                            ),
-                          )
-                        else if (_hasError)
-                          const Icon(Icons.wifi_off_rounded,
-                              color: Colors.white38, size: 52),
-                        const SizedBox(height: 18),
-                        Text(
-                          _status.isEmpty ? _channel.name : _status,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            height: 1.4,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        if (_hasError) ...[
-                          const SizedBox(height: 22),
-                          FilledButton.icon(
-                            style: FilledButton.styleFrom(
-                              backgroundColor: _accent,
-                              foregroundColor: Colors.black,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 26, vertical: 14),
-                            ),
-                            icon: const Icon(Icons.refresh_rounded, size: 22),
-                            label: const Text('Thử lại'),
-                            onPressed: _retry,
-                          ),
-                        ],
-                      ],
-                    ),
-                  ),
+      body: Focus(
+        autofocus: true,
+        onKeyEvent: _handleKey,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            // ================= VIDEO / TRẠNG THÁI =================
+            if (c != null && c.value.isInitialized)
+              Center(
+                child: AspectRatio(
+                  aspectRatio: c.value.aspectRatio,
+                  child: VideoPlayer(c),
                 ),
-
-              // ================= OVERLAY ĐIỀU KHIỂN =================
-              AnimatedOpacity(
-                opacity: _controlsVisible ? 1 : 0,
-                duration: const Duration(milliseconds: 250),
-                child: IgnorePointer(
-                  ignoring: !_controlsVisible,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0xCC000000),
-                          Color(0x14000000),
-                          Color(0x22000000),
-                          Color(0xE0000000),
-                        ],
-                        stops: [0.0, 0.3, 0.7, 1.0],
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // ---------- hàng trên ----------
-                        SafeArea(
-                          bottom: false,
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(Sp.l, Sp.s, Sp.s, 0),
-                            child: Row(
-                              children: [
-                                ChannelLogo(channel: _channel, size: 44),
-                                const SizedBox(width: Sp.m),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        _channel.name,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.w800,
-                                          color: Colors.white,
-                                          letterSpacing: 0.2,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 3),
-                                      _PlaybackChip(
-                                        status: _status,
-                                        error: _hasError,
-                                        loading: _loading,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                _GlassButton(
-                                  icon: favorite
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  iconColor: favorite ? _accent : Colors.white,
-                                  tooltip: 'Yêu thích',
-                                  onPressed: () async {
-                                    await PrefsService.toggleFavorite(_channel.id);
-                                    if (mounted) setState(() {});
-                                    _showControls();
-                                  },
-                                ),
-                                const SizedBox(width: Sp.s),
-                                _GlassButton(
-                                  icon: Icons.close_rounded,
-                                  tooltip: 'Thoát',
-                                  onPressed: () => Navigator.of(context).pop(),
-                                ),
-                                const SizedBox(width: Sp.s),
-                              ],
-                            ),
+              )
+            else
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (_loading)
+                        const SizedBox(
+                          width: 44,
+                          height: 44,
+                          child: CircularProgressIndicator(
+                            color: _accent,
+                            strokeWidth: 3,
                           ),
+                        )
+                      else if (_hasError)
+                        const Icon(Icons.wifi_off_rounded,
+                            color: Colors.white38, size: 52),
+                      const SizedBox(height: 18),
+                      Text(
+                        _status.isEmpty ? _channel.name : _status,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          height: 1.4,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
                         ),
-
-                        // ---------- hàng dưới ----------
-                        SafeArea(
-                          top: false,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: Sp.m),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    _ControlButton(
-                                      icon: Icons.skip_previous_rounded,
-                                      label: 'Kênh trước',
-                                      onPressed: () => _switchChannel(-1),
-                                    ),
-                                    const SizedBox(width: Sp.xl + Sp.s),
-                                    _PlayPauseButton(
-                                      playing: playing,
-                                      onPressed: _togglePlay,
-                                    ),
-                                    const SizedBox(width: Sp.xl + Sp.s),
-                                    _ControlButton(
-                                      icon: Icons.skip_next_rounded,
-                                      label: 'Kênh sau',
-                                      onPressed: () => _switchChannel(1),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: Sp.s),
-                                Text(
-                                  '↑↓ đổi kênh · OK dừng/phát · Back thoát',
-                                  style: TextStyle(
-                                    fontSize: 11.5,
-                                    color: Colors.white.withValues(alpha: 0.45),
-                                    letterSpacing: 0.2,
-                                  ),
-                                ),
-                              ],
-                            ),
+                      ),
+                      if (_hasError) ...[
+                        const SizedBox(height: 22),
+                        FilledButton.icon(
+                          style: FilledButton.styleFrom(
+                            backgroundColor: _accent,
+                            foregroundColor: Colors.black,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 26, vertical: 14),
                           ),
+                          icon: const Icon(Icons.refresh_rounded, size: 22),
+                          label: const Text('Thử lại'),
+                          onPressed: _retry,
                         ),
                       ],
-                    ),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+
+            // Bất kỳ vùng nào của màn hình (kể cả phần đen ngoài video)
+            // đều bật/tắt thanh điều khiển khi chạm.
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  if (_controlsVisible) {
+                    _hideTimer?.cancel();
+                    setState(() => _controlsVisible = false);
+                  } else {
+                    _showControls();
+                  }
+                },
+              ),
+            ),
+
+            // ================= OVERLAY ĐIỀU KHIỂN =================
+            AnimatedOpacity(
+              opacity: _controlsVisible ? 1 : 0,
+              duration: const Duration(milliseconds: 250),
+              child: IgnorePointer(
+                ignoring: !_controlsVisible,
+                child: Stack(
+                  children: [
+                    // Lớp gradient chỉ để che nền overlay, không nhận chạm.
+                    IgnorePointer(
+                      ignoring: true,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color(0xCC000000),
+                              Color(0x14000000),
+                              Color(0x22000000),
+                              Color(0xE0000000),
+                            ],
+                            stops: [0.0, 0.3, 0.7, 1.0],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // ---------- hàng trên ----------
+                      SafeArea(
+                        bottom: false,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(Sp.l, Sp.s, Sp.s, 0),
+                          child: Row(
+                            children: [
+                              ChannelLogo(channel: _channel, size: 44),
+                              const SizedBox(width: Sp.m),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      _channel.name,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.w800,
+                                        color: Colors.white,
+                                        letterSpacing: 0.2,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 3),
+                                    _PlaybackChip(
+                                      status: _status,
+                                      error: _hasError,
+                                      loading: _loading,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              _GlassButton(
+                                icon: favorite
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                iconColor: favorite ? _accent : Colors.white,
+                                tooltip: 'Yêu thích',
+                                onPressed: () async {
+                                  await PrefsService.toggleFavorite(_channel.id);
+                                  if (mounted) setState(() {});
+                                  _showControls();
+                                },
+                              ),
+                              const SizedBox(width: Sp.s),
+                              _GlassButton(
+                                icon: Icons.close_rounded,
+                                tooltip: 'Thoát',
+                                onPressed: () => Navigator.of(context).pop(),
+                              ),
+                              const SizedBox(width: Sp.s),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      // ---------- hàng dưới ----------
+                      SafeArea(
+                        top: false,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: Sp.m),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  _ControlButton(
+                                    icon: Icons.skip_previous_rounded,
+                                    label: 'Kênh trước',
+                                    onPressed: () => _switchChannel(-1),
+                                  ),
+                                  const SizedBox(width: Sp.xl + Sp.s),
+                                  _PlayPauseButton(
+                                    playing: playing,
+                                    onPressed: _togglePlay,
+                                  ),
+                                  const SizedBox(width: Sp.xl + Sp.s),
+                                  _ControlButton(
+                                    icon: Icons.skip_next_rounded,
+                                    label: 'Kênh sau',
+                                    onPressed: () => _switchChannel(1),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: Sp.s),
+                              Text(
+                                '↑↓ đổi kênh · OK dừng/phát · Back thoát',
+                                style: TextStyle(
+                                  fontSize: 11.5,
+                                  color: Colors.white.withValues(alpha: 0.45),
+                                  letterSpacing: 0.2,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            ),
+          ],
         ),
       ),
     );

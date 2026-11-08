@@ -232,6 +232,30 @@ void main() {
         ['vid00000000', 'vid00000001', 'vid00000002']);
   });
 
+  test('bỏ video sắp công chiếu/premiere khỏi nguồn phim', () {
+    final data = {
+      'items': [
+        {
+          'lockupViewModel': lockup(
+            id: 'future000001',
+            title: 'Tập sắp ra mắt',
+            published: '25 giờ nữa',
+          ),
+        },
+        {
+          'lockupViewModel': lockup(
+            id: 'ok000000001',
+            title: 'Tập đã phát',
+            published: '2 giờ trước',
+          ),
+        },
+      ],
+    };
+
+    final videos = YouTubeService.parseLockupViewModels(data, limit: 10);
+    expect(videos.map((v) => v.id), ['ok000000001']);
+  });
+
   test('parse thời lượng mm:ss và hh:mm:ss', () {
     expect(YouTubeService.parseDuration('12:34'),
         const Duration(minutes: 12, seconds: 34));

@@ -120,11 +120,11 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
             },
           ),
           Padding(
-            padding: const EdgeInsets.only(right: Sp.m),
+            padding: const EdgeInsets.only(right: Sp.s),
             child: SegmentedButton<bool>(
               segments: const [
-                ButtonSegment(value: false, icon: Icon(Icons.view_list, size: 20)),
-                ButtonSegment(value: true, icon: Icon(Icons.grid_view_rounded, size: 20)),
+                ButtonSegment(value: false, icon: Icon(Icons.view_list, size: 18)),
+                ButtonSegment(value: true, icon: Icon(Icons.grid_view_rounded, size: 18)),
               ],
               selected: {_grid},
               showSelectedIcon: false,
@@ -180,11 +180,13 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
           // ---- số kênh ----
           Padding(
             padding: const EdgeInsets.fromLTRB(Sp.xl, Sp.s, Sp.xl, Sp.s),
-            child: Row(
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              alignment: WrapAlignment.spaceBetween,
+              runSpacing: 2,
               children: [
                 Text('${items.length} kênh',
                     style: Theme.of(context).textTheme.bodySmall),
-                const Spacer(),
                 Text('Kéo xuống để làm mới',
                     style: Theme.of(context)
                         .textTheme

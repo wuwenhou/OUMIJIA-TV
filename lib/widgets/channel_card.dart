@@ -84,8 +84,9 @@ class ChannelCard extends StatelessWidget {
         onLongPress: onLongPress,
         borderRadius: BorderRadius.circular(Radii.m),
         child: Container(
-          height: height,
-          padding: const EdgeInsets.symmetric(horizontal: Sp.l, vertical: Sp.s + 2),
+          constraints: BoxConstraints(minHeight: height),
+          padding: const EdgeInsets.symmetric(
+              horizontal: Sp.l, vertical: Sp.s + 2),
           decoration: ShapeDecoration(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(Radii.m),
@@ -96,9 +97,8 @@ class ChannelCard extends StatelessWidget {
             ),
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-                            ChannelLogo(channel: channel),
-              const SizedBox(width: Sp.l),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -106,22 +106,30 @@ class ChannelCard extends StatelessWidget {
                   children: [
                     Text(
                       channel.name,
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    const SizedBox(height: 2),
+                    const SizedBox(height: 3),
                     Row(
                       children: [
                         Container(
                           width: 7,
                           height: 7,
-                          decoration: BoxDecoration(shape: BoxShape.circle, color: healthColor),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle, color: healthColor),
                         ),
                         const SizedBox(width: 6),
-                        Text(
-                          statusLabel(channel.health),
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(color: c.textMed),
+                        Flexible(
+                          child: Text(
+                            statusLabel(channel.health),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(color: c.textMed),
+                          ),
                         ),
                       ],
                     ),
@@ -175,7 +183,7 @@ class ChannelLogo extends StatelessWidget {
   }
 }
 
-/// Ô kênh dạng lưới: logo trên, tên dưới, chấm trạng thái + validates.
+/// Ô kênh dạng lưới: tên ở trên, chấm trạng thái bên dưới.
 class ChannelGridTile extends StatelessWidget {
   final Channel channel;
   final VoidCallback onTap;
@@ -210,16 +218,6 @@ class ChannelGridTile extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Stack(children: [
-                ChannelLogo(channel: channel, size: 58),
-                if (favorite)
-                  Positioned(
-                    top: -3,
-                    right: -3,
-                    child: Icon(Icons.favorite, color: c.accent, size: 16),
-                  ),
-              ]),
-              const SizedBox(height: Sp.s),
               Text(
                 channel.name,
                 maxLines: 2,
@@ -227,7 +225,7 @@ class ChannelGridTile extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.labelLarge,
               ),
-              const SizedBox(height: Sp.xs),
+              const SizedBox(height: Sp.s),
               Row(mainAxisSize: MainAxisSize.min, children: [
                 Container(width: 6, height: 6, decoration: BoxDecoration(shape: BoxShape.circle, color: healthColor)),
                 const SizedBox(width: 5),
@@ -240,6 +238,10 @@ class ChannelGridTile extends StatelessWidget {
                   ),
                 ),
               ]),
+              if (favorite) ...[
+                const SizedBox(height: Sp.xs),
+                Icon(Icons.favorite, color: c.accent, size: 15),
+              ],
               if (channel.unavailable) ...[
                 const SizedBox(height: Sp.xs),
                 Text('Không mở được',

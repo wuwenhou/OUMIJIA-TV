@@ -4,6 +4,36 @@ Mọi thay đổi đáng chú ý của OUMIJIA TV được ghi tại đây.
 Định dạng dựa trên [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/),
 phiên bản theo [Semantic Versioning](https://semver.org/lang/vi/).
 
+## [2.1.3] — 2026-11-08
+
+### Sửa lỗi
+- **Danh sách kênh ở cỡ chữ lớn bị lệch/chồng chữ**: bỏ logo bên trái tên kênh
+  (cả list lẫn grid), tên và trạng thái tự co giãn theo chiều rộng/chiều cao.
+  Hàng số kênh không còn dùng `Spacer`, nên text không chạm nhau khi người dùng
+  đặt cỡ chữ lớn.
+- **Trình phát TV không hiện điều khiển khi chạm vùng đen**: trước đây chỉ chạm
+  đúng vùng video sáng mới bật overlay. Nay bất kỳ vùng nào trên màn hình trình
+  phát (kể cả dải đen trên/dưới) đều bật/tắt thanh điều khiển. Nút Kênh trước,
+  Kênh sau, phát/tạm dừng và đóng vẫn bấm bình thường.
+- **Tab Phim hay gặp video sắp công chiếu (Premiere)**: bộ lọc parser bỏ video
+  có thời gian tương lai như “25 giờ nữa” khỏi danh sách. Nếu video bị YouTube
+  chặn nguồn do premiere/vùng/thiếu quyền, trình phát chỉ hiện thông báo tiếng
+  Việt dễ hiểu thay vì xấu xí dump `VideoUnplayableException`.
+- Nguồn phim động được mở rộng ngoài iQIYI: thêm kênh chính thức
+  `SCTV14 — Kênh Phim Việt (Official)` và `HTVC Phim Thuần Việt`, cả hai đều
+  có video mới liên tục và phát trực tiếp không quảng cáo qua trình phát sẵn có.
+
+### Kiểm thử
+- `flutter analyze`: 0 lỗi.
+- `flutter test`: pass toàn bộ, gồm test mới cho `ChannelCard` không logo ở
+  cỡ chữ 130%, parser bỏ premiere, và chạm vùng đen để ẩn thanh điều khiển.
+- Kiểm tra mạng thực tế: cả ba kênh iQIYI/SCTV14/HTVC trả 20 video mới nhất;
+  ba video mẫu đều có luồng phát muxed (`stream=OK`).
+
+### Chưa kiểm chứng trên thiết bị thật
+- Chưa có Android/iOS thật trong môi trường build: chưa xác nhận trực tiếp
+  việc chạm vùng đen trên màn hình thật, tải thumbnail và phát phim trên máy.
+
 ## [2.1.2] — 2026-11-05
 
 ### Sửa lỗi
