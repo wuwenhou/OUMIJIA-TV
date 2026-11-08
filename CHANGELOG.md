@@ -4,6 +4,14 @@ Mọi thay đổi đáng chú ý của OUMIJIA TV được ghi tại đây.
 Định dạng dựa trên [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/),
 phiên bản theo [Semantic Versioning](https://semver.org/lang/vi/).
 
+## [2.1.6] — 2026-11-08
+
+### Thay đổi
+- **Đổi icon/launcher sang phiên bản Tết**: nền đỏ gradient, chữ “TV” trắng rất lớn ở giữa, điểm nhấn vàng gồm đèn lồng, hoa mai và pháo hoa. Góc của icon được bo nhẹ. Bộ icon mới được đồng bộ cho Android adaptive icon và iOS; nền adaptive icon cũng chuyển sang đỏ.
+
+### Kiểm thử
+- Đã tạo lại bộ icon bằng `flutter_launcher_icons` cho Android và iOS.
+
 ## [2.1.5] — 2026-11-08
 
 ### Sửa lỗi

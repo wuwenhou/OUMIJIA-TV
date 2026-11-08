@@ -1,7 +1,7 @@
 name: oumijia_tv
 description: OUMIJIA TV - Truyền hình Việt Nam, phim và YouTube tuyển chọn; giao diện tối giản, không quảng cáo.
 publish_to: "none"
-version: 2.1.5+11
+version: 2.1.6+12
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -31,7 +31,7 @@ flutter_launcher_icons:
   image_path: "assets/icon/app_icon.png"
   min_sdk_android: 21
   remove_alpha_ios: true
-  adaptive_icon_background: "#0B0F14"
+  adaptive_icon_background: "#B91C1C"
   adaptive_icon_foreground: "assets/icon/app_icon.png"
   adaptive_icon_foreground_inset: 16
 
