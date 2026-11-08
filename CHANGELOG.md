@@ -4,6 +4,22 @@ Mọi thay đổi đáng chú ý của OUMIJIA TV được ghi tại đây.
 Định dạng dựa trên [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/),
 phiên bản theo [Semantic Versioning](https://semver.org/lang/vi/).
 
+## [2.1.5] — 2026-11-08
+
+### Sửa lỗi
+- **Không cập nhật được, báo HTTP 504**: GitHub đôi khi trả 502/503/504 cho
+  link tải trực tiếp `browser_download_url` trong khi endpoint API của asset
+  với `Accept: application/octet-stream` vẫn tải được. Bộ cập nhật nay dùng
+  endpoint API trước, fallback sang link trực tiếp, tự thử lại tối đa 3 lần
+  khi server quá tải và hiển thị thông báo tiếng Việt dễ hiểu thay vì xấu xí
+  dump `Exception: HTTP 504`.
+
+### Kiểm thử
+- `dart analyze`: 0 lỗi.
+- `flutter test`: thêm test diễn giải lỗi HTTP 504 thành tiếng Việt.
+- Kiểm tra thực tế: link trực tiếp v2.1.3/v2.1.4 trả 504; endpoint API asset
+  với tiêu đề `application/octet-stream` tải đủ 59.217.978 byte.
+
 ## [2.1.4] — 2026-11-08
 
 ### Thay đổi

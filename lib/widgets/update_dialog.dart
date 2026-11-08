@@ -78,7 +78,7 @@ Future<void> _downloadAndInstall(BuildContext context, UpdateInfo info) async {
     if (!context.mounted) return;
     Navigator.of(context).pop();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('Tải bản cập nhật thất bại: $e'),
+      content: Text(UpdateService.friendlyDownloadError(e)),
       duration: const Duration(seconds: 4),
     ));
   } finally {
