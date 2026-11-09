@@ -178,18 +178,18 @@ buildTheme({
 
   final textTheme = base.textTheme.copyWith(
     displaySmall: base.textTheme.displaySmall?.copyWith(
-        color: colors.textHi, fontSize: f(28), fontWeight: FontWeight.w800, letterSpacing: -0.5),
+        color: colors.textHi, fontSize: f(32), fontWeight: FontWeight.w800, letterSpacing: -0.5),
     headlineMedium: base.textTheme.headlineMedium?.copyWith(
-        color: colors.textHi, fontSize: f(24), fontWeight: FontWeight.w700),
+        color: colors.textHi, fontSize: f(26), fontWeight: FontWeight.w700),
     titleLarge: base.textTheme.titleLarge?.copyWith(
-        color: colors.textHi, fontSize: f(19), fontWeight: FontWeight.w700),
+        color: colors.textHi, fontSize: f(22), fontWeight: FontWeight.w700),
     titleMedium: base.textTheme.titleMedium?.copyWith(
-        color: colors.textHi, fontSize: f(16), fontWeight: FontWeight.w600),
-    bodyLarge: base.textTheme.bodyLarge?.copyWith(color: colors.textHi, fontSize: f(15.5)),
-    bodyMedium: base.textTheme.bodyMedium?.copyWith(color: colors.textMed, fontSize: f(14)),
-    bodySmall: base.textTheme.bodySmall?.copyWith(color: colors.textLo, fontSize: f(12.5)),
+        color: colors.textHi, fontSize: f(18), fontWeight: FontWeight.w600),
+    bodyLarge: base.textTheme.bodyLarge?.copyWith(color: colors.textHi, fontSize: f(17.5)),
+    bodyMedium: base.textTheme.bodyMedium?.copyWith(color: colors.textMed, fontSize: f(16)),
+    bodySmall: base.textTheme.bodySmall?.copyWith(color: colors.textLo, fontSize: f(14)),
     labelLarge: base.textTheme.labelLarge?.copyWith(
-        color: colors.textHi, fontSize: f(14), fontWeight: FontWeight.w600),
+        color: colors.textHi, fontSize: f(16), fontWeight: FontWeight.w600),
   );
 
   return base.copyWith(
@@ -217,12 +217,12 @@ buildTheme({
       ),
     ),
     navigationBarTheme: NavigationBarThemeData(
-      height: 68,
+      height: 76,
       backgroundColor: colors.bg,
       surfaceTintColor: Colors.transparent,
       indicatorColor: colors.accent.withValues(alpha: 0.18),
       labelTextStyle: WidgetStateProperty.resolveWith((states) => TextStyle(
-            fontSize: f(11.5),
+            fontSize: f(13),
             fontWeight: states.contains(WidgetState.selected) ? FontWeight.w700 : FontWeight.w500,
             color: states.contains(WidgetState.selected) ? colors.accent : colors.textMed,
           )),
@@ -237,7 +237,7 @@ buildTheme({
         foregroundColor: Colors.black,
         padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.m)),
-        textStyle: TextStyle(fontSize: f(14.5), fontWeight: FontWeight.w700),
+        textStyle: TextStyle(fontSize: f(16), fontWeight: FontWeight.w700),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
@@ -246,14 +246,14 @@ buildTheme({
         side: BorderSide(color: colors.border),
         padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.m)),
-        textStyle: TextStyle(fontSize: f(14.5), fontWeight: FontWeight.w600),
+        textStyle: TextStyle(fontSize: f(16), fontWeight: FontWeight.w600),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: colors.accent,
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-        textStyle: TextStyle(fontSize: f(14.5), fontWeight: FontWeight.w600),
+        textStyle: TextStyle(fontSize: f(16), fontWeight: FontWeight.w600),
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
@@ -289,7 +289,7 @@ buildTheme({
     chipTheme: base.chipTheme.copyWith(
       backgroundColor: colors.surfaceAlt,
       side: BorderSide(color: colors.border),
-      labelStyle: TextStyle(color: colors.textMed, fontSize: f(13)),
+      labelStyle: TextStyle(color: colors.textMed, fontSize: f(14.5)),
       selectedColor: colors.accent.withValues(alpha: 0.2),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.xs)),
     ),
@@ -303,7 +303,7 @@ buildTheme({
         foregroundColor: WidgetStateProperty.resolveWith(
           (s) => s.contains(WidgetState.selected) ? colors.accent : colors.textMed,
         ),
-        textStyle: WidgetStatePropertyAll(TextStyle(fontSize: f(13.5), fontWeight: FontWeight.w600)),
+        textStyle: WidgetStatePropertyAll(TextStyle(fontSize: f(15), fontWeight: FontWeight.w600)),
       ),
     ),
     dialogTheme: DialogThemeData(
@@ -315,7 +315,7 @@ buildTheme({
     ),
     snackBarTheme: SnackBarThemeData(
       backgroundColor: colors.surfaceAlt,
-      contentTextStyle: TextStyle(color: colors.textHi, fontSize: f(13.5)),
+      contentTextStyle: TextStyle(color: colors.textHi, fontSize: f(15)),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.s)),
       behavior: SnackBarBehavior.floating,
     ),

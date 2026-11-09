@@ -118,10 +118,18 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
   Widget build(BuildContext context) {
     final c = context.c;
     final items = _filtered;
+    final mediaQuery = MediaQuery.of(context);
+    final landscape = mediaQuery.orientation == Orientation.landscape;
+    final width = mediaQuery.size.width;
+    final showGrid = landscape || _grid;
+    final crossAxisCount = landscape
+        ? (width >= 1000 ? 4 : 3)
+        : (width >= 700 ? 3 : 2);
+    final horizontalPadding = landscape ? Sp.l : Sp.xl;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kênh truyền hình'),
+        title: Text(landscape ? 'Kênh' : 'Kênh truyền hình'),
         actions: [
           IconButton(
             tooltip: 'Kênh yêu thích',
@@ -150,7 +158,8 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
         children: [
           // ---- tìm kiếm ----
           Padding(
-            padding: const EdgeInsets.fromLTRB(Sp.xl, Sp.s, Sp.xl, Sp.s),
+            padding: EdgeInsets.fromLTRB(
+                horizontalPadding, landscape ? Sp.xs : Sp.s, horizontalPadding, Sp.s),
             child: TextField(
               onChanged: (v) => setState(() => _query = v),
               textInputAction: TextInputAction.search,
@@ -172,10 +181,10 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
           ),
           // ---- nhóm kênh ----
           SizedBox(
-            height: 44,
+            height: landscape ? 38 : 44,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: Sp.xl),
+              padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
               children: [
                 for (final g in _groups)
                   Padding(
@@ -190,24 +199,25 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
               ],
             ),
           ),
-          // ---- số kênh ----
-          Padding(
-            padding: const EdgeInsets.fromLTRB(Sp.xl, Sp.s, Sp.xl, Sp.s),
-            child: Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
-              alignment: WrapAlignment.spaceBetween,
-              runSpacing: 2,
-              children: [
-                Text('${items.length} kênh',
-                    style: Theme.of(context).textTheme.bodySmall),
-                Text('Kéo xuống để làm mới',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(color: c.textLo)),
-              ],
+          // ---- số kênh: ẩn ở ngang để tiết kiệm chiều cao ----
+          if (!landscape)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(Sp.xl, Sp.s, Sp.xl, Sp.s),
+              child: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                alignment: WrapAlignment.spaceBetween,
+                runSpacing: 2,
+                children: [
+                  Text('${items.length} kênh',
+                      style: Theme.of(context).textTheme.bodySmall),
+                  Text('Kéo xuống để làm mới',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(color: c.textLo)),
+                ],
+              ),
             ),
-          ),
           // ---- danh sách / lưới ----
           Expanded(
             child: RefreshIndicator(
@@ -219,16 +229,15 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
                         _group = 'Tất cả';
                       }),
                     )
-                  : _grid
+                  : showGrid
                       ? GridView.builder(
-                          padding:
-                              const EdgeInsets.fromLTRB(Sp.xl, 0, Sp.xl, Sp.xxl + Sp.l),
-                          gridDelegate:
-                              const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 190,
+                          padding: EdgeInsets.fromLTRB(horizontalPadding, 0,
+                              horizontalPadding, Sp.xxl + Sp.l),
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: crossAxisCount,
                             mainAxisSpacing: Sp.s + 2,
                             crossAxisSpacing: Sp.s + 2,
-                            childAspectRatio: 0.95,
+                            childAspectRatio: landscape ? 1.35 : 0.95,
                           ),
                           itemCount: items.length,
                           itemBuilder: (context, i) {
@@ -242,8 +251,8 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
                           },
                         )
                       : ListView.separated(
-                          padding:
-                              const EdgeInsets.fromLTRB(Sp.xl, 0, Sp.xl, Sp.xxl + Sp.l),
+                          padding: EdgeInsets.fromLTRB(horizontalPadding, 0,
+                              horizontalPadding, Sp.xxl + Sp.l),
                           itemCount: items.length,
                           separatorBuilder: (_, __) =>
                               const SizedBox(height: Sp.s + 2),

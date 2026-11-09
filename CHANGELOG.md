@@ -4,6 +4,16 @@ Mọi thay đổi đáng chú ý của OUMIJIA TV được ghi tại đây.
 Định dạng dựa trên [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/),
 phiên bản theo [Semantic Versioning](https://semver.org/lang/vi/).
 
+## [2.1.7] — 2026-11-09
+
+### Thay đổi
+- **Chế độ ngang gọn**: khi xoay ngang, thanh điều hướng dưới chuyển thành NavigationRail bên trái; tab Kênh rút tiêu đề còn “Kênh”, giảm padding/chiều cao chip lọc, ẩn dòng số kênh và tự chuyển sang lưới 3–4 cột để thấy nhiều kênh hơn, chọn nhanh hơn.
+- **Tăng cỡ chữ cơ bản**: ở mức 100%, chữ tên kênh, tiêu đề, nội dung, trạng thái và nút bấm lớn hơn khoảng 10–15%. Ở mức 130%, chữ đủ lớn cho người già đọc.
+
+### Kiểm thử
+- `dart analyze`: 0 lỗi.
+- `flutter test`: 23/23 pass, gồm test NavigationRail ở ngang, lưới kênh ở ngang và cỡ chữ 100%/130%.
+
 ## [2.1.6] — 2026-11-08
 
 ### Thay đổi

@@ -44,8 +44,12 @@ void main() {
   });
 
   Future<void> pumpHome(WidgetTester tester) async {
-    await tester.binding.setSurfaceSize(const Size(390, 844));
-    addTearDown(() => tester.binding.setSurfaceSize(null));
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(() {
+      tester.view.resetPhysicalSize();
+      tester.view.resetDevicePixelRatio();
+    });
     await tester.pumpWidget(MaterialApp(
       theme: buildTheme(mode: Brightness.dark, accentKey: 'gold'),
       home: HomeScreen(config: config),
@@ -67,6 +71,26 @@ void main() {
     final nav = tester.widget<NavigationBar>(find.byType(NavigationBar));
     expect(nav.destinations.length, 4);
     expect(nav.selectedIndex, 0);
+  });
+
+  testWidgets('xoay ngang dùng NavigationRail thay vì thanh dưới', (tester) async {
+    tester.view.physicalSize = const Size(844, 390);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(() {
+      tester.view.resetPhysicalSize();
+      tester.view.resetDevicePixelRatio();
+    });
+    await tester.pumpWidget(MaterialApp(
+      theme: buildTheme(mode: Brightness.dark, accentKey: 'gold'),
+      home: HomeScreen(config: config),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 350));
+
+    expect(find.byType(NavigationRail), findsOneWidget);
+    expect(find.byType(NavigationBar), findsNothing);
+    expect(find.text('VTV1'), findsWidgets);
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('chuyển tab Kênh / Phim / YouTube / Cài đặt không lỗi',

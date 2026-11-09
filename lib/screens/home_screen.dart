@@ -65,28 +65,55 @@ class _HomeScreenState extends State<HomeScreen> {
           selectedIcon: Icon(Icons.settings),
           label: 'Cài đặt'),
     ];
+    final landscape =
+        MediaQuery.orientationOf(context) == Orientation.landscape;
+    final body = IndexedStack(
+      index: _tab,
+      children: [
+        _visited.contains(0)
+            ? ChannelsScreen(
+                config: _config,
+                onConfigChanged: (cfg) => setState(() => _config = cfg),
+              )
+            : const SizedBox.shrink(),
+        _visited.contains(1)
+            ? MoviesScreen(config: _config)
+            : const SizedBox.shrink(),
+        _visited.contains(2)
+            ? YouTubeScreen(config: _config)
+            : const SizedBox.shrink(),
+        _visited.contains(3)
+            ? SettingsScreen(config: _config)
+            : const SizedBox.shrink(),
+      ],
+    );
+
+    if (landscape) {
+      return Scaffold(
+        body: Row(
+          children: [
+            NavigationRail(
+              selectedIndex: _tab,
+              onDestinationSelected: _selectTab,
+              labelType: NavigationRailLabelType.selected,
+              destinations: [
+                for (final d in destinations)
+                  NavigationRailDestination(
+                    icon: d.icon,
+                    selectedIcon: d.selectedIcon,
+                    label: Text(d.label),
+                  ),
+              ],
+            ),
+            const VerticalDivider(width: 1, thickness: 1),
+            Expanded(child: body),
+          ],
+        ),
+      );
+    }
 
     return Scaffold(
-      body: IndexedStack(
-        index: _tab,
-        children: [
-          _visited.contains(0)
-              ? ChannelsScreen(
-                  config: _config,
-                  onConfigChanged: (cfg) => setState(() => _config = cfg),
-                )
-              : const SizedBox.shrink(),
-          _visited.contains(1)
-              ? MoviesScreen(config: _config)
-              : const SizedBox.shrink(),
-          _visited.contains(2)
-              ? YouTubeScreen(config: _config)
-              : const SizedBox.shrink(),
-          _visited.contains(3)
-              ? SettingsScreen(config: _config)
-              : const SizedBox.shrink(),
-        ],
-      ),
+      body: body,
       bottomNavigationBar: NavigationBar(
         selectedIndex: _tab,
         onDestinationSelected: _selectTab,
