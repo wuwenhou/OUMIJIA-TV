@@ -4,6 +4,17 @@ Mọi thay đổi đáng chú ý của OUMIJIA TV được ghi tại đây.
 Định dạng dựa trên [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/),
 phiên bản theo [Semantic Versioning](https://semver.org/lang/vi/).
 
+## [2.1.8] — 2026-11-09
+
+### Thay đổi
+- **Quay về giao diện kênh cũ**: danh sách dọc quen thuộc, thanh điều hướng dưới ở mọi hướng màn hình; bỏ NavigationRail/lưới kênh tự động khi xoay ngang.
+- **Bỏ thanh tìm kiếm và hàng chip lọc nhóm** khỏi tab Kênh, đồng thời bỏ nút chuyển list/lưới. Tab Kênh chỉ còn tiêu đề, nút yêu thích, số kênh và danh sách dọc.
+- Giữ nguyên các cải tiến hiện có: kênh yêu thích lên đầu, cỡ chữ cơ bản lớn hơn và đủ to cho người già ở mức 130%.
+
+### Kiểm thử
+- `dart analyze`: 0 lỗi.
+- `flutter test`: 25/25 pass, gồm test giao diện cũ không còn TextField/ChoiceChip/SegmentedButton/lưới và thanh dưới vẫn xuất hiện khi xoay ngang.
+
 ## [2.1.7] — 2026-11-09
 
 ### Thay đổi

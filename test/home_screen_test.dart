@@ -73,7 +73,7 @@ void main() {
     expect(nav.selectedIndex, 0);
   });
 
-  testWidgets('xoay ngang dùng NavigationRail thay vì thanh dưới', (tester) async {
+  testWidgets('xoay ngang vẫn dùng thanh điều hướng dưới như giao diện cũ', (tester) async {
     tester.view.physicalSize = const Size(844, 390);
     tester.view.devicePixelRatio = 1;
     addTearDown(() {
@@ -87,8 +87,8 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 350));
 
-    expect(find.byType(NavigationRail), findsOneWidget);
-    expect(find.byType(NavigationBar), findsNothing);
+    expect(find.byType(NavigationRail), findsNothing);
+    expect(find.byType(NavigationBar), findsOneWidget);
     expect(find.text('VTV1'), findsWidgets);
     expect(tester.takeException(), isNull);
   });

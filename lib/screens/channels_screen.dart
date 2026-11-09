@@ -8,8 +8,8 @@ import '../widgets/channel_card.dart';
 import 'favorites_screen.dart';
 import 'player_screen.dart';
 
-/// Tab KÊNH — tìm kiếm + lọc theo nhóm + list/grid + kéo-làm-mới cấu hình
-/// từ GitHub (cập nhật danh mục không cần phát hành APK mới).
+/// Tab KÊNH — danh sách dọc đơn giản + kéo-làm-mới cấu hình từ GitHub
+/// (cập nhật danh mục không cần phát hành APK mới).
 class ChannelsScreen extends StatefulWidget {
   final AppConfig config;
   final void Function(AppConfig config)? onConfigChanged;
@@ -21,30 +21,13 @@ class ChannelsScreen extends StatefulWidget {
 }
 
 class _ChannelsScreenState extends State<ChannelsScreen> {
-  String _query = '';
-  String _group = 'Tất cả';
-  bool _grid = false;
   bool _reloadBusy = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _grid = PrefsService.gridView;
-  }
-
+  /// Kênh yêu thích luôn lên đầu, giữ nguyên thứ tự gốc của các kênh còn lại.
   List<Channel> get _filtered {
-    final query = _query.trim();
-    final all = query.isEmpty
-        ? widget.config.channels
-        : widget.config.searchChannels(query);
-    final base = _group == 'Tất cả'
-        ? all
-        : all.where((c) => c.group == _group).toList();
-
-    // Kênh yêu thích luôn lên đầu, giữ nguyên thứ tự gốc trong từng nhóm.
     final favorites = <Channel>[];
     final others = <Channel>[];
-    for (final channel in base) {
+    for (final channel in widget.config.channels) {
       if (PrefsService.isFavorite(channel.id)) {
         favorites.add(channel);
       } else {
@@ -52,14 +35,6 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
       }
     }
     return [...favorites, ...others];
-  }
-
-  List<String> get _groups {
-    final set = <String>{'Tất cả'};
-    for (final c in widget.config.channels) {
-      set.add(c.group);
-    }
-    return set.toList();
   }
 
   Future<void> _reload() async {
@@ -109,27 +84,14 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
     if (mounted) setState(() {});
   }
 
-  void _setGrid(bool v) {
-    setState(() => _grid = v);
-    PrefsService.setGridView(v);
-  }
-
   @override
   Widget build(BuildContext context) {
     final c = context.c;
     final items = _filtered;
-    final mediaQuery = MediaQuery.of(context);
-    final landscape = mediaQuery.orientation == Orientation.landscape;
-    final width = mediaQuery.size.width;
-    final showGrid = landscape || _grid;
-    final crossAxisCount = landscape
-        ? (width >= 1000 ? 4 : 3)
-        : (width >= 700 ? 3 : 2);
-    final horizontalPadding = landscape ? Sp.l : Sp.xl;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(landscape ? 'Kênh' : 'Kênh truyền hình'),
+        title: const Text('Kênh truyền hình'),
         actions: [
           IconButton(
             tooltip: 'Kênh yêu thích',
@@ -140,132 +102,50 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
               ));
             },
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: Sp.s),
-            child: SegmentedButton<bool>(
-              segments: const [
-                ButtonSegment(value: false, icon: Icon(Icons.view_list, size: 18)),
-                ButtonSegment(value: true, icon: Icon(Icons.grid_view_rounded, size: 18)),
-              ],
-              selected: {_grid},
-              showSelectedIcon: false,
-              onSelectionChanged: (sel) => _setGrid(sel.first),
-            ),
-          ),
         ],
       ),
       body: Column(
         children: [
-          // ---- tìm kiếm ----
+          // ---- số kênh ----
           Padding(
-            padding: EdgeInsets.fromLTRB(
-                horizontalPadding, landscape ? Sp.xs : Sp.s, horizontalPadding, Sp.s),
-            child: TextField(
-              onChanged: (v) => setState(() => _query = v),
-              textInputAction: TextInputAction.search,
-              decoration: InputDecoration(
-                hintText: 'Tìm kênh — ví dụ "VTV3"',
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: (_query.isEmpty && _group == 'Tất cả')
-                    ? null
-                    : IconButton(
-                        icon: const Icon(Icons.close),
-                        tooltip: 'Xóa bộ lọc',
-                        onPressed: () => setState(() {
-                          _query = '';
-                          _group = 'Tất cả';
-                        }),
-                      ),
-              ),
-            ),
-          ),
-          // ---- nhóm kênh ----
-          SizedBox(
-            height: landscape ? 38 : 44,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+            padding: const EdgeInsets.fromLTRB(Sp.xl, Sp.s, Sp.xl, Sp.s),
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              alignment: WrapAlignment.spaceBetween,
+              runSpacing: 2,
               children: [
-                for (final g in _groups)
-                  Padding(
-                    padding: const EdgeInsets.only(right: Sp.s),
-                    child: ChoiceChip(
-                      label: Text(g),
-                      selected: _group == g,
-                      showCheckmark: false,
-                      onSelected: (_) => setState(() => _group = g),
-                    ),
-                  ),
+                Text('${items.length} kênh',
+                    style: Theme.of(context).textTheme.bodySmall),
+                Text('Kéo xuống để làm mới',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(color: c.textLo)),
               ],
             ),
           ),
-          // ---- số kênh: ẩn ở ngang để tiết kiệm chiều cao ----
-          if (!landscape)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(Sp.xl, Sp.s, Sp.xl, Sp.s),
-              child: Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                alignment: WrapAlignment.spaceBetween,
-                runSpacing: 2,
-                children: [
-                  Text('${items.length} kênh',
-                      style: Theme.of(context).textTheme.bodySmall),
-                  Text('Kéo xuống để làm mới',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(color: c.textLo)),
-                ],
-              ),
-            ),
-          // ---- danh sách / lưới ----
+          // ---- danh sách dọc ----
           Expanded(
             child: RefreshIndicator(
               onRefresh: _reload,
               child: items.isEmpty
-                  ? _EmptyFilterState(
-                      onReset: () => setState(() {
-                        _query = '';
-                        _group = 'Tất cả';
-                      }),
-                    )
-                  : showGrid
-                      ? GridView.builder(
-                          padding: EdgeInsets.fromLTRB(horizontalPadding, 0,
-                              horizontalPadding, Sp.xxl + Sp.l),
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: crossAxisCount,
-                            mainAxisSpacing: Sp.s + 2,
-                            crossAxisSpacing: Sp.s + 2,
-                            childAspectRatio: landscape ? 1.35 : 0.95,
-                          ),
-                          itemCount: items.length,
-                          itemBuilder: (context, i) {
-                            final ch = items[i];
-                            return ChannelGridTile(
-                              channel: ch,
-                              favorite: PrefsService.isFavorite(ch.id),
-                              onTap: () => _open(ch),
-                              onLongPress: () => _toggleFavorite(ch),
-                            );
-                          },
-                        )
-                      : ListView.separated(
-                          padding: EdgeInsets.fromLTRB(horizontalPadding, 0,
-                              horizontalPadding, Sp.xxl + Sp.l),
-                          itemCount: items.length,
-                          separatorBuilder: (_, __) =>
-                              const SizedBox(height: Sp.s + 2),
-                          itemBuilder: (context, i) {
-                            final ch = items[i];
-                            return ChannelCard(
-                              channel: ch,
-                              favorite: PrefsService.isFavorite(ch.id),
-                              onTap: () => _open(ch),
-                              onLongPress: () => _toggleFavorite(ch),
-                            );
-                          },
-                        ),
+                  ? const _EmptyState()
+                  : ListView.separated(
+                      padding:
+                          const EdgeInsets.fromLTRB(Sp.xl, 0, Sp.xl, Sp.xxl + Sp.l),
+                      itemCount: items.length,
+                      separatorBuilder: (_, __) =>
+                          const SizedBox(height: Sp.s + 2),
+                      itemBuilder: (context, i) {
+                        final ch = items[i];
+                        return ChannelCard(
+                          channel: ch,
+                          favorite: PrefsService.isFavorite(ch.id),
+                          onTap: () => _open(ch),
+                          onLongPress: () => _toggleFavorite(ch),
+                        );
+                      },
+                    ),
             ),
           ),
         ],
@@ -274,11 +154,9 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
   }
 }
 
-/// Không tìm thấy kết quả nào → nút Xóa bộ lọc trả về toàn bộ kênh.
-class _EmptyFilterState extends StatelessWidget {
-  final VoidCallback onReset;
-
-  const _EmptyFilterState({required this.onReset});
+/// Chưa có kênh nào trong danh mục cấu hình.
+class _EmptyState extends StatelessWidget {
+  const _EmptyState();
 
   @override
   Widget build(BuildContext context) {
@@ -287,15 +165,12 @@ class _EmptyFilterState extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.search_off, size: 46, color: c.textLo),
+          Icon(Icons.tv_outlined, size: 46, color: c.textLo),
           const SizedBox(height: Sp.m),
-          Text('Không có kênh nào khớp bộ lọc',
-              style: Theme.of(context).textTheme.titleMedium),
+          Text('Chưa có kênh', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: Sp.xs),
-          Text('Thử từ khóa khác hoặc mở lại cả nhóm.',
+          Text('Kéo xuống để làm mới cấu hình.',
               style: Theme.of(context).textTheme.bodyMedium),
-          const SizedBox(height: Sp.l),
-          OutlinedButton(onPressed: onReset, child: const Text('Xóa bộ lọc')),
         ],
       ),
     );

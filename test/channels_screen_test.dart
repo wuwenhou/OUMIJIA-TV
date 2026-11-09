@@ -78,7 +78,57 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('xoay ngang tự dùng lưới kênh thay vì danh sách dọc', (tester) async {
+  testWidgets('giao diện cũ: danh sách dọc, không thanh tìm kiếm/lọc/lưới', (tester) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(() {
+      tester.view.resetPhysicalSize();
+      tester.view.resetDevicePixelRatio();
+    });
+
+    final config = AppConfig.fromJson({
+      'channels': [
+        {
+          'id': 'vtv1',
+          'name': 'VTV1',
+          'group': 'Quốc gia',
+          'logo': '',
+          'primary': 'http://example.com/vtv1.m3u8',
+          'health': 'WORKING',
+        },
+        {
+          'id': 'vtv3',
+          'name': 'VTV3',
+          'group': 'Giải trí',
+          'logo': '',
+          'primary': 'http://example.com/vtv3.m3u8',
+          'health': 'WORKING',
+        },
+      ],
+      'youtubeCategories': [],
+      'movieSources': [],
+      'movies': [],
+    });
+
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: buildTheme(mode: Brightness.dark, accentKey: 'gold'),
+        home: ChannelsScreen(config: config),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.byType(TextField), findsNothing);
+    expect(find.byType(ChoiceChip), findsNothing);
+    expect(find.byType(SegmentedButton<bool>), findsNothing);
+    expect(find.byType(ChannelCard), findsWidgets);
+    expect(find.byType(ChannelGridTile), findsNothing);
+    expect(find.text('Kênh truyền hình'), findsOneWidget);
+    expect(find.text('2 kênh'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('xoay ngang vẫn dùng danh sách dọc của giao diện cũ', (tester) async {
     tester.view.physicalSize = const Size(844, 390);
     tester.view.devicePixelRatio = 1;
     addTearDown(() {
@@ -126,10 +176,10 @@ void main() {
     );
     await tester.pump();
 
-    expect(find.byType(ChannelGridTile), findsWidgets);
-    expect(find.byType(ChannelCard), findsNothing);
-    expect(find.text('Kênh'), findsWidgets);
-    expect(find.text('3 kênh'), findsNothing);
+    expect(find.byType(ChannelGridTile), findsNothing);
+    expect(find.byType(ChannelCard), findsWidgets);
+    expect(find.text('Kênh truyền hình'), findsOneWidget);
+    expect(find.text('3 kênh'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 }

@@ -65,8 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
           selectedIcon: Icon(Icons.settings),
           label: 'Cài đặt'),
     ];
-    final landscape =
-        MediaQuery.orientationOf(context) == Orientation.landscape;
     final body = IndexedStack(
       index: _tab,
       children: [
@@ -87,30 +85,6 @@ class _HomeScreenState extends State<HomeScreen> {
             : const SizedBox.shrink(),
       ],
     );
-
-    if (landscape) {
-      return Scaffold(
-        body: Row(
-          children: [
-            NavigationRail(
-              selectedIndex: _tab,
-              onDestinationSelected: _selectTab,
-              labelType: NavigationRailLabelType.selected,
-              destinations: [
-                for (final d in destinations)
-                  NavigationRailDestination(
-                    icon: d.icon,
-                    selectedIcon: d.selectedIcon,
-                    label: Text(d.label),
-                  ),
-              ],
-            ),
-            const VerticalDivider(width: 1, thickness: 1),
-            Expanded(child: body),
-          ],
-        ),
-      );
-    }
 
     return Scaffold(
       body: body,
