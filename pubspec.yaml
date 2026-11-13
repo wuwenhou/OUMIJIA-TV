@@ -1,7 +1,7 @@
 name: oumijia_tv
 description: OUMIJIA TV - Truyền hình Việt Nam, phim và YouTube tuyển chọn; giao diện tối giản, không quảng cáo.
 publish_to: "none"
-version: 2.1.8+14
+version: 2.1.9+15
 
 environment:
   sdk: ">=3.4.0 <4.0.0"

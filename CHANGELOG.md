@@ -4,6 +4,19 @@ Mọi thay đổi đáng chú ý của OUMIJIA TV được ghi tại đây.
 Định dạng dựa trên [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/),
 phiên bản theo [Semantic Versioning](https://semver.org/lang/vi/).
 
+## [2.1.9] — 2026-11-13
+
+### Thay đổi
+- **Vuốt lên/xuống để đổi kênh** ngay trong trình phát: vuốt lên sang kênh sau, vuốt xuống về kênh trước; đổi vòng khi ở đầu/cuối danh sách.
+- Ngưỡng vuốt 64 px hoặc 350 px/giây để tránh đổi kênh khi tay run nhẹ; mỗi cử chỉ chỉ đổi một kênh, có rung nhẹ xác nhận.
+- Thanh điều khiển tự hiện khi đổi kênh và tự ẩn lại sau 5 giây; danh sách chỉ có một kênh thì không khởi động lại luồng phát.
+- **Nút X thoát lớn hơn**: 56×56 dp, icon 28, giữ trong vùng an toàn khi xoay dọc/ngang.
+- Cập nhật dòng gợi ý dưới đáy thành “Vuốt lên/xuống đổi kênh · Chạm để hiện/ẩn”.
+
+### Kiểm thử
+- `dart analyze`: 0 lỗi.
+- `flutter test`: 29/29 pass, gồm vuốt đổi kênh, vuốt quá ngắn không đổi, vòng danh sách, nút thoát 56×56 và layout ngang 844×390 ở mức chữ 130%.
+
 ## [2.1.8] — 2026-11-09
 
 ### Thay đổi

@@ -36,6 +36,13 @@ class _PlayerScreenState extends State<PlayerScreen>
   Timer? _hideTimer;
   int _urlIndex = 0;
 
+  /// Quãng đường vuốt dọc tích luỹ trong một cử chỉ.
+  double _dragDistance = 0;
+
+  /// Ngưỡng vuốt đổi kênh — đủ lớn để tránh chạm tay run.
+  static const _swipeDistance = 64.0;
+  static const _swipeVelocity = 350.0;
+
   /// Tăng mỗi lần đổi kênh/nguồn. Callback của lần tải cũ bị bỏ qua.
   int _generation = 0;
 
@@ -204,7 +211,8 @@ class _PlayerScreenState extends State<PlayerScreen>
 
   void _switchChannel(int delta) {
     final channels = _displayChannels;
-    if (channels.isEmpty) return;
+    // Một kênh duy nhất thì không cần khởi động lại luồng phát.
+    if (channels.length < 2) return;
     final i = channels.indexWhere((c) => c.id == _channel.id);
     final current = i < 0 ? 0 : i;
     final next = channels[(current + delta + channels.length) % channels.length];
@@ -226,6 +234,23 @@ class _PlayerScreenState extends State<PlayerScreen>
       unawaited(old.dispose());
     }
     _play();
+    _scheduleHideControls();
+  }
+
+  /// Vuốt lên = kênh sau, vuốt xuống = kênh trước (khớp phím ↑↓).
+  void _handleVerticalDragEnd(DragEndDetails details) {
+    final distance = _dragDistance;
+    _dragDistance = 0;
+    final velocity = details.primaryVelocity ?? 0;
+    // Vuốt nhanh dùng vận tốc; vuốt chậm dùng quãng đường.
+    final trigger = velocity.abs() >= _swipeVelocity ? velocity : distance;
+    if (trigger <= -_swipeDistance) {
+      unawaited(HapticFeedback.selectionClick());
+      _switchChannel(1);
+    } else if (trigger >= _swipeDistance) {
+      unawaited(HapticFeedback.selectionClick());
+      _switchChannel(-1);
+    }
   }
 
   void _scheduleHideControls() {
@@ -339,6 +364,11 @@ class _PlayerScreenState extends State<PlayerScreen>
                     _showControls();
                   }
                 },
+                onVerticalDragStart: (_) => _dragDistance = 0,
+                onVerticalDragUpdate: (details) =>
+                    _dragDistance += details.delta.dy,
+                onVerticalDragCancel: () => _dragDistance = 0,
+                onVerticalDragEnd: _handleVerticalDragEnd,
               ),
             ),
 
@@ -420,6 +450,8 @@ class _PlayerScreenState extends State<PlayerScreen>
                               _GlassButton(
                                 icon: Icons.close_rounded,
                                 tooltip: 'Thoát',
+                                size: 56,
+                                iconSize: 28,
                                 onPressed: () => Navigator.of(context).pop(),
                               ),
                               const SizedBox(width: Sp.s),
@@ -459,7 +491,8 @@ class _PlayerScreenState extends State<PlayerScreen>
                               ),
                               const SizedBox(height: Sp.s),
                               Text(
-                                '↑↓ đổi kênh · OK dừng/phát · Back thoát',
+                                'Vuốt lên/xuống đổi kênh · Chạm để hiện/ẩn',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 11.5,
                                   color: Colors.white.withValues(alpha: 0.45),
@@ -550,12 +583,16 @@ class _GlassButton extends StatelessWidget {
   final String tooltip;
   final VoidCallback onPressed;
   final Color iconColor;
+  final double size;
+  final double iconSize;
 
   const _GlassButton({
     required this.icon,
     required this.tooltip,
     required this.onPressed,
     this.iconColor = Colors.white,
+    this.size = 48,
+    this.iconSize = 24,
   });
 
   @override
@@ -569,9 +606,9 @@ class _GlassButton extends StatelessWidget {
         child: InkWell(
           onTap: onPressed,
           child: SizedBox(
-            width: 48,
-            height: 48,
-            child: Icon(icon, size: 24, color: iconColor),
+            width: size,
+            height: size,
+            child: Icon(icon, size: iconSize, color: iconColor),
           ),
         ),
       ),
